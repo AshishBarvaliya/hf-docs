@@ -1,0 +1,49 @@
+---
+description: Documentation is the source of truth; read and update docs before and with code changes
+alwaysApply: true
+---
+
+# Docs-driven development
+
+This **app repo** uses **documentation-driven development (DDD)**. Treat written specs as authoritative. Do not invent product behavior, APIs, or architecture that is not documented (or explicitly requested in chat).
+
+Product docs live in the sibling **`../docs/`** checkout (this docs repo). Layout and path rules: **`../docs/.cursor/rules/docs-layout.mdc`**.
+
+## Where docs live (docs repo paths)
+
+| Location | Purpose |
+|----------|---------|
+| `sprint/client/current.yaml` | Client sprint, progress %, current focus |
+| `sprint/server/current.yaml` | Server sprint (align `current_focus` when cross-cutting) |
+| `README.md` | Index, conventions |
+| `architecture/` | System boundaries, permissions, integrations, design system, AI UX |
+| `domains/client/<name>/` | Client domain specs; align with `client/src/domains/<name>/` |
+| `domains/server/<name>/` | Server domain specs; align with `server/src/domains/<name>/` |
+| `roadmap/frontend.md` | Hiring OS build order |
+| `features/` | End-to-end feature specs (UI, API, acceptance criteria) |
+| `adr/` | Architecture decision records |
+
+From this app repo, prefix with `../docs/` (e.g. `../docs/features/auth.md`).
+
+If a doc path is missing but the task needs one, **create or extend the doc in the docs repo first**, then implement.
+
+## Before writing code
+
+1. Read the sprint YAML for **this** repo (`../docs/sprint/client/current.yaml` or `../docs/sprint/server/current.yaml`) — see `sprint-progress.mdc` in this docs repo (linked from your app’s `.cursor/rules/`).
+2. Search `../docs/` for the feature, domain, or ADR that applies.
+3. **Client only:** Next.js docs in `node_modules/next/dist/docs/`; library MCP per dependency rules.
+4. If docs and code disagree, **stop and reconcile**: prefer updating docs when intent is unclear; update code when docs are correct.
+
+## While implementing
+
+- Match names, types, routes, and behavior to the spec.
+- Keep changes scoped to what the doc describes; if scope grows, update the doc in the same change set.
+
+## After implementing
+
+- Update docs when behavior, edge cases, or APIs changed.
+- Note in the summary which doc files were read or updated.
+
+## When there is no doc yet
+
+For small fixes aligned with obvious existing patterns, follow surrounding code. For new product areas, add or extend a spec under `features/` or `domains/client|server/` **before** substantial implementation. Specs must include **Plan** and **Dev** sections (see `features/README.md`).

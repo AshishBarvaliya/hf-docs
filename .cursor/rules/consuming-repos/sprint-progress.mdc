@@ -1,0 +1,44 @@
+---
+description: Read and update sprint/epic/feature/task progress before and after every task
+alwaysApply: true
+---
+
+# Sprint progress and current focus
+
+Delivery state lives in **`../docs/sprint/`** (paths below are inside the docs repo; from an app repo use `../docs/sprint/...`).
+
+On **every user request** (before planning or coding):
+
+1. Read **your** sprint file first:
+   - **Client repo:** `sprint/client/current.yaml`
+   - **Server repo:** `sprint/server/current.yaml`
+2. Read `sprint/README.md` if the schema is unclear.
+3. For cross-cutting work, read **both** `sprint/client/current.yaml` and `sprint/server/current.yaml`; keep `current_focus` aligned.
+4. Note **sprint goal**, **`current_focus.goal`**, and **`progress.sprint_percent`**.
+
+## While working
+
+- Scope code and doc changes to the active task when possible; create new tasks/features/epics in the relevant `current.yaml` when scope appears.
+- Set the active task to `in_progress`; avoid multiple `in_progress` tasks unless the user wants parallel work.
+- Cross-check specs linked from epics/features (`doc:` fields).
+
+## Before finishing your turn
+
+Update the sprint YAML(s) you touched:
+
+- Task `status` (mark `done` when the request is satisfied for that item).
+- `current_focus` to the **next** sensible task (or keep the same if unfinished).
+- `last_updated` (ISO date).
+- **`progress`** — recalculate per `sprint/README.md`.
+
+## User-facing status
+
+For non-trivial work, open or close the reply with a one-line sprint snapshot, for example:
+
+`Sprint 1 · 73% · Focus: auth (feat-auth / task-login-ui)`
+
+Skip the line for pure questions with no delivery impact.
+
+## Conflicts
+
+If the user’s request contradicts `current_focus`, follow the user, then update the YAML to reflect the new focus and explain the change briefly.

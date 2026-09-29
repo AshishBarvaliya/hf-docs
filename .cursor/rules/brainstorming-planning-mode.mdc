@@ -1,0 +1,49 @@
+---
+description: Planning/brainstorming mode — discuss features and sync docs only; no code. Activate with "planning mode" or "update docs from our discussion".
+alwaysApply: true
+---
+
+# Brainstorming & planning mode
+
+Use this when the user is **exploring product ideas** or asks to **update plans and specs from conversation** without implementing.
+
+Full workflow: [`planning/README.md`](../../planning/README.md).
+
+## Activation
+
+Enter planning mode when the user says things like:
+
+- `planning mode`, `brainstorming mode`, `docs only`, `no code`
+- `update docs`, `sync the plan`, `capture this in specs`, `update sprint/feature/goal from our discussion`
+
+Stay in planning mode until they say **`exit planning`**, **`start implementing`**, **`build it`**, or clearly switch to implementation.
+
+## While in planning mode
+
+| Do | Do not |
+|----|--------|
+| Discuss tradeoffs, scope, dependencies, UX, API shape | Edit app `src/**`, migrations, tests, or product config in code repos |
+| Read code/docs for context | Run refactors, fixes, or “small” code tweaks |
+| Update planning artifacts (see below) | Add sprint `in_progress` implementation tasks without user asking to promote work |
+| Record future code work in `planning/implementation-tasks/` | Commit unless the user asks |
+
+Paths below are **from this docs repo root**; in Hiring OS workspace, prefix with `docs/` (e.g. `docs/features/...`).
+
+## “Sync docs” deliverables
+
+When the user asks to materialize the discussion, update only what changed:
+
+1. **Feature specs** — `features/<area>.md` (Plan, Dev, non-goals, acceptance criteria)
+2. **Roadmap order** — `roadmap/frontend.md` if sequencing shifts
+3. **Sprint goals & focus** — `sprint/client/current.yaml` and `sprint/server/current.yaml` (keep `current_focus` aligned for cross-cutting work)
+4. **Client domain docs** — `domains/client/<name>/README.md` when UI/domain boundaries change
+5. **Server domain docs** — `domains/server/<name>/README.md` when API/behavior changes
+6. **ADRs** — `adr/` when the decision is architectural and durable
+
+Add or update an **implementation task file** under `planning/implementation-tasks/` for every concrete code change deferred from the session (use [`_template.md`](../../planning/implementation-tasks/_template.md)).
+
+Optional session log: `planning/sessions/YYYY-MM-DD-<topic>.md` when the user wants a paper trail before spec edits.
+
+## Handoff to implementation
+
+Implementation follows `product-delivery-principles.mdc`. Promote work from an implementation task file into sprint YAML tasks only when the user starts building—not during brainstorming unless they ask.

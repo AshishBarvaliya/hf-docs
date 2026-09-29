@@ -1,0 +1,65 @@
+---
+description: Full-product delivery — one feature at a time, deps first, client+server together, no shortcuts
+alwaysApply: true
+---
+
+# Product delivery principles
+
+Canonical plan for how **implementing repos** (e.g. Hiring OS client + server) ship together. Follow this before starting feature work.
+
+In the Hiring OS **`ms/`** workspace, also read `cross-project-coordination.mdc` at workspace `.cursor/rules/` (git scope, lint/test per repo).
+
+## One feature at a time
+
+- Ship **one roadmap feature (vertical slice)** to production quality before starting the next.
+- Sprint `current_focus` in **both** `sprint/client/current.yaml` and `sprint/server/current.yaml` must reflect the **same** feature when work is cross-cutting.
+- Only one task should be `in_progress` unless the user explicitly parallelizes.
+
+## Dependencies first
+
+- Roadmap order is **dependency order**, not a suggestion. See `roadmap/frontend.md` and feature **Plan** sections in `features/*.md`.
+- Do not start a feature until its documented dependencies are **done** (or an ADR records a deliberate reorder with consequences).
+- Shared foundations (design system, shell, auth, workspace context) land before domain features that assume them.
+
+## Backend and frontend hand in hand
+
+- For each feature: **spec → API contract → server enforcement → client consumption → tests** in the same delivery cycle—not a long-lived server-only or UI-only backlog.
+- Server is **authoritative** for permissions, workflow, and validation; client mirrors for UX only.
+- Align Zod/JSON contracts on both sides; update client fetchers, types, and hooks when APIs change.
+- Pair changes across repos (separate commits/PRs per project are OK; descriptions should name the sibling change).
+
+## Planned at scale — no shortcuts
+
+Forbidden patterns unless explicitly approved by the user for a spike branch:
+
+- “Temporary” APIs, feature flags that hide half-built behavior in main, or “we’ll fix later” data models
+- Client-only permission or stage logic that the server does not enforce
+- Hardcoded tenant/user IDs, disabled auth checks, or mock data paths wired to production routes
+- Partial feature specs marked “done” while non-goals in the spec are silently skipped
+
+When scope is unclear, **update the feature spec and sprint YAML first**, then implement.
+
+## Secure and production-ready by default
+
+Every feature slice should include, as applicable:
+
+| Area | Expectation |
+|------|-------------|
+| **AuthN / AuthZ** | Authenticated APIs; permission checks on server; `<Can>` on client |
+| **Validation** | Zod at HTTP boundaries; no trusting client-only validation |
+| **Data** | Migrations/schema reviewed; no raw SQL in handlers without justification |
+| **Secrets** | Env-only; `.env.example` updated; never commit secrets |
+| **Errors** | Consistent API errors; no leaking stack traces or internal IDs to clients |
+| **Tests** | Unit/integration for domain logic; e2e when routes or critical flows change |
+| **Ops** | Health checks, structured logging where the stack supports it |
+
+“Spike” code stays on branches or is replaced per feature docs—do not accumulate permanent shortcuts in main.
+
+## Where to look before coding
+
+1. This rule, `docs-layout.mdc`, and (in `ms/` workspace) `cross-project-coordination.mdc`
+2. Active sprint: `sprint/client/current.yaml`, `sprint/server/current.yaml`
+3. Feature spec: `features/<area>.md` (Plan + Dev)
+4. Client domain: `domains/client/<name>/README.md`
+5. Server domain: `domains/server/<name>/README.md`
+6. Architecture: `architecture/` (client), `architecture/server/overview.md`

@@ -1,0 +1,47 @@
+# Candidate profile workspace
+
+**Route:** `(dashboard)/candidates/[candidateId]`  
+**Domains:** `candidates`, `assessments`, `meetings`, `emails`, `pipeline`  
+**Roadmap step:** 6
+
+## Product behavior
+
+Recruiter **workspace** for one candidate: header with stage and actions (**Advance**, **Reject**, **Message**, **Schedule**), tabs for Summary, Resume, Activity, Assessments, Emails. AI summary and screening checklist clearly separated from verified candidate data.
+
+## Plan
+
+1. **API** — Candidate detail, activity feed, resume URL/embed, assessment summaries, email thread metadata, workflow actions.
+2. **Phase A** — Header + Summary tab with real data; workflow actions wired.
+3. **Phase B** — Activity timeline; resume viewer (PDF/link).
+4. **Phase C** — Assessments tab via assessment integration; Emails tab via email service.
+5. **Phase D** — AI summary + screening rules display (server-generated, client labels as AI).
+6. **Dependencies** — Steps 5, 8, 10; permissions for each action.
+
+## Dev
+
+| Piece | Implementation |
+|-------|----------------|
+| Route | `candidates/[candidateId]/page.tsx` or layout + tab routes |
+| Hooks | `useCandidate(id)`, `useCandidateActivity`, mutations for advance/reject |
+| UI | `DomainPanel`, timeline in `shared/` or `components/data-display`, `AISummary` |
+| Tabs | shadcn Tabs; lazy-load heavy tabs |
+| Confirmations | Dialog for reject/advance with reason codes if API requires |
+
+- **Permissions:** Separate gates for reject, message, schedule.
+- **E2E:** Open profile from list; advance/reject flows with confirmation.
+
+## Acceptance criteria
+
+- [ ] All tabs populated from respective APIs
+- [ ] Workflow mutations with error handling
+- [ ] AI vs verified visual distinction
+- [ ] Activity timeline ordered and paginated
+
+## Non-goals
+
+- Client-side resume parsing
+
+## References
+
+- [ai-ux.md](../architecture/ai-ux.md)
+- [external-integrations.md](./external-integrations.md)

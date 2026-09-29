@@ -1,0 +1,49 @@
+---
+description: Shared product docs — paths, layout, and rules live in this repo
+alwaysApply: true
+---
+
+# Shared documentation layout
+
+All **product planning, specs, sprint state, and ADRs** live in **this docs repo**. App repos (`client/`, `server/`, future services) consume them via a sibling `docs/` checkout or submodule—do not recreate product specs inside app trees.
+
+Index: [`README.md`](../../README.md). Planning-only workflow: [`planning/README.md`](../../planning/README.md).
+
+## Path spelling
+
+| How you open the repo | Example paths |
+|----------------------|---------------|
+| **Docs repo root** | `features/auth.md`, `sprint/client/current.yaml` |
+| **Hiring OS workspace (`ms/`)** | `docs/features/auth.md`, `docs/sprint/client/current.yaml` |
+| **Inside `client/` or `server/`** | `../docs/features/auth.md`, `../docs/sprint/server/current.yaml` |
+
+Sprint YAML **`doc:`** fields use paths **from the docs repo root** (e.g. `features/auth.md`, `domains/server/rbac/README.md`).
+
+## Tree (summary)
+
+| Path | Use |
+|------|-----|
+| `features/` | End-to-end feature specs (Plan + Dev) |
+| `roadmap/frontend.md` | Hiring OS delivery order |
+| `sprint/client/current.yaml` | Client sprint / focus |
+| `sprint/server/current.yaml` | Server sprint / focus |
+| `domains/client/<name>/` | Specs mirroring `client/src/domains/<name>/` |
+| `domains/server/<name>/` | Specs mirroring `server/src/domains/<name>/` |
+| `architecture/` | Client architecture (incl. `multi-tenancy.md`) |
+| `architecture/server/` | Server API architecture |
+| `adr/` | Architecture decision records |
+| `planning/` | Brainstorming + deferred implementation tasks |
+
+Framework docs (Next.js) stay in the **client** app (`node_modules/next/dist/docs/`)—not this repo.
+
+## When you change docs
+
+Update in the **same change set** when possible:
+
+1. The spec or domain README you edited
+2. Linked feature specs, ADRs, and domain cross-refs
+3. `doc:` links in `sprint/client/current.yaml` and/or `sprint/server/current.yaml`
+4. `README.md` or domain index tables if layout or naming changed
+5. **Cursor rules in `docs/.cursor/rules/`** if documented paths or workflow changed
+
+App repos symlink `consuming-repos/docs-driven-development.mdc` and `consuming-repos/sprint-progress.mdc`, plus repo-specific `hiring-os-product.mdc` (Hiring OS only).
