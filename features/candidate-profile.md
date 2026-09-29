@@ -6,7 +6,9 @@
 
 ## Product behavior
 
-Recruiter **workspace** for one candidate: header with stage and actions (**Advance**, **Reject**, **Message**, **Schedule**), tabs for Summary, Resume, Activity, Assessments, Emails. AI summary and screening checklist clearly separated from verified candidate data.
+Recruiter **workspace** for one candidate: header with stage and actions (**Advance**, **Reject**, **Message**, **Schedule**), tabs for Summary, Resume, Activity, Assessments, **Analysis** (skill analyzer reports), Emails. AI summary and screening checklist clearly separated from verified candidate data.
+
+**Analysis tab** — Lists **AI skill analyzer** reports per interview (and optional pre-interview profile analysis): weighted scores from job **contribution** matrix, per-skill breakdown, evidence from recordings, assigned analyzer name/version ([ai-skill-analyzers.md](./ai-skill-analyzers.md)).
 
 ## Plan
 
@@ -14,8 +16,9 @@ Recruiter **workspace** for one candidate: header with stage and actions (**Adva
 2. **Phase A** — Header + Summary tab with real data; workflow actions wired.
 3. **Phase B** — Activity timeline; resume viewer (PDF/link).
 4. **Phase C** — Assessments tab via assessment integration; Emails tab via email service.
-5. **Phase D** — AI summary + screening rules display (server-generated, client labels as AI).
-6. **Dependencies** — Steps 5, 8, 10; permissions for each action.
+5. **Phase D** — AI summary, **fit vs job requirements**, and **culture alignment** (workspace culture profile + job JD); screening rules display (server-generated, client labels as AI).
+6. **Phase E** — **Analysis** tab: analyzer reports, evidence sections, interview cross-links.
+7. **Dependencies** — Steps 5, 8–9, 10, 12 (analyzers); permissions for each action.
 
 ## Dev
 
@@ -35,6 +38,7 @@ Recruiter **workspace** for one candidate: header with stage and actions (**Adva
 - [ ] All tabs populated from respective APIs
 - [ ] Workflow mutations with error handling
 - [ ] AI vs verified visual distinction
+- [ ] Fit and culture insights cite job + workspace context (not generic boilerplate)
 - [ ] Activity timeline ordered and paginated
 
 ## Non-goals

@@ -1,6 +1,6 @@
 # Folder structure
 
-Target layout for the Hiring OS client. **Implemented today** is partial; new work should move toward this shape without big-bang rewrites.
+Target layout for the Hyreefy client. **Implemented today** is partial; new work should move toward this shape without big-bang rewrites.
 
 ## App routes
 

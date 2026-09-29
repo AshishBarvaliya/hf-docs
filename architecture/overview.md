@@ -1,6 +1,6 @@
-# Hiring OS — client architecture overview
+# Hyreefy — client architecture overview
 
-The client app is the **Hiring OS**: an orchestration layer for recruiting. It is **not** the assessment engine, proctoring stack, or meeting product. Those are separate backends/products; this app coordinates them through APIs and presents a unified recruiter experience.
+The client app is the **Hyreefy**: an orchestration layer for recruiting. It is **not** the assessment engine, proctoring stack, or meeting product. Those are separate backends/products; this app coordinates them through APIs and presents a unified recruiter experience.
 
 **Multi-tenant:** Each customer uses a dedicated **subdomain**; tenant context comes from the request host before auth and RBAC. See [multi-tenancy.md](./multi-tenancy.md) and [ADR 004](../adr/004-subdomain-multi-tenancy.md).
 

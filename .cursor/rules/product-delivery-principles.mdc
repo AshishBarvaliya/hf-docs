@@ -5,9 +5,9 @@ alwaysApply: true
 
 # Product delivery principles
 
-Canonical plan for how **implementing repos** (e.g. Hiring OS client + server) ship together. Follow this before starting feature work.
+Canonical plan for how **implementing repos** (e.g. Hyreefy client + server) ship together. Follow this before starting feature work.
 
-In the Hiring OS **`ms/`** workspace, also read `cross-project-coordination.mdc` at workspace `.cursor/rules/` (git scope, lint/test per repo).
+In the Hyreefy **`ms/`** workspace, also read `cross-project-coordination.mdc` at workspace `.cursor/rules/` (git scope, lint/test per repo).
 
 ## One feature at a time
 

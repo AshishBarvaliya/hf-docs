@@ -1,6 +1,6 @@
 # Docs repository
 
-Product specs, sprint state, ADRs, architecture, and planning workflow for Hiring OS and (later) sibling products (meeting room, AI, coding system, etc.).
+Product specs, sprint state, ADRs, architecture, and planning workflow for Hyreefy and (later) sibling products (meeting room, AI, coding system, etc.).
 
 ## Start here
 
@@ -16,7 +16,7 @@ App and service repos should:
 2. Symlink `consuming-repos/*.mdc` from this repo into the app’s `.cursor/rules/` (see `.cursor/rules/README.md`).
 3. Never fork feature specs into `client/docs/` or `server/docs/` for product content.
 
-## Hiring OS workspace
+## Hyreefy workspace
 
 When `docs/` sits next to `client/` and `server/` under `ms/`:
 

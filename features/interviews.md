@@ -6,7 +6,7 @@
 
 ## Product behavior
 
-**Interview operations** via meeting platform API: list upcoming/past, schedule/reschedule/cancel, show participants and join links, optional recording metadata. Overview dashboard counts “interviews needing scheduling”.
+**Interview operations** via meeting platform API: list upcoming/past, schedule/reschedule/cancel, show participants and join links, **recording** and transcript metadata for downstream **AI skill analyzer** reports ([ai-skill-analyzers.md](./ai-skill-analyzers.md)). Overview dashboard counts “interviews needing scheduling”.
 
 ## Plan
 
@@ -14,8 +14,9 @@
 2. **Phase A** — Interviews list page + empty/loading states.
 3. **Phase B** — Schedule flow from candidate profile and job tab (shared `ScheduleInterviewDialog`).
 4. **Phase C** — Calendar-oriented view if API supports; otherwise enhanced list grouping by day.
-5. **Phase D** — AI summarize interview notes (embedded action on past interviews) when notes API exists.
-6. **Dependencies** — Meeting integration layer; permissions `interviews.schedule`, `candidates.read`.
+5. **Phase D** — Recording/transcript status on past interviews; trigger and display analyzer report status (link to candidate profile).
+6. **Phase E** — AI summarize interviewer notes (embedded action) when notes API exists; distinct from full skill analyzer reports.
+7. **Dependencies** — Meeting integration layer; analyzer pipeline ([ai-skill-analyzers.md](./ai-skill-analyzers.md)); permissions `interviews.schedule`, `candidates.read`.
 
 ## Dev
 
@@ -35,6 +36,7 @@
 - [ ] Schedule/reschedule/cancel mutations
 - [ ] Join links never fabricated client-side—always from API
 - [ ] Overview widget fed by same query definitions
+- [ ] Recording available flag drives analyzer enqueue; report link when complete
 
 ## References
 

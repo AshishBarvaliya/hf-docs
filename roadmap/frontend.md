@@ -1,10 +1,10 @@
 # Frontend roadmap
 
-**Full product delivery** — we are building the complete Hiring OS client. Steps below are **sequence and dependency order**, not scope reduction. Do not ship “lite” versions unless a spec explicitly lists deferred **non-goals**.
+**Full product delivery** — we are building the complete Hyreefy client. Steps below are **sequence and dependency order**, not scope reduction. Do not ship “lite” versions unless a spec explicitly lists deferred **non-goals**.
 
 Delivery rules (one feature at a time, no shortcuts, secure prod-ready slices, server built hand in hand): [`../.cursor/rules/product-delivery-principles.mdc`](../.cursor/rules/product-delivery-principles.mdc).
 
-Track execution in [`docs/sprint/client/current.yaml`](../sprint/client/current.yaml) (epic `epic-hiring-os`) and mirror cross-cutting focus in [`docs/sprint/server/current.yaml`](../sprint/server/current.yaml).
+Track execution in [`docs/sprint/client/current.yaml`](../sprint/client/current.yaml) (epic `epic-hyreefy`) and mirror cross-cutting focus in [`docs/sprint/server/current.yaml`](../sprint/server/current.yaml).
 
 ```text
 STEP 1   Design system + shared components
@@ -33,7 +33,7 @@ STEP 10  Emails + automations
            ↓
 STEP 11  Analytics & reports
            ↓
-STEP 12  AI experiences (embedded across features)
+STEP 12  AI experiences (embedded) — skill analyzer catalog, assignment, interview reports ([ai-skill-analyzers.md](../features/ai-skill-analyzers.md))
            ↓
 STEP 13  Audit log + permission UX polish (RBAC core at 1.6)
 ```

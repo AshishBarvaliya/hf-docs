@@ -1,6 +1,6 @@
 # Multi-tenancy — subdomains, tenants, and workspaces
 
-Hiring OS is **multi-tenant**: many customer companies share one deployment. Each customer is a **tenant** reached at its own **subdomain**. Recruiting data is isolated in that tenant’s **workspace** (1:1 with tenant in v1).
+Hyreefy is **multi-tenant**: many customer companies share one deployment. Each customer is a **tenant** reached at its own **subdomain**. Recruiting data is isolated in that tenant’s **workspace** (1:1 with tenant in v1).
 
 **Decision record:** [ADR 004](../adr/004-subdomain-multi-tenancy.md)
 

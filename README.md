@@ -1,4 +1,4 @@
-# Hiring OS — product & engineering docs
+# Hyreefy — product & engineering docs
 
 Workspace-level documentation for **client** (Next.js UI) and **server** (NestJS API). Specs are the source of truth for product behavior, delivery order, and architecture.
 
@@ -33,8 +33,8 @@ Feature docs stay brief on UX prose but explicit on **Plan** (phases, APIs, depe
 | Where | Topic | Rule |
 |-------|-------|------|
 | **Docs repo** | Layout, delivery, planning, DDD, sprint | `.cursor/rules/*.mdc` |
-| Client | Hiring OS product context | `client/.cursor/rules/hiring-os-product.mdc` (symlinks to docs rules for DDD + sprint) |
-| Server | Hiring OS API context | `server/.cursor/rules/hiring-os-product.mdc` |
+| Client | Hyreefy product context | `client/.cursor/rules/hyreefy-product.mdc` (symlinks to docs rules for DDD + sprint) |
+| Server | Hyreefy API context | `server/.cursor/rules/hyreefy-product.mdc` |
 | `ms/` workspace | Git + client/server coordination | `ms/.cursor/rules/cross-project-coordination.mdc` (not in docs-only checkout) |
 
-Hiring OS `ms/.cursor/rules/` **symlinks** the five shared `.mdc` files from `docs/.cursor/rules/` so Cursor loads them when the workspace root is `ms/`.
+Hyreefy `ms/.cursor/rules/` **symlinks** the five shared `.mdc` files from `docs/.cursor/rules/` so Cursor loads them when the workspace root is `ms/`.

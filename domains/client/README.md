@@ -12,5 +12,6 @@ Each folder documents one **`src/domains/<name>/`** area: purpose, API hooks, UI
 | [assessments](./assessments/README.md) | Planned | [external-integrations.md](../../features/external-integrations.md) |
 | [meetings](./meetings/README.md) | Planned | Interviews / meeting product |
 | [emails](./emails/README.md) | Planned | Automations + email service |
+| [analyzers](./analyzers/README.md) | Planned | [ai-skill-analyzers.md](../../features/ai-skill-analyzers.md) |
 
 When adding a domain, update this index and `docs/sprint/client/current.yaml`.

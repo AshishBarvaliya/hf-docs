@@ -84,6 +84,6 @@ Later  → "build it"     → product-delivery-principles + sprint tasks + code
 ## Related
 
 - Delivery model: [`.cursor/rules/product-delivery-principles.mdc`](../.cursor/rules/product-delivery-principles.mdc)
-- Cross-project (Hiring OS `ms/` workspace): [`../../.cursor/rules/cross-project-coordination.mdc`](../../.cursor/rules/cross-project-coordination.mdc)
+- Cross-project (Hyreefy `ms/` workspace): [`../../.cursor/rules/cross-project-coordination.mdc`](../../.cursor/rules/cross-project-coordination.mdc)
 - Shared doc paths: [`.cursor/rules/docs-layout.mdc`](../.cursor/rules/docs-layout.mdc)
 - Docs index: [`README.md`](../README.md)

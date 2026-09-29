@@ -1,6 +1,6 @@
 # Feature specs (full product)
 
-We are building the **complete Hiring OS client**, not a trimmed MVP. Roadmap steps describe **delivery order**, not scope cuts. Early pages (e.g. `/` widgets) are **spikes** to be replaced by the real `(dashboard)` product shell.
+We are building the **complete Hyreefy client**, not a trimmed MVP. Roadmap steps describe **delivery order**, not scope cuts. Early pages (e.g. `/` widgets) are **spikes** to be replaced by the real `(dashboard)` product shell.
 
 Delivery rules (one feature at a time, dependencies first, server + client together, no shortcuts, prod-ready): [`../.cursor/rules/product-delivery-principles.mdc`](../.cursor/rules/product-delivery-principles.mdc).
 
@@ -22,6 +22,7 @@ Each file below includes **Plan** (how we sequence work and what we depend on) a
 | Interviews | [interviews.md](./interviews.md) | 9 |
 | Emails | [emails.md](./emails.md) | 10 |
 | Automations | [automations.md](./automations.md) | 10 |
+| AI skill analyzers | [ai-skill-analyzers.md](./ai-skill-analyzers.md) | 6–9, 12 |
 | Analytics & reports | [analytics-reports.md](./analytics-reports.md) | 11 |
 | Permissions & audit | [permissions-audit.md](./permissions-audit.md) | 13 (audit; RBAC at 1.6) |
 

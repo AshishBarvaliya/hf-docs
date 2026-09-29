@@ -6,8 +6,11 @@ AI is **embedded in workflows**, not a separate sidebar product.
 
 | Surface | Example actions |
 |---------|-----------------|
-| Job / JD builder | Improve description, generate requirements, inclusive language, screening questions |
-| Candidate profile | Summarize candidate, highlight skill gaps |
+| Job / JD builder | Paste JD → parse; generate full JD; improve description; extract skills from text; inclusive language |
+| Workflow / screening | Suggest criteria and default cutoffs from JD skills/requirements; admin edits before publish |
+| Candidate profile | Summarize candidate; skill gaps vs job; **culture / values fit** using workspace culture + job context |
+| Skill analyzers | Post-interview reports from recordings; weighted by job skill **contribution**; pre-interview profile mode |
+| Settings / analyzers | Managers edit rubrics, report templates, enable tech × seniority profiles |
 | Interview | Summarize interview notes |
 | Pipeline | Explain drop-off between stages |
 | Search | Natural language filters (“backend, 5+ years Node, assessment complete”) |

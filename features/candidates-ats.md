@@ -8,12 +8,15 @@
 
 Primary **ATS** surfaces: dense **table** and **kanban** by pipeline stage, filters, bulk actions, scores and experience columns. Stage moves are **workflow-backed**, not client-only. Supports global and job-scoped lists.
 
+**Screening outcomes:** Candidates **auto-rejected** or **auto-filtered** by workflow screening rules show disposition, reason, and criteria snapshot from the server. Recruiters filter by outcome; **override** (advance or un-reject) is permission-gated and audited—not a client-only state change.
+
 ## Plan
 
 1. **API** — Candidate list (filters, sort, cursor/page), bulk actions, `POST /workflow/move-stage` (or equivalent).
 2. **Phase A** — Production table on real API; retire mock fetcher; URL-synced filters.
 3. **Phase B** — Kanban board per pipeline definition; drag calls mutation + optimistic rollback.
 4. **Phase C** — Bulk reject/advance/message (permission-gated); export if backend provides.
+5. **Phase D** — Auto-reject / auto-filter columns, filters, and detail banner; override flow when `candidates.override_screening` (or equivalent) is granted.
 5. **Dependencies** — Pipeline stage definitions from workflow API; design system table; permissions.
 
 **Note:** Existing table on `/` is spike code — re-home to dashboard routes and harden ([foundation-spike.md](./foundation-spike.md)).
@@ -38,6 +41,7 @@ Primary **ATS** surfaces: dense **table** and **kanban** by pipeline stage, filt
 - [ ] All stage changes via API
 - [ ] Pagination or virtualization for large lists
 - [ ] Job-scoped and global routes share domain hooks
+- [ ] Auto-reject and auto-filter states visible with server-provided reasons; overrides via API only
 
 ## References
 

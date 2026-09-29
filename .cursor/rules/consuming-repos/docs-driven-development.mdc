@@ -19,7 +19,7 @@ Product docs live in the sibling **`../docs/`** checkout (this docs repo). Layou
 | `architecture/` | System boundaries, permissions, integrations, design system, AI UX |
 | `domains/client/<name>/` | Client domain specs; align with `client/src/domains/<name>/` |
 | `domains/server/<name>/` | Server domain specs; align with `server/src/domains/<name>/` |
-| `roadmap/frontend.md` | Hiring OS build order |
+| `roadmap/frontend.md` | Hyreefy build order |
 | `features/` | End-to-end feature specs (UI, API, acceptance criteria) |
 | `adr/` | Architecture decision records |
 

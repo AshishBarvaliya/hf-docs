@@ -27,7 +27,7 @@ Stay in planning mode until they say **`exit planning`**, **`start implementing`
 | Update planning artifacts (see below) | Add sprint `in_progress` implementation tasks without user asking to promote work |
 | Record future code work in `planning/implementation-tasks/` | Commit unless the user asks |
 
-Paths below are **from this docs repo root**; in Hiring OS workspace, prefix with `docs/` (e.g. `docs/features/...`).
+Paths below are **from this docs repo root**; in Hyreefy workspace, prefix with `docs/` (e.g. `docs/features/...`).
 
 ## “Sync docs” deliverables
 

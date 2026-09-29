@@ -14,7 +14,7 @@ Index: [`README.md`](../../README.md). Planning-only workflow: [`planning/README
 | How you open the repo | Example paths |
 |----------------------|---------------|
 | **Docs repo root** | `features/auth.md`, `sprint/client/current.yaml` |
-| **Hiring OS workspace (`ms/`)** | `docs/features/auth.md`, `docs/sprint/client/current.yaml` |
+| **Hyreefy workspace (`ms/`)** | `docs/features/auth.md`, `docs/sprint/client/current.yaml` |
 | **Inside `client/` or `server/`** | `../docs/features/auth.md`, `../docs/sprint/server/current.yaml` |
 
 Sprint YAML **`doc:`** fields use paths **from the docs repo root** (e.g. `features/auth.md`, `domains/server/rbac/README.md`).
@@ -24,7 +24,7 @@ Sprint YAML **`doc:`** fields use paths **from the docs repo root** (e.g. `featu
 | Path | Use |
 |------|-----|
 | `features/` | End-to-end feature specs (Plan + Dev) |
-| `roadmap/frontend.md` | Hiring OS delivery order |
+| `roadmap/frontend.md` | Hyreefy delivery order |
 | `sprint/client/current.yaml` | Client sprint / focus |
 | `sprint/server/current.yaml` | Server sprint / focus |
 | `domains/client/<name>/` | Specs mirroring `client/src/domains/<name>/` |
@@ -46,4 +46,4 @@ Update in the **same change set** when possible:
 4. `README.md` or domain index tables if layout or naming changed
 5. **Cursor rules in `docs/.cursor/rules/`** if documented paths or workflow changed
 
-App repos symlink `consuming-repos/docs-driven-development.mdc` and `consuming-repos/sprint-progress.mdc`, plus repo-specific `hiring-os-product.mdc` (Hiring OS only).
+App repos symlink `consuming-repos/docs-driven-development.mdc` and `consuming-repos/sprint-progress.mdc`, plus repo-specific `hyreefy-product.mdc` (Hyreefy only).

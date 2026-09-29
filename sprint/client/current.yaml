@@ -15,7 +15,7 @@ sprint:
   status: active
 
 current_focus:
-  epic_id: epic-hiring-os
+  epic_id: epic-hyreefy
   feature_id: feat-auth-foundation
   task_id: task-auth-authjs
   goal: Auth.js login on tenant subdomain + session; RBAC follows as STEP 1.6 (rbac.md) before shell.
@@ -25,7 +25,7 @@ progress:
   epics:
     epic-foundation-spike: 100
     epic-engineering: 100
-    epic-hiring-os: 8
+    epic-hyreefy: 8
 
 epics:
   - id: epic-foundation-spike
@@ -57,7 +57,7 @@ epics:
             title: Domain specs under docs/domains/client/
             status: done
             weight: 1
-          - id: task-hiring-os-docs
+          - id: task-hyreefy-docs
             title: Architecture, ADRs, cursor rules
             status: done
             weight: 2
@@ -76,8 +76,8 @@ epics:
             title: Sprint lifecycle in docs/sprint/README
             status: done
             weight: 1
-  - id: epic-hiring-os
-    title: Hiring OS — full product build
+  - id: epic-hyreefy
+    title: Hyreefy — full product build
     doc: docs/roadmap/frontend.md
     features:
       - id: feat-roadmap-step-1

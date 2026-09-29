@@ -1,6 +1,6 @@
-# Hiring OS — server architecture overview
+# Hyreefy — server architecture overview
 
-The server is the **orchestration API** for the Hiring OS client. It owns **tenant and workspace** data, ATS entities, workflows, and permission enforcement. All domain queries are scoped by the authenticated **workspace** (and thus tenant). Assessment runtime, proctoring, meetings, and email delivery remain external products (see [`../../adr/001-orchestration-layer.md`](../../adr/001-orchestration-layer.md)).
+The server is the **orchestration API** for the Hyreefy client. It owns **tenant and workspace** data, ATS entities, workflows, and permission enforcement. All domain queries are scoped by the authenticated **workspace** (and thus tenant). Assessment runtime, proctoring, meetings, and email delivery remain external products (see [`../../adr/001-orchestration-layer.md`](../../adr/001-orchestration-layer.md)).
 
 **Multi-tenant model:** [multi-tenancy.md](../multi-tenancy.md), [ADR 004](../../adr/004-subdomain-multi-tenancy.md).
 

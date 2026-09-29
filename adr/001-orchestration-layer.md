@@ -1,4 +1,4 @@
-# ADR 001: Hiring OS as orchestration layer
+# ADR 001: Hyreefy as orchestration layer
 
 **Status:** Accepted  
 **Date:** 2026-09-28
@@ -9,7 +9,7 @@ Meeting, coding assessment, proctoring, and related capabilities are **separate 
 
 ## Decision
 
-The client app is the **Hiring OS**: system of record and orchestration UI for recruiters. It integrates specialized products through APIs. The client configures workflows, assigns assessments, schedules meetings, and displays status—it does not reimplement those runtimes.
+The client app is the **Hyreefy**: system of record and orchestration UI for recruiters. It integrates specialized products through APIs. The client configures workflows, assigns assessments, schedules meetings, and displays status—it does not reimplement those runtimes.
 
 ## Consequences
 

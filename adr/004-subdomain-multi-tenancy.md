@@ -6,7 +6,7 @@ Accepted — 2026-09-29
 
 ## Context
 
-Hiring OS serves **many customer companies**. Each customer’s recruiters must only see that company’s jobs, candidates, and settings. We need a clear tenant boundary before auth, RBAC, and workspace settings scale across production customers.
+Hyreefy serves **many customer companies**. Each customer’s recruiters must only see that company’s jobs, candidates, and settings. We need a clear tenant boundary before auth, RBAC, and workspace settings scale across production customers.
 
 ## Decision
 

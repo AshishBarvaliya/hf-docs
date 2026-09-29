@@ -2,7 +2,7 @@
 
 **Canonical** rules for documentation, planning, sprint tracking, and docs-driven delivery. When this tree is a **standalone repo**, open it in Cursor (or add as a workspace folder) so agents load `.cursor/rules/` from here.
 
-## Today (Hiring OS workspace)
+## Today (Hyreefy workspace)
 
 `ms/` symlinks these files into `ms/.cursor/rules/` and `client/` / `server/` link repo-specific entry rules. App code repos stay thin; **do not duplicate** rule bodies outside this folder.
 
@@ -18,8 +18,8 @@
 
 ## Multi-product (future)
 
-This repo will grow beyond Hiring OS (e.g. meeting room, AI, coding system). Add product-specific specs under a clear prefix (e.g. `products/<name>/`) and optional `products/<name>/.cursor/rules/` for stack-specific hints. **Shared** rules above stay at this level unless a product needs an override.
+This repo will grow beyond Hyreefy (e.g. meeting room, AI, coding system). Add product-specific specs under a clear prefix (e.g. `products/<name>/`) and optional `products/<name>/.cursor/rules/` for stack-specific hints. **Shared** rules above stay at this level unless a product needs an override.
 
-## Hiring OS workspace-only
+## Hyreefy workspace-only
 
 Cross-repo git and `client/` + `server/` coordination: `ms/.cursor/rules/cross-project-coordination.mdc` (not shipped in docs-only checkouts unless you copy workspace meta rules).
