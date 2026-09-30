@@ -4,7 +4,7 @@ Workspace-level documentation for **client** (Next.js UI) and **server** (NestJS
 
 **Future:** This tree is intended to become its own git repo and absorb additional products (meeting room, AI, coding system, etc.). Shared agent rules live in [`.cursor/rules/`](./.cursor/rules/README.md); add product-specific content under a clear prefix (e.g. `products/<name>/`) when those land.
 
-Start at [architecture/overview.md](./architecture/overview.md) (client) and [architecture/server/overview.md](./architecture/server/overview.md) (API). Feature index: [features/README.md](./features/README.md).
+Start at [architecture/overview.md](./architecture/overview.md) (client) and [architecture/server/overview.md](./architecture/server/overview.md) (API). Production platform: [architecture/aws-platform.md](./architecture/aws-platform.md), async AI/reports: [architecture/async-jobs.md](./architecture/async-jobs.md). Feature index: [features/README.md](./features/README.md).
 
 ## Layout
 
@@ -19,7 +19,7 @@ Start at [architecture/overview.md](./architecture/overview.md) (client) and [ar
 | `domains/server/` | Server domain specs mirroring `server/src/domains/<name>/` |
 | `architecture/` | Client boundaries, permissions, integrations, design system, AI UX, **multi-tenancy** |
 | `architecture/server/` | API orchestration boundaries and modules |
-| `adr/` | Architecture decision records (incl. [004 subdomain tenancy](./adr/004-subdomain-multi-tenancy.md)) |
+| `adr/` | Architecture decision records (incl. [004 subdomain tenancy](./adr/004-subdomain-multi-tenancy.md), [005 AWS platform](./adr/005-aws-platform.md), [006 async AI workers](./adr/006-async-ai-workers.md)) |
 | `planning/` | Brainstorming workflow and deferred implementation tasks (no app code) |
 
 ## Writing specs

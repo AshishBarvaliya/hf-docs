@@ -4,6 +4,8 @@ The client app is the **Hyreefy**: an orchestration layer for recruiting. It is 
 
 **Multi-tenant:** Each customer uses a dedicated **subdomain**; tenant context comes from the request host before auth and RBAC. See [multi-tenancy.md](./multi-tenancy.md) and [ADR 004](../adr/004-subdomain-multi-tenancy.md).
 
+**Hosting:** Production targets **AWS** (Route 53, CloudFront, ECS, RDS, S3, SES, Bedrock, SQS). Map: [aws-platform.md](./aws-platform.md). JD and analyzer AI run via **async jobs** ([async-jobs.md](./async-jobs.md), [ADR 006](../adr/006-async-ai-workers.md)).
+
 ## Product boundary
 
 | Owns (client) | Does not own (external products) |

@@ -2,6 +2,8 @@
 
 Assessment, meeting, email, and analytics may run on **separate backends**. The client treats them as integration boundaries, not inlined implementations.
 
+**Platform:** Hyreefy core and first-party workers deploy on **AWS** ([aws-platform.md](./aws-platform.md)). Transactional email from orchestration uses **Amazon SES**. Long-running AI (JD, analyzers) uses **SQS workers** ([async-jobs.md](./async-jobs.md)), not synchronous API calls.
+
 ## Layering
 
 ```text

@@ -66,7 +66,7 @@ Analyzer job (async) → structured report on candidate profile
 After a **video/F2F interview** ([interviews.md](./interviews.md)):
 
 1. Meeting product provides **recording URL or transcript** (webhook or poll); orchestration ingests with consent metadata.
-2. Server enqueues **analyzer run** using the **assigned analyzer** + job skill matrix + workspace culture snapshot ([workspace.md](./workspace.md)).
+2. Server creates an **`analyzer.run` async job** (SQS → standalone worker → Bedrock) using the **assigned analyzer** + job skill matrix + workspace culture snapshot ([workspace.md](./workspace.md), [async-jobs.md](../architecture/async-jobs.md)).
 3. Output: **Analysis report** — overall weighted score aligned to **contribution** weights, per-skill breakdown, timestamped evidence from recording, strengths/gaps, optional comparison to job must-haves (P0).
 
 Reports are **versioned** per interview session; re-run allowed when manager updates analyzer config (new version id; old reports retained for audit).
@@ -79,7 +79,7 @@ The same assigned analyzer can run **without recording** on resume + application
 
 ## Plan
 
-1. **API** — Analyzer CRUD (defaults read, workspace draft/publish), job skill matrix with priority/contribution, assign analyzer to candidate-job, enqueue analysis, report CRUD, recording ingest webhook.
+1. **API** — Analyzer CRUD (defaults read, workspace draft/publish), job skill matrix with priority/contribution, assign analyzer to candidate-job, enqueue `analyzer.run` via async-jobs domain, report CRUD, recording ingest webhook; job status for UI polling.
 2. **Phase A** — Settings: analyzer gallery (defaults + workspace), clone/edit/publish, enable toggles.
 3. **Phase B** — JD builder: skill priority + contribution UI; validation on publish.
 4. **Phase C** — Job settings: auto-match preview + manager override picker.
@@ -97,7 +97,7 @@ The same assigned analyzer can run **without recording** on resume + application
 | Jobs | Extend JD skills UI; job settings analyzer override |
 | Meetings | Interview row status: recording pending / analysis running / report ready |
 | Profile | `CandidateAnalysisReport`, evidence clip timestamps if API provides |
-| AI | All runs via orchestration API; no client-side model keys |
+| AI | Enqueue via API; **workers** on AWS (SQS + Bedrock); client polls job status; no client-side model keys |
 
 - **Permissions:** `analyzers.manage` (settings), `analyzers.read` (recruiters), reports gated by `candidates.read`.
 - **Tests:** Contribution sum validation; assignment rule unit tests; fixture report rendering.
@@ -127,3 +127,7 @@ The same assigned analyzer can run **without recording** on resume + application
 - [candidate-profile.md](./candidate-profile.md)
 - [ai-ux.md](../architecture/ai-ux.md)
 - [../domains/server/analyzers/README.md](../domains/server/analyzers/README.md)
+- [../domains/server/async-jobs/README.md](../domains/server/async-jobs/README.md)
+- [async-jobs.md](../architecture/async-jobs.md)
+- [../adr/005-aws-platform.md](../adr/005-aws-platform.md)
+- [../adr/006-async-ai-workers.md](../adr/006-async-ai-workers.md)

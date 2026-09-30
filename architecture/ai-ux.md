@@ -26,6 +26,7 @@ Use `components/ai/` for consistent affordances (sparkle icon, `AIAction` menu, 
 ## Implementation
 
 - AI calls go through domain `api/` (streaming optional later); never expose API keys client-side.
+- **Long-running work** (JD parse/generate, skill extraction, analyzer reports, exports) is **async**: API returns a `jobId`; client polls job status. Execution runs on **standalone SQS workers** with Bedrock ([async-jobs.md](./async-jobs.md), ADR [006](../adr/006-async-ai-workers.md)).
 - Prefer inline actions over a single global chat unless the user opens “assistant” explicitly.
 
 No dedicated “AI” top-level nav item; AI appears in context on jobs, candidates, pipeline, and search.

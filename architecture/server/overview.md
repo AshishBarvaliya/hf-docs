@@ -4,6 +4,8 @@ The server is the **orchestration API** for the Hyreefy client. It owns **tenant
 
 **Multi-tenant model:** [multi-tenancy.md](../multi-tenancy.md), [ADR 004](../../adr/004-subdomain-multi-tenancy.md).
 
+**Production (AWS):** [aws-platform.md](../aws-platform.md), [deployment-aws.md](./deployment-aws.md). Long-running AI and report generation use [async-jobs.md](../async-jobs.md) and standalone SQS workers ([ADR 006](../../adr/006-async-ai-workers.md))—not the HTTP request thread.
+
 **How we ship:** [`.cursor/rules/product-delivery-principles.mdc`](../../.cursor/rules/product-delivery-principles.mdc) — dependency-ordered features, one vertical slice at a time, client and server together, production-ready (auth, validation, permissions, tests) per slice.
 
 ## Stack

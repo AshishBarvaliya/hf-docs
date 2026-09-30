@@ -18,7 +18,7 @@ Recruiters and hiring managers choose one starting point; all paths land in the 
 | **Generate with AI** | Short prompt (role, level, team) or “generate from title” | AI drafts description + suggested skills/requirements; clearly marked **suggested** |
 | **Start blank** | Manual form | User fills sections directly |
 
-Paste and AI output never publish without review. Parsing and generation run **server-side** ([ai-ux.md](../architecture/ai-ux.md)).
+Paste and AI output never publish without review. Parsing and generation are **server-side async jobs** (SQS workers + Bedrock on AWS)—the API returns a `jobId` and the UI polls until structured fields are ready ([ai-ux.md](../architecture/ai-ux.md), [async-jobs.md](../architecture/async-jobs.md)).
 
 ### Structured job fields (posting & ops)
 
@@ -67,7 +67,7 @@ When a **workflow template** is attached, JD **skills and requirements** feed **
 
 ## Plan
 
-1. **API** — Job draft payload (all sections above), publish transition, `POST parse-jd` (paste), `POST generate-jd` (AI), attachment to workflow template ID; workspace company profile read for defaults.
+1. **API** — Job draft payload (all sections above), publish transition; enqueue `jd.parse` / `jd.generate` / `jd.extract_skills` async jobs (return `jobId`); `GET /jobs/:id` or `GET /jobs/ai-jobs/:jobId` for results; attachment to workflow template ID; workspace company profile read for defaults.
 2. **Phase A** — Creation entry: paste / AI / blank; basics + rich description; persist draft.
 3. **Phase B** — Posting fields: location, compensation, about company (inherit workspace), posting expiry; enums synced with backend.
 4. **Phase C** — Skills/requirements: free-text input + extract/normalize; skill tags; **priority + contribution** per skill.
@@ -81,7 +81,7 @@ When a **workflow template** is attached, JD **skills and requirements** feed **
 |-------|----------------|
 | Components | `domains/jobs/components/jd-builder/` — entry step, section components, `PasteJdStep`, `SkillsRequirementsSection` |
 | Form | `useZodForm` + `jobs/schemas/jd.schema.ts`; wizard with shared schema |
-| Mutations | `useSaveJobDraft`, `usePublishJob`, `useParseJd`, `useGenerateJd` |
+| Mutations | `useSaveJobDraft`, `usePublishJob`, `useEnqueueJdParse`, `useEnqueueJdGenerate`, `useJdAiJob(jobId)` (poll until ready) |
 | Workspace | Read `useWorkspace()` for about-company default and culture id/snapshot on AI calls |
 | AI | `components/ai/AIAction` → `jobs/api/ai-jd-api.ts` |
 | Route | `(dashboard)/jobs/new` composes wizard; `[jobId]/jd` reuses same form |
@@ -114,3 +114,6 @@ When a **workflow template** is attached, JD **skills and requirements** feed **
 - [candidate-profile.md](./candidate-profile.md)
 - [ai-ux.md](../architecture/ai-ux.md)
 - [ai-skill-analyzers.md](./ai-skill-analyzers.md)
+- [async-jobs.md](../architecture/async-jobs.md)
+- [../adr/005-aws-platform.md](../adr/005-aws-platform.md)
+- [../adr/006-async-ai-workers.md](../adr/006-async-ai-workers.md)
