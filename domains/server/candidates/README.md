@@ -5,8 +5,9 @@
 
 ## Current scope
 
-- `GET /api/v1/candidates` — list all candidates (ordered by name).
+- `GET /api/v1/candidates` — bearer JWT and `candidates.read`. Lists candidates for `workspaceId` on the token, ordered by name.
 - Response shape matches client `candidateSchema` (`id`, `name`, `role`, `stage`).
+- Missing or invalid token → **401**. Authenticated without `candidates.read` → **403**.
 
 ## Next (from client feature spec)
 

@@ -3,7 +3,7 @@
 **Client spec:** [`../../features/rbac.md`](../../features/rbac.md)  
 **Permission catalog:** [`../../architecture/permissions.md`](../../architecture/permissions.md)  
 **Tenancy:** [`../../architecture/multi-tenancy.md`](../../architecture/multi-tenancy.md)  
-**Module:** `src/domains/rbac/` (to implement)
+**Module:** `src/domains/rbac/`
 
 ## Purpose
 
@@ -14,9 +14,11 @@ Workspace-scoped **roles** mapped to **permission keys** within a **tenant**. Au
 - `tenants` — customer org; unique `slug` (subdomain label)
 - `workspaces` — hiring data container; `tenant_id` (1:1 primary workspace per tenant in v1)
 - `permissions` — stable keys (`candidates.read`, `jobs.create`, …)
-- `roles` — scoped to workspace or tenant templates
+- `roles` — workspace-scoped (`workspace_id` + unique `name` per workspace)
 - `role_permissions` — many-to-many
-- `workspace_members` — user id, workspace id, role id
+- `workspace_members` — user id, workspace id, `role_id` (NOT NULL). Migration `drizzle/0001_rbac.sql` adds `role_id` plus `roles`, `permissions`, and `role_permissions`.
+
+Dev seed: each of `acme` and `beta` has `admin` (full catalog from `permissions.md`) and `interviewer` (`interviews.schedule` only). Recruiters are `admin`. `interviewer@acme.example` is the acme interviewer.
 
 ## API behavior
 
