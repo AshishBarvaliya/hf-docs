@@ -1,7 +1,9 @@
 # Sprint 1 — progress checklist
 
 **Sprint id:** `sprint-1` · **Dates:** 2026-09-28 → 2026-10-11  
-**YAML % (weighted tasks):** Client **42%** · Server **94%** — recalc when `current.yaml` changes ([README](./README.md)).
+**YAML % (weighted tasks):** Client **49%** · Server **95%** — recalc when `current.yaml` changes ([README](./README.md)).
+
+**Data standard:** [persistence.md](../architecture/persistence.md). `0002_foundation_schema_at_scale.sql` widens the sprint 1 tables.
 
 **How to use:** Check `- [x]` when the line is fully done **including tests**. Checklist % = `checked / total` (count every line below).
 
@@ -15,7 +17,7 @@
 
 | Track | Focus task | Status |
 |-------|------------|--------|
-| Client | `task-dashboard-layout` | todo |
+| Client | `task-workspace-domain` | todo (auth Playwright smoke done) |
 | Server | `task-feature-dev-server-data` | todo |
 
 ---
@@ -45,7 +47,7 @@
 - [x] Bearer token in fetchers + 401 handling — `task-auth-api-bearer`
 - [x] **Tests (client auth):** unit — tenant helper, `getAccessToken` / session helper
 - [x] **Tests (client auth):** unit — login form validation or auth callback wiring (if non-trivial)
-- [ ] **Tests (client auth):** e2e — login smoke on dev tenant host (when seed user exists). Gap: not run; Nest was not up on :3001, so a full sign-in would fail closed.
+- [x] **Tests (client auth):** e2e — login smoke on dev tenant host — `task-auth-client-e2e` (`e2e/auth-login.spec.ts`; requires Nest on `:3001` with seed)
 
 ### STEP 1.6 — RBAC (`feat-rbac-foundation`)
 
@@ -55,10 +57,14 @@
 - [x] **Tests (client RBAC):** unit — `usePermissions`, `<Can>` matrix
 - [ ] **Tests (client RBAC):** e2e — optional 403/no-access smoke when harness exists
 
-### Later in sprint file (not focus yet)
+### STEP 2 — Shell + overview (`feat-roadmap-step-2`)
 
-- [ ] Dashboard layout — STEP 2
-- [ ] Overview page — STEP 2
+- [x] Dashboard layout — sidebar, header, auth-protected `(dashboard)` group — `task-dashboard-layout`
+- [x] **Tests (client shell):** unit — permission-filtered nav (`nav-config.test.ts`)
+- [x] Overview page + redirect from `/` — `task-overview-page`
+- [x] **Tests (client overview):** unit — overview metrics shaping and permission filters (`overview-metrics.test.ts`)
+
+### Later in sprint file (not focus yet)
 - [ ] Workspace domain — STEP 3
 - [ ] Jobs + JD — STEP 4
 - [ ] ATS — STEP 5
@@ -81,7 +87,7 @@
 - [x] Nest + Drizzle scaffold
 - [x] GET `/api/v1/candidates` + seed
 - [x] Client wired to API
-- [ ] **Tests (API):** e2e 401/403 after auth guard lands (extend existing suite)
+- [x] **Tests (API):** e2e 401/403 — `server/test/auth.e2e-spec.ts` (this line was still open after the auth and RBAC suites landed)
 
 ### STEP 1.5 — Auth API (`feat-auth-api`)
 
@@ -98,6 +104,7 @@
 - [x] JWT `permissions[]` claims — `task-rbac-jwt-claims`
 - [x] **Tests (API RBAC):** unit — role → permission matrix
 - [x] **Tests (API RBAC):** e2e — `GET /candidates` 403 without `candidates.read`
+- [x] Widen foundation tables for later features plus `created_by`, `updated_by`, `deleted_at` — `task-foundation-schema-at-scale`
 
 ---
 
@@ -107,11 +114,11 @@
 
 - [x] Known tenant subdomain; unknown → tenant-not-found
 - [x] Unauthenticated routes redirect to login
-- [ ] Login establishes tenant + workspace; scoped candidates
+- [x] Login establishes tenant + workspace; scoped candidates (Auth.js session + `auth.e2e-spec.ts`; Playwright smoke is still the open client line above)
 - [x] No cross-tenant login without membership
 - [x] Nest 401 without bearer
 - [x] No secrets in client bundle
-- [ ] RBAC complete before dashboard
+- [x] RBAC complete before dashboard
 
 ### [rbac.md](../features/rbac.md)
 
@@ -130,9 +137,9 @@ Update counts when you edit this file:
 
 | Section | Done | Total | % |
 |---------|------|-------|---|
-| Client (all lines above) | 18 | 30 | 60% |
-| Server (all lines above) | 14 | 16 | 88% |
-| Feature acceptance (auth + rbac) | 11 | 13 | 85% |
-| **Rough combined** | **43** | **59** | **73%** |
+| Client (all lines above) | 23 | 32 | 72% |
+| Server (all lines above) | 16 | 17 | 94% |
+| Feature acceptance (auth + rbac) | 13 | 13 | 100% |
+| **Rough combined** | **52** | **62** | **84%** |
 
 *Recount “Done / Total” when adding or checking items.*

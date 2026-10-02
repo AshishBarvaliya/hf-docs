@@ -20,15 +20,33 @@
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Domain | `src/domains/meetings/` — full scaffold |
-| Routes | `(dashboard)/interviews/page.tsx`, job sub-route |
-| UI | Table or list + `ScheduleInterviewDialog`, link-out to meeting product |
-| Hooks | `useInterviews`, `useScheduleInterview`, invalidate on success |
+### Contract
 
-- **Timezone:** Display in workspace timezone from `workspace` domain.
-- **E2E:** Schedule interview from candidate profile (staging API or mock).
+| Area | Details |
+|------|---------|
+| List | `GET /api/v1/interviews` — global and `?jobId=` scoped |
+| Schedule | `POST /api/v1/interviews` — reschedule/cancel variants; join URL in response only |
+| Recording | Webhook from meeting product → analyzer enqueue ([ai-skill-analyzers.md](./ai-skill-analyzers.md)) |
+| Permissions | `interviews.schedule`, `candidates.read` |
+
+### Data
+
+`interviews` table (first migration with meetings slice): `workspace_id`, `candidate_id`, `job_id`, `scheduled_at`, `status`, `external_meeting_id`, `join_url`, row standard columns.
+
+### Server
+
+- `server/src/domains/meetings/` — proxy to meeting integration; workspace scope
+
+### Client
+
+- `src/domains/meetings/` — `(dashboard)/interviews`, `ScheduleInterviewDialog`
+- Timezone from `useWorkspace()`
+
+### Tests
+
+- **Server API:** schedule/cancel authz; join URL never empty without API
+- **Client unit:** list filters, dialog validation
+- **Client e2e:** schedule from candidate profile when API ready
 
 ## Acceptance criteria
 

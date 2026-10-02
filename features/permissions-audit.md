@@ -19,12 +19,22 @@
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Module | `src/shared/permissions/can.tsx`, `use-permissions.ts`, permission constants file |
-| Server | Route handlers / server actions call `requirePermission` when added |
-| Audit | `domains/workspace/` or `domains/audit/` — `useAuditLog` + table |
-| Nav | Filter sidebar items in dashboard layout |
+### Contract
+
+| Area | Details |
+|------|---------|
+| Audit log | `GET /api/v1/audit-events` — paginated, workspace-scoped; `audit.read` |
+| UX polish | Consistent 403 / empty forbidden states; no unauthorized actions in DOM |
+| RBAC core | Delivered in step 1.6 ([rbac.md](./rbac.md)); this slice adds audit + polish |
+
+### Client
+
+- `src/shared/permissions/` — `<Can>`, `usePermissions` (foundation done)
+- `domains/audit/` — `useAuditLog` + table UI; nav filtered in dashboard layout
+
+### Server
+
+- `server/src/domains/audit/` (planned) — append-only `audit_events` reads; all mutations already enforce permissions at source
 
 ### Data
 
@@ -32,8 +42,13 @@ Step 13 audit UI reads an `audit_events` table (actor, entity, action, timestamp
 
 What is stored now, on the foundation tables (`0002_foundation_schema_at_scale.sql`): `created_by` and `updated_by` (nullable FK → `users.id`) and `deleted_at` on business tables, plus `created_at` / `created_by` on `role_permissions`. The catalog exception for `permissions` (no `deleted_at`) is in [rbac.md](./rbac.md). Disabling a user is `users.status`, not an audit row.
 
-- **Never** `user.role === "admin"` in feature code ([permissions-frontend.mdc](../../.cursor/rules/permissions-frontend.mdc)).
-- **Tests:** Permission matrix unit tests; E2E as role fixtures when test auth exists.
+### Tests
+
+- **Server API:** audit list scope; 403 without `audit.read`
+- **Client unit:** permission matrix, `<Can>` (covered in sprint 1 RBAC tests)
+- **Client e2e:** role fixtures for forbidden routes when harness supports multiple seeds
+
+Never `user.role === "admin"` in feature code ([permissions-frontend.mdc](../../.cursor/rules/permissions-frontend.mdc)).
 
 ## Acceptance criteria
 

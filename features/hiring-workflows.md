@@ -87,17 +87,35 @@ Recruiter  → ATS sees outcome + can override if permitted
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Domain | `src/domains/pipeline/` — workflow types, `useWorkflow`, `useWorkflowMutations`, screening criteria types |
-| Automations | `src/domains/automations/` — template library UI (defaults + workspace) |
-| Editor | Sortable round list, `StageConfigDrawer`, provider pickers, `ScreeningCriteriaEditor` |
-| AI | `AIAction` “Suggest criteria from JD” → orchestration API; merge into draft only after user confirms |
-| Validation | Zod schemas mirroring backend publish rules (including criteria + cutoff bounds) |
+### Contract
 
-- **No embedded assessment or meeting UI** — configuration, deep links, and scheduling triggers only.
-- **Sync:** Publishing workflow invalidates pipeline kanban and candidate list queries for affected jobs.
-- **Tests:** Schema tests for stage config and screening criteria; API contract tests for evaluate-screening; E2E publish workflow and verify auto-reject path on fixture candidate.
+| Area | Details |
+|------|---------|
+| CRUD | `GET/POST/PATCH /api/v1/workflows` — workspace templates + job instances; draft/publish |
+| Publish | `POST /api/v1/workflows/:id/publish` — validates stage registry + screening criteria |
+| Screening | `POST /api/v1/screening/evaluate` on apply/stage entry — auto-reject/filter server-side |
+| Permissions | `workflows.read`, `workflows.manage` (catalog in [permissions.md](../architecture/permissions.md)) |
+
+### Data
+
+Tables (first migration when step 7 ships): `workflows`, `workflow_stages`, `screening_criteria`, job FKs — full row standard; seed Hyreefy default templates. Document full column list in migration PR; see [`domains/server/pipeline/README.md`](../domains/server/pipeline/README.md).
+
+### Server
+
+- `server/src/domains/pipeline/` — CRUD, publish validation, screening evaluation, automation triggers on transition
+
+### Client
+
+- `src/domains/pipeline/` — `useWorkflow`, `useWorkflowMutations`, `ScreeningCriteriaEditor`
+- Sortable round list, `StageConfigDrawer`; AI suggest merges only after user confirms
+- No embedded assessment/meeting UI — config and deep links only
+
+### Tests
+
+- **Server unit:** stage config + screening Zod; evaluate-screening outcomes
+- **Server API:** publish rules, auto-reject on fixture candidate
+- **Client unit:** workflow schema tests
+- **Client e2e:** publish workflow → kanban reflects stages when deps land
 
 ## Acceptance criteria
 

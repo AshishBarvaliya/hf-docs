@@ -20,25 +20,43 @@ Recruiter home is **action-oriented**: prioritized queues (“8 need review”, 
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Route | `src/app/(dashboard)/overview/page.tsx` — Server Component wrapper; client widgets as needed |
-| Data | `domains/analytics/hooks/useOverviewMetrics.ts` (or split hooks per widget); query keys in `analytics/api/` |
-| UI | `StatCard`, action list rows, `PipelineChart`, compact `CandidatesTable` or custom recent list |
-| Permissions | Hide action rows when user lacks `candidates.read`, `interviews.schedule`, etc. |
-| i18n | Namespace `Overview` + reuse domain strings where shared |
+### Contract
 
-- **TanStack Query:** Stale times tuned for dashboard (e.g. 30–60s); refetch on window focus for counts.
-- **E2E:** Recruiter sees at least one action item or empty state; click-through to candidates/jobs works.
-- **Redirect:** Root `/` → `/overview` when authenticated (in `(dashboard)` group).
+| Area | Details |
+|------|---------|
+| Overview metrics | `GET /api/v1/analytics/overview` (or parallel reads) — action queue counts, funnel series, recent candidates, stat totals; definitions owned by server |
+| Permissions | Widgets respect `candidates.read`, `jobs.read`, `interviews.schedule`, etc. |
+| Redirect | Authenticated `/` → `/overview` in `(dashboard)` group |
+
+### Data
+
+Read-only aggregates over existing entities (`candidates`, `jobs`, interviews when tables exist). No new persistence table in the overview slice; metric SQL/views documented in the analytics server domain when implemented.
+
+### Server
+
+- `server/src/domains/analytics/` (planned) — overview query service; JWT + workspace scope + `PermissionsGuard`
+- Reuse candidates list contract until dedicated overview endpoint ships
+
+### Client
+
+- Route: `src/app/(dashboard)/overview/page.tsx`
+- `domains/analytics/hooks/useOverviewMetrics.ts` (or split hooks); query keys in `analytics/api/`
+- UI: `StatCard`, action rows, `PipelineChart`, recent list; i18n namespace `Overview`
+- TanStack Query stale time ~30–60s; refetch on window focus for counts
+
+### Tests
+
+- **Client unit:** `overview-metrics.test.ts`, `nav-config.test.ts` (permission-filtered shell)
+- **Client e2e:** Recruiter sees action item or empty state; deep link to candidates/jobs when routes exist
+- **Server API:** e2e for overview endpoint when added; 401/403 without auth or permission
 
 ## Acceptance criteria
 
-- [ ] Default landing route for dashboard users
-- [ ] Action queues with deep links and empty states
-- [ ] Funnel + recent candidates widgets
-- [ ] Permission-aware widget visibility
-- [ ] Full i18n coverage
+- [x] Default landing route for dashboard users
+- [x] Action queues with deep links and empty states
+- [x] Funnel + recent candidates widgets
+- [x] Permission-aware widget visibility
+- [x] Full i18n coverage
 
 ## Non-goals
 

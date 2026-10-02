@@ -30,7 +30,7 @@ Sprint YAML **`doc:`** fields use paths **from the docs repo root** (e.g. `featu
 | `sprint/server/current.yaml` | Server sprint / focus |
 | `domains/client/<name>/` | Specs mirroring `client/src/domains/<name>/` |
 | `domains/server/<name>/` | Specs mirroring `server/src/domains/<name>/` |
-| `architecture/` | Client architecture (incl. `multi-tenancy.md`) |
+| `architecture/` | Client architecture (incl. `multi-tenancy.md`, `persistence.md`) |
 | `architecture/server/` | Server API architecture |
 | `adr/` | Architecture decision records |
 | `planning/` | Brainstorming + deferred implementation tasks |

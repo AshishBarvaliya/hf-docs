@@ -2,6 +2,8 @@
 
 **Full product delivery** — we are building the complete Hyreefy client. Steps below are **sequence and dependency order**, not scope reduction. Do not ship “lite” versions unless a spec explicitly lists deferred **non-goals**.
 
+**Data is not sequenced the same way as screens.** The step says when a behavior ships. The table for an entity is designed once, for every later feature that uses it ([persistence.md](../architecture/persistence.md)). A sprint may hide a column from the API. It may not leave the column off the table.
+
 Delivery rules (one feature at a time, no shortcuts, secure prod-ready slices, server built hand in hand): [`../.cursor/rules/product-delivery-principles.mdc`](../.cursor/rules/product-delivery-principles.mdc).
 
 Track execution in [`docs/sprint/client/current.yaml`](../sprint/client/current.yaml) (epic `epic-hyreefy`) and mirror cross-cutting focus in [`docs/sprint/server/current.yaml`](../sprint/server/current.yaml).

@@ -7,7 +7,9 @@
 - **Sprint 1 implementation guide** (routes, API, DB): [`sprint-1-development-guide.md`](./sprint-1-development-guide.md)
 - **Sprint 1 checkbox tracker** (done/left + %): [`sprint-1-progress-checklist.md`](./sprint-1-progress-checklist.md)
 
-**Delivery model:** [`.cursor/rules/product-delivery-principles.mdc`](../.cursor/rules/product-delivery-principles.mdc) — one feature at a time, dependency order, **end-to-end slices** (contract + DB + server + client + tests), production-ready. For cross-cutting work, keep **`current_focus`** aligned across both YAML files (same `feature_id` / goal when the slice spans repos).
+**Delivery model:** [`.cursor/rules/product-delivery-principles.mdc`](../.cursor/rules/product-delivery-principles.mdc) — one feature at a time, dependency order, **end-to-end slices** (contract + DB + server + client + tests), production-ready.
+
+**Data model:** [architecture/persistence.md](../architecture/persistence.md). A database task is done only when the table matches the **whole entity** (later features’ columns included, marked `stored now, API later`), not when the current test has a column to assert. For cross-cutting work, keep **`current_focus`** aligned across both YAML files (same `feature_id` / goal when the slice spans repos).
 
 ## Hierarchy
 

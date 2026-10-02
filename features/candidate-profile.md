@@ -56,8 +56,11 @@ Profile reads the same `candidates` row as [candidates-ats.md](./candidates-ats.
 
 Activity, assessments, emails, and analyzer reports are separate entities. They are not tables in this migration. AI summary text is produced later; it is not a column on `candidates`.
 
-- **Permissions:** Separate gates for reject, message, schedule.
-- **E2E:** Open profile from list; advance/reject flows with confirmation.
+### Tests
+
+- **Server API:** detail scope, reject/advance with 403 matrix
+- **Client unit:** tab permission gates, mutation error handling
+- **Client e2e:** open from list; advance/reject with confirmation when API ready
 
 ## Acceptance criteria
 

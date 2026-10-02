@@ -53,7 +53,7 @@ For small fixes aligned with obvious existing patterns, follow surrounding code.
 Building from a feature spec means shipping a **vertical slice**, not one repo in isolation:
 
 1. **Contract** — HTTP routes, payloads, permissions (server authoritative).
-2. **Data** — Drizzle tables, migrations, seeds when the slice needs persisted data (`server/drizzle/`, `domains/server/<name>/`).
+2. **Data** — Drizzle tables and migrations for the **product entity**, including columns later features need (`architecture/persistence.md`). Not a minimal table for this route only.
 3. **Server** — Nest domain module, guards, validation.
 4. **Client** — fetchers, hooks, routes, `<Can>` where applicable.
 5. **Tests + acceptance criteria** — **server:** unit + API/e2e for changed routes; **client:** unit for hooks/UI logic (+ e2e for routes/flows). Check off feature spec and sprint checklist boxes in the same delivery cycle (`delivery-tests-and-progress.mdc`).

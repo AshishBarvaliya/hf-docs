@@ -1,10 +1,10 @@
 version: 1
-last_updated: "2026-10-02"
+last_updated: "2026-10-03"
 
 sprint:
   id: sprint-1
   name: Sprint 1 — API foundation
-  goal: Tenant-scoped JWT auth, then RBAC guards; protect domain routes before client shell.
+  goal: Tenant-scoped JWT auth and RBAC guards are in place. Foundation tables match the product data model (architecture/persistence.md). Next is full Dev sections before any new product table.
   dates:
     start: "2026-09-28"
     end: "2026-10-11"
@@ -14,12 +14,12 @@ current_focus:
   epic_id: epic-api-foundation
   feature_id: feat-delivery-process
   task_id: task-feature-dev-server-data
-  goal: Server RBAC is done (schema, PermissionsGuard, JWT permissions[], API tests). Next open server task is feature Dev server/data rows.
+  goal: Foundation tables match the product data model. Next is full Dev sections on the remaining feature specs. Client focus stays the dashboard shell.
 
 progress:
-  sprint_percent: 94
+  sprint_percent: 95
   epics:
-    epic-api-foundation: 94
+    epic-api-foundation: 95
 
 epics:
   - id: epic-api-foundation
@@ -94,3 +94,12 @@ epics:
             title: API unit + e2e for PermissionsGuard and 403
             status: done
             weight: 1
+      - id: feat-schema-at-scale
+        title: Foundation tables match the product data model
+        doc: docs/architecture/persistence.md
+        tasks:
+          - id: task-foundation-schema-at-scale
+            title: Widen auth/RBAC tables for later features plus audit and soft delete
+            status: done
+            weight: 2
+            doc: planning/implementation-tasks/2026-10-02-foundation-schema-at-scale.md

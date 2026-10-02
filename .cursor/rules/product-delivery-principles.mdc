@@ -35,7 +35,7 @@ Features are **not done** until the slice works on real persisted data through t
 | Layer | Docs | Code (Hyreefy) |
 |-------|------|----------------|
 | **Contract** | Feature **Plan** (APIs, permissions, events) + `domains/server/<name>/` | Zod at HTTP boundaries; shared shapes documented in feature spec |
-| **Data** | Tables, FKs, indexes, seed/fixtures in feature **Dev** or server domain README | Drizzle schema in `server/src/database/` (or domain schema files), **migration** in `server/drizzle/`, seed when the slice needs demo data |
+| **Data** | **Full entity shape** in feature **Dev**, not only columns this API returns. See [persistence.md](../../architecture/persistence.md) | Drizzle schema + migration. Include columns later features on this entity need (`stored now, API later`) plus `created_by`, `updated_by`, `deleted_at` |
 | **Server** | Routes, guards, domain behavior in feature **Dev** + `domains/server/<name>/` | `server/src/domains/<name>/` — module, service, controller |
 | **Client** | Routes, hooks, UX in feature **Dev** + `domains/client/<name>/` | `client/src/domains/<name>/`, App Router pages under `src/app/` |
 | **Tests** | Acceptance criteria + **Dev → Tests** (mandatory) | **Server:** unit for domain/guards/schemas + **API/e2e per route**. **Client:** **unit** for hooks/helpers/permissions + component tests when UI branches matter; **Playwright** for new routes/flows. Never mark sprint task `done` without tests when behavior changed — see `delivery-tests-and-progress.mdc`. |
@@ -53,7 +53,7 @@ See also: [`features/README.md`](../../features/README.md) (Dev section template
 
 Forbidden patterns unless explicitly approved by the user for a spike branch:
 
-- “Temporary” APIs, feature flags that hide half-built behavior in main, or “we’ll fix later” data models
+- “Temporary” APIs, feature flags that hide half-built behavior in main, or **thin tables** that only store what the current test asserts (“we’ll add columns when that feature starts”)
 - Client-only permission or stage logic that the server does not enforce
 - Hardcoded tenant/user IDs, disabled auth checks, or mock data paths wired to production routes
 - Partial feature specs marked “done” while non-goals in the spec are silently skipped
@@ -68,7 +68,7 @@ Every feature slice should include, as applicable:
 |------|-------------|
 | **AuthN / AuthZ** | Authenticated APIs; permission checks on server; `<Can>` on client |
 | **Validation** | Zod at HTTP boundaries; no trusting client-only validation |
-| **Data** | Migrations/schema reviewed; no raw SQL in handlers without justification |
+| **Data** | Table designed for the whole entity lifecycle ([persistence.md](../../architecture/persistence.md)), not the sprint’s response fields. No raw SQL in handlers without justification |
 | **Secrets** | Env-only; `.env.example` updated; never commit secrets |
 | **Errors** | Consistent API errors; no leaking stack traces or internal IDs to clients |
 | **Tests** | **Required per slice:** server unit + API tests for every changed route; client unit for hooks/UI logic; e2e for critical flows. Checklist + YAML % in `docs/sprint/`. |
@@ -83,4 +83,4 @@ Every feature slice should include, as applicable:
 3. Feature spec: `features/<area>.md` (Plan + Dev)
 4. Client domain: `domains/client/<name>/README.md`
 5. Server domain: `domains/server/<name>/README.md`
-6. Architecture: `architecture/` (client), `architecture/server/overview.md`
+6. Architecture: `architecture/` (client), `architecture/server/overview.md`, **`architecture/persistence.md`** before any schema change

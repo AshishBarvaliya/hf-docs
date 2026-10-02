@@ -3,12 +3,12 @@
 # See docs/sprint/README.md for schema and progress rules.
 
 version: 1
-last_updated: "2026-10-02"
+last_updated: "2026-10-03"
 
 sprint:
   id: sprint-1
   name: Sprint 1 — Product specs + foundation
-  goal: Auth (Auth.js) then RBAC (permission guards + Can) before dashboard shell or new product UI.
+  goal: Overview and / redirect are done. Next: Playwright login smoke. Tables are the product shape (later features included), not the fields this sprint returns — see architecture/persistence.md.
   dates:
     start: "2026-09-28"
     end: "2026-10-11"
@@ -16,16 +16,16 @@ sprint:
 
 current_focus:
   epic_id: epic-hyreefy
-  feature_id: feat-roadmap-step-2
-  task_id: task-dashboard-layout
-  goal: Client RBAC reads permission keys from the Auth.js session (usePermissions, Can). Dashboard shell is next and not started.
+  feature_id: feat-roadmap-step-3
+  task_id: task-workspace-domain
+  goal: Playwright login smoke on acme tenant host is done. Next workspace domain + session context (STEP 3).
 
 progress:
-  sprint_percent: 42
+  sprint_percent: 49
   epics:
     epic-foundation-spike: 100
     epic-engineering: 82
-    epic-hyreefy: 30
+    epic-hyreefy: 43
 
 epics:
   - id: epic-foundation-spike
@@ -118,7 +118,11 @@ epics:
             status: done
             weight: 1
           - id: task-auth-client-tests
-            title: UI unit tests (auth helpers) + e2e login smoke
+            title: UI unit tests (auth helpers and login contract)
+            status: done
+            weight: 1
+          - id: task-auth-client-e2e
+            title: Playwright login smoke on the dev tenant host
             status: done
             weight: 1
       - id: feat-rbac-foundation
@@ -147,11 +151,11 @@ epics:
         tasks:
           - id: task-dashboard-layout
             title: "(dashboard) layout, sidebar, header (after auth + RBAC)"
-            status: todo
+            status: done
             weight: 2
           - id: task-overview-page
             title: Action-oriented overview + redirect from /"
-            status: todo
+            status: done
             weight: 2
       - id: feat-roadmap-step-3
         title: "STEP 3 — Workspace"

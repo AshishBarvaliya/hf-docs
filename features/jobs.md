@@ -29,17 +29,46 @@ Published jobs appear in the list; drafts remain editable. Expired postings show
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Domain | `src/domains/jobs/` — `types.ts`, `schemas/`, `api/jobs-api.ts`, `query-keys`, `useJobs`, `useJob`, `useJobMutations` |
-| List | `src/app/(dashboard)/jobs/page.tsx` + `JobsTable` in domain |
-| Detail shell | `src/app/(dashboard)/jobs/[jobId]/layout.tsx` — header + `Tabs` linking to child routes |
-| Child routes | `overview`, `jd`, `candidates`, `pipeline`, … per [folder-structure.md](../architecture/folder-structure.md) |
-| UI | `JobCard` for mobile/alternate views; badges for status |
+### Contract
 
-- **URL state:** List filters in searchParams; shareable links for recruiters.
-- **Permissions:** `jobs.read`, `jobs.create`, `jobs.edit` on actions and tabs.
-- **E2E:** Create draft job (when API ready), open job workspace, switch tabs.
+| Area | Details |
+|------|---------|
+| List | `GET /api/v1/jobs` — filters: status, search, owner; pagination |
+| CRUD | `GET/PATCH/POST /api/v1/jobs`, `POST /api/v1/jobs/:id/publish` |
+| Header aggregate | Counts, health flags on `GET /api/v1/jobs/:id` |
+| Permissions | `jobs.read`, `jobs.create`, `jobs.edit` on routes and UI actions |
+
+### Data
+
+First migration for `jobs` (full row standard per [persistence.md](../architecture/persistence.md)):
+
+| Column | Notes |
+|--------|--------|
+| `id` | uuid PK |
+| `workspace_id` | FK → `workspaces.id` |
+| `title`, `status` | `draft`, `active`, `paused`, `closed` |
+| `owner_id` | nullable FK → `users.id` |
+| `posting_expires_at` | nullable |
+| `workflow_template_id` | nullable FK when workflows table exists — stored now, API later |
+| `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_at` | row standard |
+
+JD body, skills matrix, and posting fields may live on `jobs` jsonb columns or child tables — name in migration when JD slice ships ([jd-builder.md](./jd-builder.md)).
+
+### Server
+
+- `server/src/domains/jobs/` (planned) — CRUD, publish, list filters; Zod DTOs; JWT + workspace scope + `PermissionsGuard`
+
+### Client
+
+- `src/domains/jobs/` — types, schemas, `api/jobs-api.ts`, `useJobs`, `useJob`, `useJobMutations`
+- `(dashboard)/jobs/page.tsx`, `[jobId]/layout.tsx` + tab child routes per [folder-structure.md](../architecture/folder-structure.md)
+- List filters in `searchParams`; `JobCard` / badges for status
+
+### Tests
+
+- **Server unit + API:** CRUD, publish transition, 403 without `jobs.read`
+- **Client unit:** Zod schemas, query key helpers
+- **Client e2e:** Create draft, open workspace, switch tabs when API ready
 
 ## Acceptance criteria
 

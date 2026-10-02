@@ -13,7 +13,7 @@ Every feature **Dev** section must make the full slice explicit. Use subsections
 | Subsection | What to document |
 |------------|------------------|
 | **Contract** | Routes, methods, request/response shapes, permission keys |
-| **Data** | Tables/columns, FKs to tenant/workspace, migration name or domain schema path, seed data |
+| **Data** | **Full column list** for the entity, including columns later features need (`stored now, API later`), FKs, soft delete, actor columns. Follow [persistence.md](../architecture/persistence.md). Name the migration. A list of “id + two fields” is not a data section |
 | **Server** | `server/src/domains/<name>/`, guards, Zod DTOs |
 | **Client** | `client/src/domains/<name>/`, App Router paths, hooks, `<Can>` |
 | **Tests** | **Mandatory per slice:** server **unit** (schemas, services, guards) + **API/e2e for each route**; client **unit** (hooks, helpers, permissions, forms) + **Playwright** for new routes/critical flows. List file paths or `*.spec.ts` / `*.test.tsx` patterns. |

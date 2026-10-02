@@ -18,18 +18,37 @@ Consistent UI across all hiring surfaces: shadcn primitives, hiring-specific car
 
 ## Dev
 
+Client-only feature — no orchestration API or database tables.
+
+### Contract
+
+N/A (presentation and app shell only). Nav targets and permission keys align with [rbac.md](./rbac.md) and [permissions.md](../architecture/permissions.md).
+
+### Data
+
+N/A.
+
+### Server
+
+N/A.
+
+### Client
+
 | Area | Location |
 |------|----------|
 | Primitives | `src/components/ui/` |
 | Hiring / AI | `src/components/hiring/`, `src/components/ai/` |
-| Tables | `src/shared/tables/` (existing), extend for pagination/virtualization |
+| Tables | `src/shared/tables/` — extend for pagination/virtualization |
 | Layout | `src/components/layout/`, `src/components/navigation/` |
 | Dashboard layout | `src/app/(dashboard)/layout.tsx` |
 | Shell UI state | `src/shared/stores/ui-store.ts` (sidebar, view prefs) |
 
-- **i18n:** Nav labels and shell strings in `messages/`; no hardcoded sidebar text.
-- **Tests:** Storybook optional; at minimum smoke E2E that dashboard layout renders and nav links resolve.
-- **Performance:** Lazy-load heavy chart bundles at route level, not in layout.
+i18n: nav labels in `messages/`. Lazy-load heavy chart bundles at route level, not in layout.
+
+### Tests
+
+- **Client unit:** `nav-config.test.ts` — permission-filtered nav
+- **Client e2e:** Dashboard layout renders; nav links resolve (smoke when routes change)
 
 ## Acceptance criteria
 

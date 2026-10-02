@@ -209,6 +209,10 @@ Signing: shared `AUTH_SECRET` with Auth.js ([ADR 003](../adr/003-auth-js-session
 
 ## Database (Sprint 1)
 
+**Gap:** The tables below were built for auth and RBAC tests only. They are not the target model. New and altered tables follow [persistence.md](../architecture/persistence.md): design the entity for later features, and include actor + soft-delete columns even when this API does not return them. Server task `task-foundation-schema-at-scale` widens these tables before the next product entity.
+
+## Database (what sprint 1 actually created)
+
 **ORM:** Drizzle · **Migrations:** `server/drizzle/` · **Seed:** `server` db seed script (extend for sprint).
 
 ### Today

@@ -15,7 +15,7 @@ Hiring funnel charts, dashboard metrics, and job-level analytics views. Aggregat
 | Surface | Status |
 |---------|--------|
 | Home pipeline chart | Done |
-| Overview funnel | Planned |
+| Overview funnel | Done (placeholder metrics; live funnel API later) |
 | Job analytics tab | Planned |
 | Reports | Planned |
 

@@ -29,8 +29,9 @@ Bullets — tie to feature **Non-goals** where possible.
 
 ## Data (server)
 
-- [ ] Drizzle schema changes, migration in `server/drizzle/`, seed/fixtures if needed
-- Document tables in feature spec **Dev** and `domains/server/<name>/README.md`
+- [ ] Drizzle schema + migration in `server/drizzle/`, seed if needed
+- [ ] Column list covers **later features on this entity** (`stored now, API later`) and the persistence standard (`created_by`, `updated_by`, `deleted_at`) — see `architecture/persistence.md`
+- [ ] Document the full table in feature spec **Dev** and `domains/server/<name>/README.md` **before** the migration
 
 ## Contract / API
 

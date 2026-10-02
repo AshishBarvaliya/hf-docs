@@ -26,6 +26,7 @@ The agent should **not** edit `client/src` or `server/src` until you exit planni
 Topics that belong here:
 
 - User journeys, permissions, API contracts, edge cases
+- **Entity shape for later features** — columns this slice will not display but the table must store ([persistence.md](../architecture/persistence.md))
 - Roadmap order and dependencies
 - What is in scope vs **non-goals**
 - Cross-cutting client + server alignment

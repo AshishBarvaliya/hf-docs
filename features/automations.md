@@ -40,14 +40,32 @@ Rule list with enable/disable; **execution log** / last-run status; failures sur
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Domain | `src/domains/automations/` |
-| UI | Rule list, `RuleEditor`, template gallery, link to workflow docs |
-| Validation | Zod aligned with backend rule schema |
+### Contract
 
-- **Permissions:** `workflows.manage` / `automations.edit` (exact keys in [permissions.md](../architecture/permissions.md) when cataloged); read-only for recruiters where appropriate.
-- **Tests:** Schema validation tests; E2E create rule + screening auto-reject produces auditable candidate state.
+| Area | Details |
+|------|---------|
+| Rules | `GET/POST/PATCH /api/v1/automations` — workspace rules; enable toggle |
+| Templates | Hyreefy defaults + workspace clones |
+| Execution | Server-only on workflow stage transitions; no client triggers |
+| Permissions | `automations.edit`, `workflows.manage` (catalog) |
+
+### Data
+
+`automation_rules` jsonb definition + workspace FK; execution log rows or reuse audit pipeline when step 10 ships.
+
+### Server
+
+- `server/src/domains/automations/` — rule CRUD, dispatcher hooked from pipeline domain
+
+### Client
+
+- `src/domains/automations/` — `RuleEditor`, template gallery; Zod mirrors server schema
+
+### Tests
+
+- **Server unit:** rule schema, screening auto-reject side effects
+- **Client unit:** Zod validation tests
+- **Client e2e:** create rule → fixture candidate state when workflow API ready
 
 ## Acceptance criteria
 

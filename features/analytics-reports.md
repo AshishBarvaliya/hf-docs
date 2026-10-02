@@ -21,15 +21,33 @@ Full **analytics** area: hiring funnel, pipeline conversion, time-in-stage, job 
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Domain | Extend `src/domains/analytics/` — `useFunnel`, `useJobHealth`, `useReports` |
-| Charts | Recharts; dynamic import for route bundles |
-| UI | Dashboard widgets + full analytics pages sharing chart components |
-| Query | Longer staleTime for heavy aggregates; explicit refresh button |
+### Contract
 
-- **Permissions:** `analytics.read`; job tab respects `jobs.read`.
-- **E2E:** Analytics page loads series; job tab matches job filter param.
+| Area | Details |
+|------|---------|
+| Funnel | `GET /api/v1/analytics/funnel` — workspace or `?jobId=` |
+| Job health | `GET /api/v1/analytics/jobs/:id/health` |
+| Reports | `GET /api/v1/analytics/reports` + export URLs |
+| Permissions | `analytics.read`; job routes also require `jobs.read` |
+
+### Data
+
+Aggregate queries over `candidates`, `jobs`, applications — no separate fact table required for v1; materialized views optional later.
+
+### Server
+
+- `server/src/domains/analytics/` — SQL/services for metrics; same definitions as overview widgets
+
+### Client
+
+- Extend `src/domains/analytics/` — `useFunnel`, `useJobHealth`, `useReports`
+- Recharts via dynamic import; shared with [overview-dashboard.md](./overview-dashboard.md)
+
+### Tests
+
+- **Server API:** scoped series, 403 without `analytics.read`
+- **Client unit:** chart data shaping
+- **Client e2e:** `/analytics` loads; job tab respects `jobId` param
 
 ## Acceptance criteria
 

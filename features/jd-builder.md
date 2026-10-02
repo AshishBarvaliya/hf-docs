@@ -77,17 +77,36 @@ When a **workflow template** is attached, JD **skills and requirements** feed **
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Components | `domains/jobs/components/jd-builder/` — entry step, section components, `PasteJdStep`, `SkillsRequirementsSection` |
-| Form | `useZodForm` + `jobs/schemas/jd.schema.ts`; wizard with shared schema |
-| Mutations | `useSaveJobDraft`, `usePublishJob`, `useEnqueueJdParse`, `useEnqueueJdGenerate`, `useJdAiJob(jobId)` (poll until ready) |
-| Workspace | Read `useWorkspace()` for about-company default and culture id/snapshot on AI calls |
-| AI | `components/ai/AIAction` → `jobs/api/ai-jd-api.ts` |
-| Route | `(dashboard)/jobs/new` composes wizard; `[jobId]/jd` reuses same form |
+### Contract
 
-- **Permissions:** `jobs.create` / `jobs.edit`; workspace culture settings via `workspace.settings` (or catalog equivalent).
-- **Tests:** Zod schema unit tests; parse/generate fixture tests; E2E paste → edit skills → publish.
+| Area | Details |
+|------|---------|
+| Draft save | `PATCH /api/v1/jobs/:id` — structured JD sections, posting fields, skills |
+| Publish | `POST /api/v1/jobs/:id/publish` — validates Zod publish rules |
+| Async AI | `POST /api/v1/jobs/:id/ai/parse`, `…/generate`, `…/extract-skills` → `async_jobs` id; poll `GET /api/v1/jobs/ai-jobs/:jobId` |
+| Workspace context | Server reads workspace culture/about for AI prompts ([workspace.md](./workspace.md)) |
+| Permissions | `jobs.create`, `jobs.edit`; culture via `workspace.settings` |
+
+### Data
+
+Extends `jobs` row / related tables from [jobs.md](./jobs.md): description, location, compensation, `about_company`, skills jsonb with priority/contribution, `workflow_template_id`. Async runs in `async_jobs` ([async-jobs.md](../architecture/async-jobs.md)). Full column list in migration when step 4 ships.
+
+### Server
+
+- `server/src/domains/jobs/` — draft/publish DTOs; enqueue helpers via [`domains/server/async-jobs/README.md`](../domains/server/async-jobs/README.md)
+- No client-side model keys; orchestration owns AI calls
+
+### Client
+
+- `domains/jobs/components/jd-builder/` — paste / AI / blank entry, `SkillsRequirementsSection`
+- `jobs/schemas/jd.schema.ts`; `(dashboard)/jobs/new`, `[jobId]/jd`
+- `useEnqueueJdParse`, `useJdAiJob` polling; `useWorkspace()` for defaults
+
+### Tests
+
+- **Server unit:** publish validation, contribution sum, async job enqueue
+- **Client unit:** `jd.schema` Zod tests; fixture parse/generate UI states
+- **Client e2e:** paste → edit skills → publish when API ready
 
 ## Acceptance criteria
 

@@ -7,7 +7,7 @@
 
 ## Product behavior
 
-Each **customer tenant** uses its own **subdomain** (e.g. `https://acme.app.example.com`). Recruiters open their company URL, then sign in on that host. Unauthenticated visitors on tenant app routes are redirected to login. Unknown subdomains show a tenant-not-found experience (not a shared login).
+Each **customer tenant** uses its own **subdomain** (e.g. `https://acme.app.example.com`). Recruiters may sign in on that host **or** on the **global apex** login (`https://app.example.com/login`) with workspace + email + password; both land in the same recruiter app after authentication. Unauthenticated visitors on tenant app routes are redirected to login. Unknown subdomains show tenant-not-found; the apex host shows global sign-in (not tenant-not-found).
 
 Authenticated sessions carry user identity, **tenant + workspace** context, and a bearer token for the orchestration API. Nest rejects missing or invalid tokens and never returns another tenant’s data.
 
@@ -22,15 +22,58 @@ Authenticated sessions carry user identity, **tenant + workspace** context, and 
 
 ## Dev
 
-| Piece | Location |
-|-------|----------|
-| Auth.js | `src/auth.ts`, `src/app/api/auth/[...nextauth]/route.ts` (or v5 equivalent path per Auth.js docs) |
-| Login UI | `src/app/(auth)/login/page.tsx` — form only; no dashboard chrome |
-| Middleware | `src/middleware.ts` — resolve tenant from Host; redirect unauthenticated users |
-| Tenant helpers | `src/lib/tenant/` — `getTenantFromHost()`, `APP_BASE_DOMAIN` |
-| Session helpers | `src/lib/auth/session.ts` — `auth()`, `getAccessToken()` for server/client fetchers |
-| Server | `server/src/domains/auth/` — JWT strategy, guard, tenant-scoped login |
-| Env | `AUTH_SECRET`, `AUTH_URL`, `APP_BASE_DOMAIN` (client); same secret on server; CORS for tenant origins |
+### Contract
+
+| Area | Details |
+|------|---------|
+| Login API | `POST /api/v1/auth/login` — `tenantSlug`, `email`, `password`; JWT includes `userId`, `tenantId`, `tenantSlug`, `workspaceId`, `permissions[]` |
+| Session | Auth.js `/api/auth/*`; encrypted session cookie on tenant host; `AUTH_SECRET` shared with Nest |
+| Protected APIs | `Authorization: Bearer <accessToken>`; 401 without token; RBAC on domain routes ([rbac.md](./rbac.md)) |
+
+### Client
+
+- Auth.js: `src/auth.ts`, `src/app/api/auth/[...nextauth]/route.ts`
+- Login: `src/app/(auth)/login/page.tsx` (no dashboard chrome)
+- Middleware: `src/middleware.ts` — tenant from `Host`; redirect unauthenticated users
+- `src/lib/tenant/` — `getTenantFromHost()`, `APP_BASE_DOMAIN`
+- `src/lib/auth/session.ts` — `auth()`, `getAccessToken()` for fetchers
+- Env: `AUTH_SECRET`, `AUTH_TRUST_HOST`, `APP_BASE_DOMAIN`, `KNOWN_TENANT_SLUGS`
+
+### Server
+
+- [`domains/server/auth/README.md`](../domains/server/auth/README.md) — `server/src/domains/auth/` JWT strategy, guard, tenant-scoped login
+- Env: `AUTH_SECRET`, `CORS_ORIGIN` (tenant dev hosts)
+
+### Data
+
+Migration `server/drizzle/0002_foundation_schema_at_scale.sql` widens the auth tables. `0000` / `0001` stay as applied history. Login JSON does not return the new columns.
+
+**`tenants`**
+
+| Column | Notes |
+|--------|--------|
+| `id` | uuid PK |
+| `slug` | unique subdomain label |
+| `name` | |
+| `status` | `active` by default; login requires `active` |
+| `created_at`, `updated_at` | |
+| `created_by`, `updated_by` | nullable FK → `users.id` |
+| `deleted_at` | soft delete; login ignores deleted tenants |
+
+**`users`**
+
+| Column | Notes |
+|--------|--------|
+| `id` | uuid PK |
+| `email` | unique |
+| `name` | |
+| `password_hash` | |
+| `status` | `active` (default) or `disabled`. `disabled` cannot log in. Stored now; no disable-account API yet |
+| `created_at`, `updated_at` | |
+| `created_by`, `updated_by` | nullable FK → `users.id` (self) |
+| `deleted_at` | soft delete; login ignores deleted users |
+
+Membership, invites, and who invited someone live on `workspace_members` ([workspace.md](./workspace.md), [rbac.md](./rbac.md)). There is no session-revocation column: JWT expiry is the session policy until a spec names one. Audit events are a later table ([permissions-audit.md](./permissions-audit.md)); actor ids on these rows are the stored-now piece.
 
 ### Tests (required before sprint tasks marked done)
 
@@ -41,20 +84,20 @@ Authenticated sessions carry user identity, **tenant + workspace** context, and 
 | **Client unit** | `getTenantFromHost`, token attachment / session helper | `client/src/**/*.test.ts(x)` |
 | **Client e2e** | Login on `acme.localhost` → authenticated candidates (when seed exists) | `client/e2e/` |
 
-Track checkboxes: [`sprint/sprint-1-progress-checklist.md`](../sprint/sprint-1-progress-checklist.md) · Sprint tasks: `task-auth-client-tests`, `task-auth-api-tests`.
+Track checkboxes: [`sprint/sprint-1-progress-checklist.md`](../sprint/sprint-1-progress-checklist.md) · Sprint tasks: `task-auth-client-tests`, `task-auth-client-e2e`, `task-auth-api-tests`.
 
 - **i18n:** Login strings under `messages/` (`Auth` namespace).
-- **Non-goals (v1):** SSO, MFA, invite flows (workspace phase); custom domains; recruiter app on bare root domain without tenant slug.
+- **Non-goals (v1):** SSO, MFA, invite flows (workspace phase); custom domains; org picker listing every membership without typing workspace slug on apex.
 
 ## Acceptance criteria
 
-- [ ] Known tenant subdomain loads app; unknown subdomain shows tenant-not-found (not another tenant’s data)
-- [ ] Unauthenticated tenant routes (e.g. `/`, `/candidates`) redirect to login on the same host
-- [ ] Successful login on `acme.*` establishes session with `tenantId` + `workspaceId` and lists only that tenant’s candidates
+- [x] Known tenant subdomain loads app; unknown subdomain shows tenant-not-found (not another tenant’s data)
+- [x] Unauthenticated tenant routes (e.g. `/`, `/candidates`) redirect to login on the same host
+- [x] Successful login on `acme.*` establishes session with `tenantId` + `workspaceId` and lists only that tenant’s candidates
 - [x] User valid on tenant A cannot log in on tenant B’s subdomain without membership there
 - [x] Nest returns 401 without bearer token on protected candidates route
-- [ ] No secrets in client bundle except public Auth.js config
-- [ ] RBAC slice complete per [rbac.md](./rbac.md) before `(dashboard)` layout
+- [x] No secrets in client bundle except public Auth.js config
+- [x] RBAC slice complete per [rbac.md](./rbac.md) before `(dashboard)` layout
 
 ## Design mockups
 
