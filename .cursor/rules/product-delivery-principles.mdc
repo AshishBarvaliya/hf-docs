@@ -28,6 +28,27 @@ In the Hyreefy **`ms/`** workspace, also read `cross-project-coordination.mdc` a
 - Align Zod/JSON contracts on both sides; update client fetchers, types, and hooks when APIs change.
 - Pair changes across repos (separate commits/PRs per project are OK; descriptions should name the sibling change).
 
+## End-to-end vertical slice (docs → code)
+
+Features are **not done** until the slice works on real persisted data through the UI—not mocks, not client-only forms, not APIs without schema.
+
+| Layer | Docs | Code (Hyreefy) |
+|-------|------|----------------|
+| **Contract** | Feature **Plan** (APIs, permissions, events) + `domains/server/<name>/` | Zod at HTTP boundaries; shared shapes documented in feature spec |
+| **Data** | Tables, FKs, indexes, seed/fixtures in feature **Dev** or server domain README | Drizzle schema in `server/src/database/` (or domain schema files), **migration** in `server/drizzle/`, seed when the slice needs demo data |
+| **Server** | Routes, guards, domain behavior in feature **Dev** + `domains/server/<name>/` | `server/src/domains/<name>/` — module, service, controller |
+| **Client** | Routes, hooks, UX in feature **Dev** + `domains/client/<name>/` | `client/src/domains/<name>/`, App Router pages under `src/app/` |
+| **Tests** | Acceptance criteria + **Dev → Tests** (mandatory) | **Server:** unit for domain/guards/schemas + **API/e2e per route**. **Client:** **unit** for hooks/helpers/permissions + component tests when UI branches matter; **Playwright** for new routes/flows. Never mark sprint task `done` without tests when behavior changed — see `delivery-tests-and-progress.mdc`. |
+
+**Agent workflow per roadmap feature:**
+
+1. Read `features/<area>.md` and both sprint YAML files; align `current_focus` on the **same feature** when cross-cutting.
+2. If **Dev** is missing **Client**, **Server**, or **Data** rows, **update the spec first** (same change set as code).
+3. Implement contract + migration (if new/changed tables) + server + client + **API unit/e2e + UI unit** (and e2e when applicable) before marking sprint tasks `done`; update `sprint/<id>-progress-checklist.md` checkboxes in the same change set.
+4. Defer only what the feature spec lists under **Non-goals**; do not ship half-slices to main.
+
+See also: [`features/README.md`](../../features/README.md) (Dev section template), [`sprint/README.md`](../../sprint/README.md) (paired tasks).
+
 ## Planned at scale — no shortcuts
 
 Forbidden patterns unless explicitly approved by the user for a spike branch:
@@ -50,7 +71,7 @@ Every feature slice should include, as applicable:
 | **Data** | Migrations/schema reviewed; no raw SQL in handlers without justification |
 | **Secrets** | Env-only; `.env.example` updated; never commit secrets |
 | **Errors** | Consistent API errors; no leaking stack traces or internal IDs to clients |
-| **Tests** | Unit/integration for domain logic; e2e when routes or critical flows change |
+| **Tests** | **Required per slice:** server unit + API tests for every changed route; client unit for hooks/UI logic; e2e for critical flows. Checklist + YAML % in `docs/sprint/`. |
 | **Ops** | Health checks, structured logging where the stack supports it |
 
 “Spike” code stays on branches or is replaced per feature docs—do not accumulate permanent shortcuts in main.

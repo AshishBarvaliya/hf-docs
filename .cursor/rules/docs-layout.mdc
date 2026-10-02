@@ -16,6 +16,7 @@ Index: [`README.md`](../../README.md). Planning-only workflow: [`planning/README
 | **Docs repo root** | `features/auth.md`, `sprint/client/current.yaml` |
 | **Hyreefy workspace (`ms/`)** | `docs/features/auth.md`, `docs/sprint/client/current.yaml` |
 | **Inside `client/` or `server/`** | `../docs/features/auth.md`, `../docs/sprint/server/current.yaml` |
+| **Hyreefy `ms/` only** | `designs/` — static HTML mockups; doc: [architecture/product-design-mockups.md](../../architecture/product-design-mockups.md) |
 
 Sprint YAML **`doc:`** fields use paths **from the docs repo root** (e.g. `features/auth.md`, `domains/server/rbac/README.md`).
 

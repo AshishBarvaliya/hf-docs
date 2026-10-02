@@ -33,9 +33,9 @@ Paths below are **from this docs repo root**; in Hyreefy workspace, prefix with 
 
 When the user asks to materialize the discussion, update only what changed:
 
-1. **Feature specs** — `features/<area>.md` (Plan, Dev, non-goals, acceptance criteria)
+1. **Feature specs** — `features/<area>.md` (Plan, Dev incl. **Tests** for API + UI unit, non-goals, acceptance criteria with checkboxes)
 2. **Roadmap order** — `roadmap/frontend.md` if sequencing shifts
-3. **Sprint goals & focus** — `sprint/client/current.yaml` and `sprint/server/current.yaml` (keep `current_focus` aligned for cross-cutting work)
+3. **Sprint goals & focus** — `sprint/client/current.yaml` and `sprint/server/current.yaml` (keep `current_focus` aligned); update or create `sprint/<id>-progress-checklist.md` with checkbox rows (incl. test lines) and % summary
 4. **Client domain docs** — `domains/client/<name>/README.md` when UI/domain boundaries change
 5. **Server domain docs** — `domains/server/<name>/README.md` when API/behavior changes
 6. **ADRs** — `adr/` when the decision is architectural and durable

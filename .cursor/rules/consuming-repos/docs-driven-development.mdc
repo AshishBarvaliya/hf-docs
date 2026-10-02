@@ -20,7 +20,7 @@ Product docs live in the sibling **`../docs/`** checkout (this docs repo). Layou
 | `domains/client/<name>/` | Client domain specs; align with `client/src/domains/<name>/` |
 | `domains/server/<name>/` | Server domain specs; align with `server/src/domains/<name>/` |
 | `roadmap/frontend.md` | Hyreefy build order |
-| `features/` | End-to-end feature specs (UI, API, acceptance criteria) |
+| `features/` | End-to-end feature specs (**client + server + DB**, API contract, acceptance criteria) |
 | `adr/` | Architecture decision records |
 
 From this app repo, prefix with `../docs/` (e.g. `../docs/features/auth.md`).
@@ -47,3 +47,17 @@ If a doc path is missing but the task needs one, **create or extend the doc in t
 ## When there is no doc yet
 
 For small fixes aligned with obvious existing patterns, follow surrounding code. For new product areas, add or extend a spec under `features/` or `domains/client|server/` **before** substantial implementation. Specs must include **Plan** and **Dev** sections (see `features/README.md`).
+
+## End-to-end from docs
+
+Building from a feature spec means shipping a **vertical slice**, not one repo in isolation:
+
+1. **Contract** — HTTP routes, payloads, permissions (server authoritative).
+2. **Data** — Drizzle tables, migrations, seeds when the slice needs persisted data (`server/drizzle/`, `domains/server/<name>/`).
+3. **Server** — Nest domain module, guards, validation.
+4. **Client** — fetchers, hooks, routes, `<Can>` where applicable.
+5. **Tests + acceptance criteria** — **server:** unit + API/e2e for changed routes; **client:** unit for hooks/UI logic (+ e2e for routes/flows). Check off feature spec and sprint checklist boxes in the same delivery cycle (`delivery-tests-and-progress.mdc`).
+
+If you are in the **client** repo and the spec’s **Dev** section has no **Server** or **Data** rows yet, extend the doc (and `sprint/server/current.yaml` tasks) before implementing UI that assumes APIs or tables that do not exist. Same rule in reverse from **server**.
+
+Delivery rules: `../docs/.cursor/rules/product-delivery-principles.mdc`. Cross-repo workflow (Hyreefy `ms/`): `cross-project-coordination.mdc` at workspace root.

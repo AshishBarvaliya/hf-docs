@@ -1,0 +1,52 @@
+---
+description: Mandatory UI + API unit tests per slice; checkbox progress checklists and % tracking
+alwaysApply: true
+---
+
+# Tests and progress tracking (never skip)
+
+Applies to **planning**, **feature specs**, **sprint YAML**, and **implementation**. Agents must not mark a task or feature **done** without the test rows below satisfied (unless the user explicitly defers tests in chat and the spec records it under **Non-goals**).
+
+## Tests are part of the slice (not a follow-up)
+
+Every roadmap feature and every sprint task that adds or changes **HTTP APIs** or **UI behavior** ships **in the same PR cycle** as:
+
+| Repo | Required | Commands (Hyreefy) |
+|------|----------|-------------------|
+| **Server** | **Unit tests** for schemas, guards, services, permission logic; **API tests** (e2e/supertest) for each new/changed route | `npm run test`, `npm run test:e2e` when routes change |
+| **Client** | **Unit tests** for hooks, helpers, Zod/schemas, `<Can>` / permission helpers; **component tests** when form/login UX has non-trivial branches; **Playwright** for new routes or critical flows | `npm run test:unit`, `npm run test:e2e` when UI/routes change |
+
+Forbidden: “API first, tests later”; “UI shipped, unit tests in backlog”; sprint task `done` with zero new/updated tests when behavior changed.
+
+**Docs:** Feature **Dev → Tests** must list concrete file paths or patterns. Implementation tasks and sprint checklists must include **API unit/e2e** and **UI unit** (and e2e when applicable) as separate checkbox lines.
+
+## Where to document tests
+
+| Artifact | Requirement |
+|----------|-------------|
+| `features/<area>.md` | **Dev → Tests** table: server unit, server API/e2e, client unit, client e2e |
+| `planning/implementation-tasks/*.md` | Checkbox lines under **Server** / **Client** for tests |
+| `sprint/<id>-progress-checklist.md` | One row per deliverable + test row; drives human % |
+| `sprint/client/current.yaml` & `server/current.yaml` | Optional dedicated tasks `*-tests` or `tests:` note on feature; recalc `progress.sprint_percent` |
+
+## Progress: YAML % + checkbox checklist
+
+1. **Machine %** — `progress.sprint_percent` in each `sprint/*/current.yaml` per [`sprint/README.md`](../../sprint/README.md) (weighted tasks; `in_progress` = 0%).
+2. **Human checklist %** — Maintain `docs/sprint/<sprint-id>-progress-checklist.md` for the active sprint. Each implementation line uses `- [ ]` / `- [x]`. Include explicit test checkboxes for API and UI.
+3. **Combined snapshot** — At start/end of non-trivial work, report both YAML percents and checklist completion, e.g. `Client sprint 28% · Server 35% · Checklist 18/52 (35%) · Focus: auth`.
+
+When a task moves to `done` in YAML, check off the matching lines (including tests) in the sprint checklist in the **same change set**.
+
+## Definition of done (per task)
+
+- [ ] Code matches spec (contract, data, server, client as applicable)
+- [ ] **Server:** unit tests added/updated; API route covered if HTTP surface changed
+- [ ] **Client:** unit tests added/updated for logic/UI helpers; e2e if route/flow changed
+- [ ] `npm run lint` + relevant test scripts pass in each touched repo
+- [ ] Sprint YAML + checklist updated; feature acceptance criteria checked where applicable
+
+## References
+
+- [`product-delivery-principles.mdc`](./product-delivery-principles.mdc)
+- [`consuming-repos/sprint-progress.mdc`](./consuming-repos/sprint-progress.mdc)
+- Client/server `testing-and-quality-gates.mdc` in app repos
