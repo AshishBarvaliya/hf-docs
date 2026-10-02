@@ -4,6 +4,7 @@ Each folder documents one **`src/domains/<name>/`** area: purpose, API hooks, UI
 
 | Domain | Code | Feature specs |
 |--------|------|----------------|
+| [workspace](./workspace/README.md) | `src/domains/workspace/` (planned) | [workspace.md](../../features/workspace.md) |
 | [candidates](./candidates/README.md) | `src/domains/candidates/` | [candidates-ats.md](../../features/candidates-ats.md), [candidate-profile.md](../../features/candidate-profile.md) |
 | [analytics](./analytics/README.md) | `src/domains/analytics/` | [overview-dashboard.md](../../features/overview-dashboard.md) |
 | [ats](./ats/README.md) | `src/domains/ats/` | Shared types, cross-ATS concepts |

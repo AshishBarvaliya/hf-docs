@@ -24,8 +24,9 @@ Recruiter home is **action-oriented**: prioritized queues (“8 need review”, 
 
 | Area | Details |
 |------|---------|
-| Overview metrics | `GET /api/v1/analytics/overview` (or parallel reads) — action queue counts, funnel series, recent candidates, stat totals; definitions owned by server |
-| Permissions | Widgets respect `candidates.read`, `jobs.read`, `interviews.schedule`, etc. |
+| Overview metrics | `GET /api/v1/analytics/overview` — workspace-scoped aggregates; server owns queue definitions |
+| Response | `actionQueues[]` (`id`, `count`, `permission`, `available`), `summaryStats[]` (`id`, `value`, `permission`, `available`), `funnelStages[]` (`stage`, `count`), `recentCandidates[]` (`id`, `name`, `role`, `stage`). Sections the caller lacks permission for are omitted. Interview/assessment queues use `available: false` until those domains exist. |
+| Permissions | Widgets respect `candidates.read`, `jobs.read`, `interviews.schedule`, etc.; server omits gated sections from the payload |
 | Redirect | Authenticated `/` → `/overview` in `(dashboard)` group |
 
 ### Data
@@ -34,8 +35,7 @@ Read-only aggregates over existing entities (`candidates`, `jobs`, interviews wh
 
 ### Server
 
-- `server/src/domains/analytics/` (planned) — overview query service; JWT + workspace scope + `PermissionsGuard`
-- Reuse candidates list contract until dedicated overview endpoint ships
+- `server/src/domains/analytics/` — `GET /api/v1/analytics/overview`; JWT workspace scope; sections omitted when caller lacks the section permission
 
 ### Client
 
@@ -53,8 +53,9 @@ Read-only aggregates over existing entities (`candidates`, `jobs`, interviews wh
 ## Acceptance criteria
 
 - [x] Default landing route for dashboard users
-- [x] Action queues with deep links and empty states
-- [x] Funnel + recent candidates widgets
+- [x] Queue counts and funnel from `GET /api/v1/analytics/overview` (no client hardcoded metrics on success)
+- [x] Action queues with deep links and empty states (server-owned counts; no client placeholders)
+- [x] Funnel + recent candidates widgets (chart uses API `funnelStages`)
 - [x] Permission-aware widget visibility
 - [x] Full i18n coverage
 
@@ -72,6 +73,21 @@ Read-only aggregates over existing entities (`candidates`, `jobs`, interviews wh
 | `designs/screens/OverviewLoading.html` | Loading skeleton |
 | `designs/screens/OverviewEmpty.html` | Empty workspace |
 | `designs/prototypes/hiring-os-overview.html` | Interactive overview + state toolbar |
+
+## UI fidelity (canonical mockups)
+
+Ship **`Overview.html`** (queue **rows**), not `OverviewCards.html`.
+
+| Section | Mockup source | Client behavior |
+|---------|---------------|-----------------|
+| Page actions | `Overview.html` | **Add candidate**, **Create job** (primary → `/jobs/new` → JD entry) |
+| Needs attention | `Overview.html` | Card with row queues: (1) candidates need review → `/candidates?queue=needs-review`, (2) interviews to schedule → `/interviews?queue=to-schedule`, (3) assessments awaiting decision → `/candidates?stage=assessment&queue=decision`, (4) jobs with low flow → `/jobs?filter=low-flow`. Each row: count, label, avatar preview, oldest age, CTA (Review / Schedule / Decide / Open) |
+| Summary stats | `Overview.html` | 4-up cards: Open jobs, Candidates applied, Interviews scheduled, Offers extended — period **Last 30 days** selector; week-over-week delta where mockup shows |
+| Funnel + recent | `Overview.html` | Hiring funnel snippet + **Recent candidates** list linking to profile |
+| AI | `OverviewAI.html` | Explain drop-off side panel (async; [ai-skill-analyzers.md](./ai-skill-analyzers.md)) |
+| States | `OverviewLoading.html`, `OverviewEmpty.html` | Skeleton; empty workspace onboarding tone |
+
+Server owns queue definitions and counts; client must not hardcode mock numbers.
 
 ## References
 

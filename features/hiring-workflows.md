@@ -144,6 +144,16 @@ Tables (first migration when step 7 ships): `workflows`, `workflow_stages`, `scr
 | `designs/screens/JobPipeline.html` | Job Pipeline tab · screening criteria |
 | `designs/screens/JobCandidates.html` | Job Candidates tab · screening outcomes |
 
+## UI fidelity (canonical mockups)
+
+| Surface | Mockup | Client behavior |
+|---------|--------|-----------------|
+| Template gallery | `WorkflowTemplates.html` | Hyreefy defaults + workspace templates; clone action |
+| Editor | `WorkflowEditor.html`, `WorkflowAddRound.html` | Linear rounds; round type drawer; coding round example |
+| Publish | `WorkflowPublish.html` | Version publish (e.g. v4) with validation summary |
+| Job Pipeline tab | `JobPipeline.html` | Screening criteria editor tied to JD skills |
+| Job Candidates tab | `JobCandidates.html` | Screening outcome columns / banners aligned with ATS |
+
 ## References
 
 - [integrations.md](../architecture/integrations.md)

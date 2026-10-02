@@ -28,7 +28,7 @@ Audit log UI remains [permissions-audit.md](./permissions-audit.md) (step 13); *
 
 | Area | Details |
 |------|---------|
-| JWT / session | `tenantId`, `workspaceId`, `role`, `permissions[]` on login; same fields in Auth.js session |
+| JWT / session | `tenantId`, `workspaceId`, `permissions[]` on login; same fields in Auth.js session (role name is server-internal; enforcement uses permission keys) |
 | Enforcement | `@RequirePermission('<key>')` after JWT auth; `403` when key missing |
 | Example | `GET /api/v1/candidates` requires `candidates.read`; workspace-scoped by `workspaceId` claim |
 | Catalog | Keys documented in [permissions.md](../architecture/permissions.md) |

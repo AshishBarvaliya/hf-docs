@@ -55,10 +55,10 @@ Each step maps to `docs/features/*.md` (Plan + Dev sections). Index: [features/R
 | Area | Status |
 |------|--------|
 | Design system | Partial — extend per [design-system-shell.md](../features/design-system-shell.md) |
-| Authentication | Not built — [auth.md](../features/auth.md) + ADR 003 |
-| RBAC | Not built — [rbac.md](../features/rbac.md); blocks dashboard shell |
-| Dashboard shell | Blocked until auth + RBAC — spike on `/` only |
-| Domains | `candidates`, `analytics`, `ats` started; others per specs |
+| Authentication | Sprint 1 foundation — [auth.md](../features/auth.md) + ADR 003 |
+| RBAC | Sprint 1 foundation — [rbac.md](../features/rbac.md) |
+| Dashboard shell + overview | Shell shipped; overview via `GET /api/v1/analytics/overview` ([overview-dashboard.md](../features/overview-dashboard.md)) |
+| Domains | Workspace, jobs (sprint 2 + integrity); candidates list; ATS/profile pending |
 | Integrations | Not wired — env layer pending |
 
 Early spike code is documented in [foundation-spike.md](../features/foundation-spike.md); replace with dashboard product routes as each step lands.

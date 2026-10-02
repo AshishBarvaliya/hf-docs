@@ -136,6 +136,19 @@ Extends `jobs` row / related tables from [jobs.md](./jobs.md): description, loca
 | `designs/screens/Publish.html` | Publish checklist |
 | `designs/screens/JDTab.html` | Live job JD tab · save conflict |
 
+## UI fidelity (canonical mockups)
+
+| Step | Mockup | Route / behavior |
+|------|--------|------------------|
+| Entry paste | `Main.html` | `/jobs/new` — paste JD primary path |
+| Entry AI | `Generate.html` | Same wizard — generate with AI |
+| Async | `Parsing.html` | Poll async job; disable publish until complete |
+| Edit | `Editor.html` | Full structured sections (tall scroll); autosave indicator |
+| Publish | `Publish.html` | Checklist before `POST …/publish` |
+| Live JD tab | `JDTab.html` | Job workspace **JD** tab; save conflict dialog |
+
+Wizard chrome matches job workspace header where mockups show shared patterns.
+
 ## References
 
 - [jobs.md](./jobs.md)

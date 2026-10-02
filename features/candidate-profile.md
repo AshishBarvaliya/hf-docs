@@ -95,6 +95,19 @@ Activity, assessments, emails, and analyzer reports are separate entities. They 
 | `designs/screens/InterviewReport.html` | AI interview report on Interviews tab |
 | `designs/prototypes/hiring-os-candidate-profile.html` | Interactive profile prototype |
 
+## UI fidelity (canonical mockups)
+
+| Area | Mockup source | Client behavior |
+|------|---------------|-----------------|
+| Layout | **`Profile.html`** (not `ProfileGrid.html`) | Summary tab: header (stage badge, Advance / Reject / Message / Schedule), left summary + AI blocks, main content |
+| Tabs | `Profile.html` | Summary, Resume, Assessments (count), Emails (count), Activity (count) — routes under `[candidateId]/…` |
+| Header actions | `Profile1280.html` | Advance overflow menu at narrow widths |
+| Reject | `ProfileReject.html` | Modal with reason codes |
+| HM / AI | `ProfileHM.html`, `ProfileNoAI.html` | Reduced actions; AI unavailable copy |
+| Related flows | `EmailCompose.html`, `AssignAssessment.html`, `InterviewReport.html` | Composer, assign assessment, interview AI report |
+
+**Analysis tab** in product spec ships when analyzer reports API exists; until then mirror mockup placement (Summary sidebar + `InterviewReport.html`).
+
 ## References
 
 - [ai-ux.md](../architecture/ai-ux.md)

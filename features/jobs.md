@@ -49,8 +49,12 @@ First migration for `jobs` (full row standard per [persistence.md](../architectu
 | `title`, `status` | `draft`, `active`, `paused`, `closed` |
 | `owner_id` | nullable FK → `users.id` |
 | `posting_expires_at` | nullable |
+| `published_at` | nullable; set on publish — **Days open** in mockup = `now - published_at` |
+| `department` | nullable; shown in job workspace header when set |
 | `workflow_template_id` | nullable FK when workflows table exists — stored now, API later |
 | `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_at` | row standard |
+
+**List aggregates (mockup columns, not stored on `jobs`):** candidate count, stage distribution mini-bar, interview count, offer count, **Health** flag, low-flow — computed in list query or materialized view; definitions owned by server analytics domain. **Low flow** filter matches overview queue (`/jobs?filter=low-flow`).
 
 JD body, skills matrix, and posting fields may live on `jobs` jsonb columns or child tables — name in migration when JD slice ships ([jd-builder.md](./jd-builder.md)).
 
@@ -97,6 +101,22 @@ JD body, skills matrix, and posting fields may live on `jobs` jsonb columns or c
 | `designs/prototypes/hiring-os-jobs.html` | Interactive jobs prototype |
 
 JD creation flow: [jd-builder.md](./jd-builder.md) mockups (`Main.html`, etc.).
+
+## UI fidelity (canonical mockups)
+
+Implement **`Jobs.html`** (table, not cards) and **`JobWorkspace.html`** job chrome.
+
+| Area | Mockup source | Client behavior |
+|------|---------------|-----------------|
+| List toolbar | `Jobs.html` | Status tabs: All, Active, Draft, Paused (counts), Closed; filters Owner, **Low flow**; sort default “Status, candidates” |
+| List columns | `Jobs.html` | Job, Status, Owner, Candidates (right), Stage distribution, Interview, Offers, Health, Days open, actions |
+| Workspace tabs | `JobWorkspace.html`, `JobTabsOverflow.html` | Overview, JD, Candidates, Pipeline, Assessments, Interviews, Emails, Automation, Analytics, Settings; overflow **More** ≤1280px |
+| Read-only | `JobsViewer.html`, `JobViewer.html` | Hide edit/create; same layout |
+| Draft | `JobDraft.html` | Setup checklist on overview tab |
+| AI | `JobWorkspaceAI.html` | Explain drop-off panel ([ai-skill-analyzers.md](./ai-skill-analyzers.md)) |
+| States | `JobsLoading`, `JobsEmpty`, `JobsNoPaused` | Loading, empty, paused tab empty |
+
+Tab routes under `(dashboard)/jobs/[jobId]/…` must match mockup labels even when a tab is a placeholder until its feature ships.
 
 ## References
 

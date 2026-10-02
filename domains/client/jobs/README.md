@@ -1,28 +1,30 @@
-# Jobs domain (planned)
+# Jobs domain (client)
 
-**Code:** `src/domains/jobs/` (not yet scaffolded)
+**Code:** `src/domains/jobs/`
 
 ## Purpose
 
-Job list, job workspace context, **job creation wizard** (`/jobs/new`), JD builder persistence, job settings and posting metadata.
+Job list, job workspace, **job creation** (`/jobs/new`), JD editor on the JD tab, publish flow.
 
 ## Surfaces
 
-- List + filters (status, owner, expiry)
-- Creation: paste JD, AI generate, blank → shared `JdBuilder` schema
-- Posting fields: location, compensation, about company (workspace default), expiry
-- Skills/requirements: free text + normalized tags
+- List + status tabs + search (`JobsListPanel`)
+- `/jobs/new` — blank, paste, or AI entry → JD editor
+- Job workspace tabs — overview + JD live; other tabs placeholder until STEP 5+
 
-## Hooks (target)
+## Hooks
 
 - `useJobs(filters)`
 - `useJob(jobId)`
-- `useSaveJobDraft`, `usePublishJob`, `useParseJd`, `useGenerateJd`
+- `useCreateJob`, `usePatchJob`, `usePublishJob`
+
+## API
+
+- `GET/POST /api/v1/jobs`, `GET/PATCH /api/v1/jobs/:id`, `POST .../publish`
 
 ## References
 
 - [jobs.md](../../features/jobs.md)
 - [jd-builder.md](../../features/jd-builder.md)
-- [workspace.md](../../features/workspace.md)
 
-Scaffold this domain when starting roadmap **STEP 4**.
+**Routes:** `(dashboard)/jobs`, `(dashboard)/jobs/new`, `(dashboard)/jobs/[jobId]/*`.

@@ -69,6 +69,14 @@ Paths from `ms/` workspace. [Catalog & analysis](../architecture/product-design-
 
 **Implementation note:** Prefer promoting patterns from Foundations into `client/src/components/ui/` and layout components—not copying raw HTML.
 
+## UI fidelity (canonical mockups)
+
+| Area | Mockup source | Client behavior |
+|------|---------------|-----------------|
+| Tokens & stages | `Foundations.html` | Roster indigo `--primary`; pipeline `--stage-*`; Geist / Geist Mono |
+| Shell | Any screen with sidebar | Workspace switcher, collapsible nav, ⌘K, notifications, avatar; nav badge counts on Candidates / Assessments / Interviews when API provides |
+| Settings layout | `SettingsGeneral.html` | **212px settings rail** + content max ~960px; section groups: Workspace, People, Hiring, Connections, Account — routes in [design-implementation-fidelity.md](../architecture/design-implementation-fidelity.md) |
+
 ## References
 
 - [design-system.md](../architecture/design-system.md)

@@ -61,7 +61,25 @@ One `candidates` row per person in a workspace. Migration `server/drizzle/0002_f
 | `created_by`, `updated_by` | nullable FK → `users.id` |
 | `deleted_at` | soft delete |
 
-Scores, experience, and per-job applications are not columns on this row. They belong on application and analyzer-report tables, which are new entities and ship with jobs / ATS — not in this migration. `name` / `role` / `stage` remains the list contract until that slice.
+Scores, experience, and per-job applications are not columns on the `candidates` row. They belong on **`candidate_applications`** (one row per candidate–job pipeline). That table is **required** for mockup-faithful ATS UI ([design-implementation-fidelity.md](../architecture/design-implementation-fidelity.md)). Migration ships with jobs + ATS (step 4–5), not on the spike `candidates` list alone.
+
+#### `candidate_applications` (first migration with jobs ATS)
+
+| Column | Notes |
+|--------|--------|
+| `id` | uuid PK |
+| `workspace_id` | FK → `workspaces.id` |
+| `candidate_id` | FK → `candidates.id` |
+| `job_id` | FK → `jobs.id` |
+| `stage` | Pipeline stage id/slug for this application (kanban column) |
+| `fit_score` | nullable numeric 0–100; mockup “Score” + band (Strong/…). Later: tie to analyzer |
+| `experience_years` | nullable int; mockup “Experience” column (e.g. `6 yrs`) |
+| `source` | e.g. LinkedIn; can duplicate candidate-level source per application |
+| `applied_at` | timestamptz; default sort in mockup |
+| `disposition`, `disposition_reason`, `screening_snapshot` | per-application screening ([hiring-workflows.md](./hiring-workflows.md)). Stored now, API later |
+| `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_at` | row standard |
+
+`GET /api/v1/candidates` list shape expands to **application rows** (candidate name + job title + columns above). Global list = all applications in workspace; job-scoped route filters `job_id`.
 
 ### Tests
 
@@ -92,6 +110,22 @@ Scores, experience, and per-job applications are not columns on this row. They b
 | `designs/screens/CandNoMatch.html` | No filter matches |
 | `designs/screens/CandEmpty.html` | Empty list |
 | `designs/prototypes/hiring-os-candidates.html` | Interactive candidates prototype |
+
+## UI fidelity (canonical mockups)
+
+Implement **`CandTable.html`** + **`CandKanban.html`** as default views (table/kanban toggle in toolbar).
+
+| Area | Mockup source | Client behavior |
+|------|---------------|-----------------|
+| Toolbar | `CandTable.html` | Search “Search in list”; filter chips: Job, Stage, Score, Source, Applied (+ **More** on narrow); default sort **Applied** desc |
+| Table columns | `CandTable.html` | Checkbox, Candidate (avatar + name), Job, Stage badge, Score (numeric + segments + band), Experience, Source, Applied, row actions |
+| View toggle | `CandTable.html` / `CandKanban.html` | Table \| Kanban; persist preference in UI store |
+| Bulk | `CandSelected.html` | Bulk selection bar + actions (permission-gated) |
+| Filters | `CandFiltered.html` | Active filter chips reflected in URL query params |
+| Kanban | `CandKanban.html`, `CandDrag.html` | Columns = workflow stages; drag → stage API |
+| States | `CandLoading`, `CandEmpty`, `CandNoMatch` | Match skeleton, empty, no-results copy |
+
+Deep links from overview use query keys shown in mockup `title` attrs (e.g. `queue=needs-review`, `stage=assessment&queue=decision`).
 
 ## References
 

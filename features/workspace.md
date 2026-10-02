@@ -3,6 +3,8 @@
 **Routes:** `(dashboard)/settings`, onboarding flows, member invites  
 **Domain:** `workspace` (to implement)  
 **Roadmap step:** 3  
+**Sprint 2 guide:** [sprint-2-development-guide.md](../sprint/sprint-2-development-guide.md)  
+**Client / server domain docs:** [domains/client/workspace/README.md](../domains/client/workspace/README.md), [domains/server/workspaces/README.md](../domains/server/workspaces/README.md)  
 **Tenancy:** [multi-tenancy.md](../architecture/multi-tenancy.md), [ADR 004](../adr/004-subdomain-multi-tenancy.md)
 
 ## Product behavior
@@ -33,6 +35,16 @@ Managers with settings permission edit these once; hiring managers see inherited
 5. **Phase D** — **Analyzers** settings route: gallery, clone defaults, publish workspace analyzers (manager).
 6. **Provisioning (ops / later product)** — Creating a new customer = new tenant slug + workspace + seed roles; not self-service signup in v1.
 
+### Sprint 2 delivery scope
+
+| Phase | In sprint 2 | Notes |
+|-------|-------------|--------|
+| A | Yes | Provider + hooks + fetchers |
+| B | Yes | Settings UI (mockup-aligned sections) |
+| C | Yes | Members, invite link, role change |
+| D | No | Analyzer settings → [ai-skill-analyzers.md](./ai-skill-analyzers.md) |
+| Provisioning | No | Ops/seed only in v1 |
+
 ## Dev
 
 ### Contract
@@ -40,9 +52,11 @@ Managers with settings permission edit these once; hiring managers see inherited
 | Area | Details |
 |------|---------|
 | Workspace read | `GET /api/v1/workspaces/current` — profile, culture, posting defaults for session `workspaceId` |
-| Workspace patch | `PATCH /api/v1/workspaces/:id` — settings sections; `workspace.settings` (or catalog equivalent) |
-| Members | `GET/POST/PATCH /api/v1/workspaces/:id/members` — list, invite, role change; mirrors RBAC tables |
+| Workspace patch | `PATCH /api/v1/workspaces/:id` — settings sections; requires `settings.manage`; `:id` must match JWT `workspaceId` |
+| Members | `GET/POST/PATCH /api/v1/workspaces/:id/members` — paginated list, invite, role change; mirrors RBAC tables |
 | Scope | All routes JWT + `workspaceId`; reject cross-tenant workspace ids |
+
+**Members list:** `GET` supports `page` + `limit` (default 50, max 100). **Invite v1:** persist `workspace_members` with `status: invited` and return tenant-subdomain invite URL; outbound email is [emails.md](./emails.md), not required for this slice.
 
 ### Client
 
@@ -74,6 +88,9 @@ Managers with settings permission edit these once; hiring managers see inherited
 | `fit_descriptors` | |
 | `culture_long_form` | optional long-form culture text |
 | `timezone` | |
+| `week_starts_on` | `monday` \| `sunday`; General settings ([SettingsGeneral.html](../../designs/screens/SettingsGeneral.html)). Stored now, API later |
+| `date_format` | display preference enum; General settings. Stored now, API later |
+| `logo_url` | nullable; mockup shows upload — stored now, API later (upload pipeline non-goal until spec expands) |
 | `default_work_mode` | posting default |
 | `compensation_visibility` | posting default |
 | `created_at`, `updated_at` | |
@@ -84,16 +101,38 @@ Managers with settings permission edit these once; hiring managers see inherited
 
 ### Tests
 
-- **Server unit + API:** workspace scope, member invite, 403 without `workspace.settings`
+- **Server unit + API:** workspace scope, member invite, 403 without `settings.manage`
 - **Client unit:** workspace hooks, settings form schemas
 - **Client e2e:** Settings edit on `acme.localhost` vs `beta.localhost` isolation when APIs land
+
+### Production readiness (slice)
+
+- JWT + `PermissionsGuard` on all mutating routes; Zod on PATCH/invite bodies; set `updated_by` on writes; lists respect `deleted_at IS NULL`.
+- No client-only permission for settings edits; consistent API errors (no stack traces).
+- Deploy unchanged: [deployment.md](../deployment.md).
+
+### Performance & scale (v1)
+
+- One primary workspace row per tenant — `GET current` is a single-row read; client may cache with TanStack Query (`staleTime` ~60s, invalidate on PATCH).
+- Member directory paginated; avoid unbounded member payloads.
+- Culture/profile fields stay on `workspaces`; do not load analyzer or integration tables on general settings pages.
+
+## Non-goals
+
+- Self-service signup and tenant provisioning UI
+- Billing checkout, invoices, and payment method UI (`billing.manage` may exist in catalog for later)
+- Logo/branding **upload** pipeline (column `logo_url` may exist; mockup UI can show placeholder until storage ships)
+- Default pipeline template selection (requires workflows entity)
+- Analyzer gallery and publish (Phase D)
+- Transactional invite email in STEP 3 (link + membership row only)
 
 ## Acceptance criteria
 
 - [ ] Session exposes tenant + workspace + permissions to hooks
 - [ ] Settings pages edit only the workspace for the current subdomain
 - [ ] Invites and role changes reflected in `<Can>` behavior after session refresh policy
-- [ ] Company about + culture profile persisted and returned on workspace API for JD builder and AI analysis
+- [x] Company about + culture profile persisted and returned on workspace API for JD builder and AI analysis
+- [x] General settings `week_starts_on`, `date_format`, `logo_url` stored and exposed on GET/PATCH (upload pipeline still deferred)
 - [ ] All routes and API handlers scoped by workspace server-side; no cross-tenant reads
 
 ## Design mockups
@@ -108,6 +147,23 @@ Managers with settings permission edit these once; hiring managers see inherited
 | `designs/screens/SettingsMembers.html` | Members list |
 | `designs/screens/SettingsInvite.html` | Invite flow |
 | `designs/screens/SettingsRoles.html` | Roles (see [rbac.md](./rbac.md)) |
+
+## UI fidelity (canonical mockups)
+
+Settings uses the **rail + content** pattern from `SettingsGeneral.html`. Implement these routes under `(dashboard)/settings/…`:
+
+| Rail item (mockup) | Screen | Sprint / feature |
+|--------------------|--------|------------------|
+| General | `SettingsGeneral.html` | Sprint 2 — workspace name, subdomain display (read-only), logo, timezone, week start, date format |
+| Company profile | `SettingsCompany.html` | Sprint 2 — `about_company`, industry, size, HQ |
+| Culture & values | `SettingsCulture.html`, `SettingsCultureReadOnly.html` | Sprint 2 — culture jsonb fields; read-only variant for Recruiter |
+| Job defaults | `SettingsDefaults.html` | Sprint 2 — work mode, comp visibility defaults |
+| Members | `SettingsMembers.html`, `SettingsInvite.html` | Sprint 2 |
+| Roles & permissions | `SettingsRoles.html` | [rbac.md](./rbac.md) |
+| Integrations | `SettingsIntegrations.html` | [external-integrations.md](./external-integrations.md) |
+| Pipeline templates, AI analyzers, Email sending, Billing | `#` in mockup | Later features — hide or disabled until shipped |
+
+Unsaved changes banner: `SettingsCulture.html`. Save footer pattern: disabled **Save changes** until dirty.
 
 ## References
 

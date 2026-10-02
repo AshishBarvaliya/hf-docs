@@ -44,6 +44,6 @@ Older specs may list only client paths—extend them when that feature is next o
 
 Design system and app shell: [design-system-shell.md](./design-system-shell.md) (step 1–2).
 
-Static screen mockups (Hyreefy `ms/` workspace): [product-design-mockups.md](../architecture/product-design-mockups.md) — each feature spec below has a **Design mockups** table mapping `designs/screens/*.html` files.
+Static screen mockups (Hyreefy `ms/` workspace): [product-design-mockups.md](../architecture/product-design-mockups.md) — each feature spec below has a **Design mockups** table mapping `designs/screens/*.html` files. **Canonical layout, columns, and DB implications:** [design-implementation-fidelity.md](../architecture/design-implementation-fidelity.md).
 
 Legacy spike note: [foundation-spike.md](./foundation-spike.md).
