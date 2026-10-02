@@ -15,15 +15,22 @@ Bullets — tie to feature **Non-goals** where possible.
 
 ## Client
 
-- [ ] …
+- [ ] Implementation: …
+- [ ] **UI unit tests** (hooks, helpers, components with logic)
+- [ ] **E2E** (if new route or critical flow)
 - Paths: `client/src/...`
-- Tests: …
 
 ## Server
 
-- [ ] …
+- [ ] Implementation: …
+- [ ] **API unit tests** (services, guards, schemas)
+- [ ] **API e2e** (supertest for each new/changed route)
 - Paths: `server/src/...`
-- Tests: …
+
+## Data (server)
+
+- [ ] Drizzle schema changes, migration in `server/drizzle/`, seed/fixtures if needed
+- Document tables in feature spec **Dev** and `domains/server/<name>/README.md`
 
 ## Contract / API
 

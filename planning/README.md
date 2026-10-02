@@ -59,8 +59,9 @@ The agent updates the relevant **planning artifacts** (see below) and files **im
 | Tenancy architecture | `docs/architecture/multi-tenancy.md` | Subdomain flow, tenant vs workspace |
 | ADR | `docs/adr/*.md` | Durable architectural decisions (e.g. 004 subdomain tenancy) |
 | Session notes (optional) | `docs/planning/sessions/` | Long discussions before spec edits |
+| Sprint checklist | `docs/sprint/<sprint-id>-progress-checklist.md` | Checkbox burndown + % (tests as separate lines) |
 
-Sprint editing rules: [`docs/sprint/README.md`](../sprint/README.md).
+Sprint editing rules: [`docs/sprint/README.md`](../sprint/README.md). Tests and progress: [`delivery-tests-and-progress.mdc`](../.cursor/rules/delivery-tests-and-progress.mdc).
 
 ## Implementation task queue (code later)
 
