@@ -49,7 +49,7 @@ These are why the sprint 1 tables are too thin. Later slices must not copy that 
 | `workspaces` | name | Company profile, culture, timezone, posting defaults ([workspace.md](../features/workspace.md)) — stored before the settings UI, not invented when the form is built |
 | `workspace_members` | user, workspace, role | Invite, who added the member, removed-but-retained membership |
 | `roles` | name | Description, system vs custom, who changed the role |
-| `candidates` | name, role, stage | Profile, applications, source, disposition, screening snapshot ([candidate-profile.md](../features/candidate-profile.md), [candidates-ats.md](../features/candidates-ats.md)). `name` / `role` / `stage` is a **spike list**, not the ATS model |
+| `candidates` | name, role, stage | Profile, applications, source, disposition, screening snapshot ([candidate-profile.md](../features/candidate-profile.md), [candidates-ats.md](../features/candidates-ats.md)). **`candidate_applications`** holds job, stage, score, applied ([design-implementation-fidelity.md](./design-implementation-fidelity.md)). `name` / `role` / `stage` on `candidates` is a **spike list**, not the ATS model |
 
 New product tables (jobs, applications, interviews, analyzers) follow this doc on first create. Do not add them as id + two text columns because the first screen is a list.
 

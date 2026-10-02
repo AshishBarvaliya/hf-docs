@@ -93,4 +93,6 @@ Catalog copy in `index.html` describes dimensions and variants (loading, empty, 
 | AI block placement and styling cues | [ai-ux.md](./ai-ux.md), async job behavior |
 | Settings and workflow editor layout | RBAC and workspace settings APIs |
 
+**Build like the mockups:** Canonical screen choices, sidebar/settings rail, table columns, and **database entities implied by the UI** are spelled out in [design-implementation-fidelity.md](./design-implementation-fidelity.md). Prefer the **canonical** row there over alternate exports (e.g. `Overview.html` not `OverviewCards.html`).
+
 See also [design-system.md](./design-system.md) and [design-system-shell.md](../features/design-system-shell.md) for what to build in `client/src/components/`.
