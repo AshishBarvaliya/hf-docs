@@ -26,6 +26,12 @@
 | Audit | `domains/workspace/` or `domains/audit/` — `useAuditLog` + table |
 | Nav | Filter sidebar items in dashboard layout |
 
+### Data
+
+Step 13 audit UI reads an `audit_events` table (actor, entity, action, timestamp, workspace). That table is a new entity and is **not** created in sprint 1.
+
+What is stored now, on the foundation tables (`0002_foundation_schema_at_scale.sql`): `created_by` and `updated_by` (nullable FK → `users.id`) and `deleted_at` on business tables, plus `created_at` / `created_by` on `role_permissions`. The catalog exception for `permissions` (no `deleted_at`) is in [rbac.md](./rbac.md). Disabling a user is `users.status`, not an audit row.
+
 - **Never** `user.role === "admin"` in feature code ([permissions-frontend.mdc](../../.cursor/rules/permissions-frontend.mdc)).
 - **Tests:** Permission matrix unit tests; E2E as role fixtures when test auth exists.
 

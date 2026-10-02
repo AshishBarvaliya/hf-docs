@@ -35,16 +35,58 @@ Managers with settings permission edit these once; hiring managers see inherited
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Domain | `src/domains/workspace/` — types, `api/`, `hooks/useWorkspace`, `hooks/useMembers` |
-| Providers | Extend `app-providers.tsx` with `WorkspaceProvider` (reads session tenant/workspace) |
-| Routes | `src/app/(dashboard)/settings/...` thin pages |
-| lib | `src/lib/auth/` session helpers; `src/lib/tenant/` for host context |
-| Server | `workspaces` belong to `tenants`; all settings APIs filter by authenticated workspace |
+### Contract
 
-- **Forms:** RHF + Zod for settings sections; optimistic updates only for low-risk fields.
-- **Tests:** Unit tests for permission map reducer; E2E on two subdomains (`acme`, `beta`) when auth harness exists.
+| Area | Details |
+|------|---------|
+| Workspace read | `GET /api/v1/workspaces/current` — profile, culture, posting defaults for session `workspaceId` |
+| Workspace patch | `PATCH /api/v1/workspaces/:id` — settings sections; `workspace.settings` (or catalog equivalent) |
+| Members | `GET/POST/PATCH /api/v1/workspaces/:id/members` — list, invite, role change; mirrors RBAC tables |
+| Scope | All routes JWT + `workspaceId`; reject cross-tenant workspace ids |
+
+### Client
+
+- `src/domains/workspace/` — types, `api/`, `hooks/useWorkspace`, `hooks/useMembers`
+- `WorkspaceProvider` in `app-providers.tsx` (session tenant/workspace)
+- `(dashboard)/settings/...` thin pages; RHF + Zod per section
+
+### Server
+
+- `server/src/domains/workspaces/` (planned) — settings CRUD, member invite; `PermissionsGuard` on mutating routes
+- Tenant FK on every row; filter `deleted_at IS NULL`
+
+### Data
+
+`workspaces` is widened in `server/drizzle/0002_foundation_schema_at_scale.sql`. Settings routes are not built yet; these columns are **stored now, API later**. Login still returns only workspace `id` and `name`.
+
+| Column | Notes |
+|--------|--------|
+| `id` | uuid PK |
+| `tenant_id` | FK → `tenants.id`; unique in v1 (one primary workspace) |
+| `name` | |
+| `about_company` | public about-us blurb for new jobs |
+| `industry` | |
+| `company_size` | |
+| `headquarters` | |
+| `culture_values` | jsonb string list |
+| `working_style` | |
+| `collaboration_norms` | |
+| `fit_descriptors` | |
+| `culture_long_form` | optional long-form culture text |
+| `timezone` | |
+| `default_work_mode` | posting default |
+| `compensation_visibility` | posting default |
+| `created_at`, `updated_at` | |
+| `created_by`, `updated_by` | nullable FK → `users.id` |
+| `deleted_at` | soft delete; login ignores deleted workspaces |
+
+`default_pipeline_template_id` is not stored. It needs the workflows table, which is a new entity and is not created in this migration. Branding asset URL is not stored; the spec names “branding basics” without a column. Member columns (`status`, `invited_by`) are on `workspace_members` in [rbac.md](./rbac.md).
+
+### Tests
+
+- **Server unit + API:** workspace scope, member invite, 403 without `workspace.settings`
+- **Client unit:** workspace hooks, settings form schemas
+- **Client e2e:** Settings edit on `acme.localhost` vs `beta.localhost` isolation when APIs land
 
 ## Acceptance criteria
 

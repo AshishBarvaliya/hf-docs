@@ -22,13 +22,39 @@ Recruiter **workspace** for one candidate: header with stage and actions (**Adva
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Route | `candidates/[candidateId]/page.tsx` or layout + tab routes |
-| Hooks | `useCandidate(id)`, `useCandidateActivity`, mutations for advance/reject |
-| UI | `DomainPanel`, timeline in `shared/` or `components/data-display`, `AISummary` |
-| Tabs | shadcn Tabs; lazy-load heavy tabs |
-| Confirmations | Dialog for reject/advance with reason codes if API requires |
+### Contract
+
+| Area | Details |
+|------|---------|
+| Detail | `GET /api/v1/candidates/:id` — header fields + disposition when API expands beyond list shape |
+| Mutations | Advance/reject/message/schedule endpoints per tab; permission-gated |
+| Related reads | Activity, assessments, emails, analyzer reports — separate resources when tables exist |
+| Permissions | `candidates.read`; separate keys for reject, message, schedule |
+
+### Client
+
+- `candidates/[candidateId]/` layout + tab routes; `useCandidate`, `useCandidateActivity`
+- `DomainPanel`, timeline, `AISummary`; reject/advance dialogs with reason codes
+
+### Server
+
+- `server/src/domains/candidates/` — detail + workflow mutations; related domains as they land
+- Workspace scope on `candidates.workspace_id`
+
+### Data
+
+Profile reads the same `candidates` row as [candidates-ats.md](./candidates-ats.md). Full column list (migration `0002_foundation_schema_at_scale.sql`):
+
+| Column | Notes |
+|--------|--------|
+| `id`, `workspace_id` | |
+| `name`, `role`, `stage` | header / current list |
+| `source` | stored now, API later |
+| `resume_url` | resume tab. Stored now, API later |
+| `disposition`, `disposition_reason`, `screening_snapshot` | screening outcome for the profile banner. Stored now, API later |
+| `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_at` | row standard; `created_by` / `updated_by` nullable FK → `users.id` |
+
+Activity, assessments, emails, and analyzer reports are separate entities. They are not tables in this migration. AI summary text is produced later; it is not a column on `candidates`.
 
 - **Permissions:** Separate gates for reject, message, schedule.
 - **E2E:** Open profile from list; advance/reject flows with confirmation.

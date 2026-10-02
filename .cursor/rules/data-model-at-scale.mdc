@@ -1,0 +1,31 @@
+---
+description: Database tables are designed for the whole product, not the columns this sprint's API uses
+alwaysApply: true
+---
+
+# Data model at scale
+
+Read [architecture/persistence.md](../../architecture/persistence.md) before any Drizzle schema or migration.
+
+## Mindset
+
+Hyreefy is one product. A sprint ships **one feature’s behavior**. The **table** for an entity is the shape every current and later feature on that entity needs.
+
+- A column that this slice does not read or return is still required if a feature spec, domain README, or the persistence standard needs it later.
+- Do not create a minimal table and plan a second migration to “add the real fields.” That is a shortcut.
+- Do not treat `candidates.name` / `role` / `stage` (or any similar spike) as the production model.
+
+## Required on business tables
+
+`id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_at`, plus the columns later features need on that same entity. Lists filter soft-deleted rows. Join tables still record `created_at` and `created_by`.
+
+## Before a migration
+
+1. Read this feature **and** every other feature spec that uses the same entity.
+2. Write the full column list in the feature **Dev → Data** section first, marking later columns as `stored now, API later`.
+3. Then generate the migration.
+4. Do not mark the data task `done` if the table only contains the fields the current test asserts.
+
+## Sprint 1 tables
+
+`0000` / `0001` are below this bar. Widen them (`task-foundation-schema-at-scale`) before adding the next product entity.

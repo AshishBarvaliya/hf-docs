@@ -23,17 +23,51 @@ Primary **ATS** surfaces: dense **table** and **kanban** by pipeline stage, filt
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Domain | Extend `src/domains/candidates/` — real API, filters type, `useCandidates(params)` |
-| Pipeline | `src/domains/pipeline/` — `usePipeline`, `KanbanBoard`, stage column components |
-| Table | `CandidatesTable`, `candidate-columns.tsx`; virtualization when >50 rows |
-| View toggle | Zustand or user preference: table vs kanban |
-| Shared types | `ats/types.ts` for `PipelineStage`, stage labels |
+### Contract
 
-- **Query keys:** Include jobId, stage, search, sort in `query-keys.ts`.
-- **Mutations:** Invalidate list + kanban + candidate detail on stage change.
-- **E2E:** Table load; kanban drag (mock server or staging API).
+| Area | Details |
+|------|---------|
+| List | `GET /api/v1/candidates` — workspace-scoped; filters: job, stage, search, sort; pagination |
+| Stage move | `PATCH /api/v1/candidates/:id/stage` (or pipeline API) — server validates workflow |
+| Permissions | `candidates.read`, `candidates.edit` (exact keys in [permissions.md](../architecture/permissions.md)) |
+| Screening | Disposition/reason from server after workflow evaluate ([hiring-workflows.md](./hiring-workflows.md)) |
+
+### Client
+
+- Extend `src/domains/candidates/` — `useCandidates(params)`, filters in query keys
+- `src/domains/pipeline/` — `KanbanBoard`, stage columns; table vs kanban preference
+- `CandidatesTable`, `candidate-columns.tsx`; virtualization when >50 rows
+
+### Server
+
+- [`domains/server/candidates/README.md`](../domains/server/candidates/README.md) — list + mutations; [`domains/server/pipeline/README.md`](../domains/server/pipeline/README.md) for stage definitions
+- JWT + `workspaceId` + `PermissionsGuard` on every route
+
+### Data
+
+One `candidates` row per person in a workspace. Migration `server/drizzle/0002_foundation_schema_at_scale.sql`. `GET /api/v1/candidates` still returns only `id`, `name`, `role`, `stage`. Lists filter `deleted_at IS NULL`. Columns below marked later are **stored now, API later**.
+
+| Column | Notes |
+|--------|--------|
+| `id` | uuid PK |
+| `workspace_id` | FK → `workspaces.id` |
+| `name`, `role`, `stage` | current list item |
+| `source` | where the candidate came from. Later |
+| `resume_url` | profile resume tab ([candidate-profile.md](./candidate-profile.md)). Later |
+| `disposition` | screening outcome (`rejected`, filtered, or empty). Later |
+| `disposition_reason` | reason code, including auto-reject. Later |
+| `screening_snapshot` | jsonb criteria snapshot from the server. Later |
+| `created_at`, `updated_at` | |
+| `created_by`, `updated_by` | nullable FK → `users.id` |
+| `deleted_at` | soft delete |
+
+Scores, experience, and per-job applications are not columns on this row. They belong on application and analyzer-report tables, which are new entities and ship with jobs / ATS — not in this migration. `name` / `role` / `stage` remains the list contract until that slice.
+
+### Tests
+
+- **Server unit + API:** list scope, stage transition, 403 without `candidates.read` (existing e2e baseline)
+- **Client unit:** filter/query-key helpers, column defs
+- **Client e2e:** table load; kanban drag when API ready
 
 ## Acceptance criteria
 

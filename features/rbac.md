@@ -24,12 +24,75 @@ Audit log UI remains [permissions-audit.md](./permissions-audit.md) (step 13); *
 
 ## Dev
 
-| Piece | Location |
-|-------|----------|
-| Client module | `src/shared/permissions/` — `constants.ts`, `use-permissions.ts`, `can.tsx` |
-| Session | Auth.js callbacks merge `permissions` from login/API into session |
-| Server module | `server/src/domains/rbac/` — catalog, membership service, guard |
-| Decorator | `@RequirePermission('candidates.read')` on controllers/handlers |
+### Contract
+
+| Area | Details |
+|------|---------|
+| JWT / session | `tenantId`, `workspaceId`, `role`, `permissions[]` on login; same fields in Auth.js session |
+| Enforcement | `@RequirePermission('<key>')` after JWT auth; `403` when key missing |
+| Example | `GET /api/v1/candidates` requires `candidates.read`; workspace-scoped by `workspaceId` claim |
+| Catalog | Keys documented in [permissions.md](../architecture/permissions.md) |
+
+### Client
+
+- `src/shared/permissions/` — `constants.ts`, `use-permissions.ts`, `can.tsx`
+- Auth.js callbacks merge `permissions` from login into session
+- Nav and actions gated with `<Can permission="…">` before domain features ship
+
+### Server
+
+- [`domains/server/rbac/README.md`](../domains/server/rbac/README.md) — `server/src/domains/rbac/` catalog, membership, `PermissionsGuard`
+- Decorator: `@RequirePermission('candidates.read')` on controllers
+
+### Data
+
+Same migration: `server/drizzle/0002_foundation_schema_at_scale.sql`. JWT `permissions[]` is unchanged.
+
+**`roles`** (workspace-scoped)
+
+| Column | Notes |
+|--------|--------|
+| `id` | uuid PK |
+| `workspace_id` | FK → `workspaces.id`; unique (`workspace_id`, `name`) |
+| `name` | |
+| `description` | nullable. Stored now, API later |
+| `is_system` | boolean, default false. Seeded `admin` / `interviewer` are `true`. Stored now, API later |
+| `created_at`, `updated_at` | |
+| `created_by`, `updated_by` | nullable FK → `users.id` |
+| `deleted_at` | soft delete; login ignores a deleted role |
+
+**`permissions`** (global catalog)
+
+| Column | Notes |
+|--------|--------|
+| `id` | uuid PK |
+| `key` | unique (`candidates.read`, …) |
+| `created_at`, `updated_at` | |
+| `created_by`, `updated_by` | nullable FK → `users.id` |
+
+Catalog exception ([persistence.md](../architecture/persistence.md)): no `deleted_at`. A key may be hard-deleted only when no `role_permissions` row points at it.
+
+**`role_permissions`** (join)
+
+| Column | Notes |
+|--------|--------|
+| `role_id`, `permission_id` | composite PK; FKs |
+| `created_at` | |
+| `created_by` | nullable FK → `users.id` |
+
+**`workspace_members`**
+
+| Column | Notes |
+|--------|--------|
+| `id` | uuid PK |
+| `user_id` | FK → `users.id` |
+| `workspace_id` | FK → `workspaces.id`; unique (`user_id`, `workspace_id`) including removed rows so a re-invite updates the same row |
+| `role_id` | FK → `roles.id` |
+| `status` | `active` (default), `invited`, or `removed`. Login requires `active`. Stored now, API later |
+| `invited_by` | nullable FK → `users.id`. Stored now, API later |
+| `created_at`, `updated_at` | |
+| `created_by`, `updated_by` | nullable FK → `users.id` |
+| `deleted_at` | soft delete; removed membership is retained and excluded from login |
 
 ### Tests (required before sprint tasks marked done)
 
