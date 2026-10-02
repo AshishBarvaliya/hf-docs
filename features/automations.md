@@ -59,8 +59,17 @@ Rule list with enable/disable; **execution log** / last-run status; failures sur
 - [ ] Screening auto-reject / auto-filter fires from rules or workflow screening config (single authoritative path documented in server pipeline domain)
 - [ ] No client-side execution of automations
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/AutomationRules.html` | Workspace automation rules |
+| `designs/screens/AutomationRuleEdit.html` | Rule builder (assessment reminder) |
+| `designs/screens/JobAutomation.html` | Per-job automation tab |
+
 ## References
 
 - [hiring-workflows.md](./hiring-workflows.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)
 - [emails.md](./emails.md)
 - [interviews.md](./interviews.md)

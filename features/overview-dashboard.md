@@ -44,6 +44,18 @@ Recruiter home is **action-oriented**: prioritized queues (“8 need review”, 
 
 - Drag-and-drop dashboard builder (future)
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/Overview.html` | Action queues as rows (default) |
+| `designs/screens/OverviewCards.html` | Queues as cards variant |
+| `designs/screens/OverviewAI.html` | “Explain drop-off” AI panel |
+| `designs/screens/OverviewLoading.html` | Loading skeleton |
+| `designs/screens/OverviewEmpty.html` | Empty workspace |
+| `designs/prototypes/hiring-os-overview.html` | Interactive overview + state toolbar |
+
 ## References
 
 - [routing-and-shell.md](../architecture/routing-and-shell.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)

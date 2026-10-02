@@ -45,7 +45,29 @@ Recruiter **workspace** for one candidate: header with stage and actions (**Adva
 
 - Client-side resume parsing
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/Profile.html` | Summary layout A (sidebar) |
+| `designs/screens/ProfileGrid.html` | Summary layout B (grid variant) |
+| `designs/screens/ProfileResume.html` | Resume tab |
+| `designs/screens/ProfileNoResume.html` | No resume uploaded |
+| `designs/screens/ProfileAssessments.html` | Assessments tab |
+| `designs/screens/ProfileEmails.html` | Emails tab |
+| `designs/screens/ProfileActivity.html` | Activity timeline |
+| `designs/screens/ProfileReject.html` | Reject dialog |
+| `designs/screens/ProfileLoading.html` | Loading |
+| `designs/screens/ProfileHM.html` | Hiring Manager view |
+| `designs/screens/ProfileNoAI.html` | AI unavailable state |
+| `designs/screens/Profile1280.html` | Narrow width · Advance menu |
+| `designs/screens/EmailCompose.html` | Composer from profile |
+| `designs/screens/AssignAssessment.html` | Send assessment modal |
+| `designs/screens/InterviewReport.html` | AI interview report on Interviews tab |
+| `designs/prototypes/hiring-os-candidate-profile.html` | Interactive profile prototype |
+
 ## References
 
 - [ai-ux.md](../architecture/ai-ux.md)
 - [external-integrations.md](./external-integrations.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)

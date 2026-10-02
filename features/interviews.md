@@ -38,7 +38,16 @@
 - [ ] Overview widget fed by same query definitions
 - [ ] Recording available flag drives analyzer enqueue; report link when complete
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/Interviews.html` | Upcoming and to schedule |
+| `designs/screens/ScheduleInterview.html` | Schedule / reschedule flow |
+| `designs/screens/InterviewReport.html` | AI interview report on candidate profile |
+
 ## References
 
 - [external-integrations.md](./external-integrations.md)
 - [candidate-profile.md](./candidate-profile.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)

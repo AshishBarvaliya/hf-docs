@@ -30,19 +30,40 @@ Audit log UI remains [permissions-audit.md](./permissions-audit.md) (step 13); *
 | Session | Auth.js callbacks merge `permissions` from login/API into session |
 | Server module | `server/src/domains/rbac/` — catalog, membership service, guard |
 | Decorator | `@RequirePermission('candidates.read')` on controllers/handlers |
-| Tests | Permission matrix unit tests (role → expected keys); API 403 tests |
+
+### Tests (required before sprint tasks marked done)
+
+| Area | What to cover | Location |
+|------|----------------|----------|
+| **Server unit** | Role → permission matrix; `PermissionsGuard` with missing key | `server/src/domains/rbac/**/*.spec.ts` |
+| **Server API** | `GET /candidates` 403 without `candidates.read`; 200 with permission | `server/test/` e2e |
+| **Client unit** | `usePermissions`, `<Can>` render/hide children | `client/src/shared/permissions/**/*.test.tsx` |
+| **Cross-tenant** | JWT for tenant A cannot read tenant B workspace data | server e2e (+ client e2e when harness ready) |
+
+Track checkboxes: [`sprint/sprint-1-progress-checklist.md`](../sprint/sprint-1-progress-checklist.md) · Sprint tasks: `task-rbac-client-tests`, `task-rbac-api-tests`.
 
 - **Never** `user.role === "admin"` in feature code (client or server domain logic).
 - **Workspace** member invite/role UI extends RBAC in [workspace.md](./workspace.md); RBAC schema lands first.
 
 ## Acceptance criteria
 
-- [ ] Documented permission keys match enforced keys on server
-- [ ] JWT/session includes `tenantId`, `workspaceId`, and permission list for the subdomain used at login
-- [ ] Cross-tenant isolation: token for tenant A cannot read tenant B data (test with two seeded subdomains)
-- [ ] `GET /api/v1/candidates` requires `candidates.read`
-- [ ] `<Can>` and `usePermissions()` available before `(dashboard)` layout ships
-- [ ] At least two seeded roles (e.g. admin vs interviewer) provable in tests
+- [x] Documented permission keys match enforced keys on server
+- [x] JWT/session includes `tenantId`, `workspaceId`, and permission list for the subdomain used at login
+- [x] Cross-tenant isolation: token for tenant A cannot read tenant B data (test with two seeded subdomains)
+- [x] `GET /api/v1/candidates` requires `candidates.read`
+- [x] `<Can>` and `usePermissions()` available before `(dashboard)` layout ships
+- [x] At least two seeded roles (e.g. admin vs interviewer) provable in tests
+
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/SettingsRoles.html` | Roles & permissions matrix |
+| `designs/screens/NoAccess.html` | Blocked action / page |
+| `designs/screens/JobsViewer.html` | Jobs list without edit |
+| `designs/screens/JobViewer.html` | Job workspace read-only |
+| `designs/screens/ProfileHM.html` | Hiring Manager–limited profile |
+| `designs/screens/SettingsCultureReadOnly.html` | Culture settings read-only (e.g. Recruiter) |
 
 ## References
 
@@ -50,3 +71,4 @@ Audit log UI remains [permissions-audit.md](./permissions-audit.md) (step 13); *
 - [auth.md](./auth.md)
 - [workspace.md](./workspace.md)
 - [permissions-audit.md](./permissions-audit.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)

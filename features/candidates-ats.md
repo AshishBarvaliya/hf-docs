@@ -43,7 +43,24 @@ Primary **ATS** surfaces: dense **table** and **kanban** by pipeline stage, filt
 - [ ] Job-scoped and global routes share domain hooks
 - [ ] Auto-reject and auto-filter states visible with server-provided reasons; overrides via API only
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/CandTable.html` | Table view (default) |
+| `designs/screens/CandSelected.html` | Bulk selection |
+| `designs/screens/CandFiltered.html` | Filters applied |
+| `designs/screens/CandTable1280.html` | Table at 1280px |
+| `designs/screens/CandKanban.html` | Kanban |
+| `designs/screens/CandDrag.html` | Kanban drag in progress |
+| `designs/screens/CandKanbanCompact.html` | Single-line kanban variant |
+| `designs/screens/CandLoading.html` | Loading |
+| `designs/screens/CandNoMatch.html` | No filter matches |
+| `designs/screens/CandEmpty.html` | Empty list |
+| `designs/prototypes/hiring-os-candidates.html` | Interactive candidates prototype |
+
 ## References
 
 - [candidate-profile.md](./candidate-profile.md)
 - [hiring-workflows.md](./hiring-workflows.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)

@@ -49,6 +49,27 @@ Published jobs appear in the list; drafts remain editable. Expired postings show
 - [ ] i18n for statuses and empty states
 - [ ] Create draft from `/jobs/new` (paste, AI, or blank) per jd-builder spec
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/Jobs.html` | Jobs table |
+| `designs/screens/JobsCards.html` | Cards layout variant |
+| `designs/screens/JobsLoading.html` | Loading |
+| `designs/screens/JobsEmpty.html` | Empty workspace |
+| `designs/screens/JobsNoPaused.html` | No paused jobs |
+| `designs/screens/JobsViewer.html` | List without edit rights |
+| `designs/screens/JobWorkspace.html` | Job workspace overview tab |
+| `designs/screens/JobWorkspaceAI.html` | Job-level explain drop-off |
+| `designs/screens/JobDraft.html` | Draft job setup |
+| `designs/screens/JobViewer.html` | Workspace read-only |
+| `designs/screens/JobTabsOverflow.html` | Tab bar at 1280px |
+| `designs/screens/JobAutomation.html` | Automation tab ([automations.md](./automations.md)) |
+| `designs/prototypes/hiring-os-jobs.html` | Interactive jobs prototype |
+
+JD creation flow: [jd-builder.md](./jd-builder.md) mockups (`Main.html`, etc.).
+
 ## References
 
 - [jd-builder.md](./jd-builder.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)

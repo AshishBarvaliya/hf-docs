@@ -90,17 +90,42 @@ The same assigned analyzer can run **without recording** on resume + application
 
 ## Dev
 
-| Piece | Implementation |
-|-------|----------------|
-| Domain | `src/domains/analyzers/` — types, catalog hooks, report components |
-| Settings | `(dashboard)/settings/analyzers` — `AnalyzerEditor`, rubric + report template forms |
-| Jobs | Extend JD skills UI; job settings analyzer override |
-| Meetings | Interview row status: recording pending / analysis running / report ready |
-| Profile | `CandidateAnalysisReport`, evidence clip timestamps if API provides |
-| AI | Enqueue via API; **workers** on AWS (SQS + Bedrock); client polls job status; no client-side model keys |
+### Contract
 
-- **Permissions:** `analyzers.manage` (settings), `analyzers.read` (recruiters), reports gated by `candidates.read`.
-- **Tests:** Contribution sum validation; assignment rule unit tests; fixture report rendering.
+- Analyzer catalog: list defaults, list/create/update/publish workspace analyzers
+- Job skill matrix: priority + contribution on publish
+- Assignment: get/set analyzer on candidate–job; audit on override
+- Reports: list/detail by candidate; link to `async_jobs` status
+- Recording ingest webhook (from meetings integration) → enqueue `analyzer.run`
+- Permissions: `analyzers.manage`, `analyzers.read`, `candidates.read` for reports
+
+### Data
+
+- Tables (tenant/workspace scoped): `analyzer_templates` (default + workspace), `job_skill_matrix`, `candidate_job_analyzer_assignments`, `analyzer_reports` (versioned), FKs to `jobs`, `candidates`, `interviews` / meeting sessions
+- Reuse `async_jobs` for run lifecycle ([async-jobs.md](../architecture/async-jobs.md))
+- Migrations under `server/drizzle/`; seed default analyzer library (read-only catalog)
+
+### Server
+
+- `server/src/domains/analyzers/` — CRUD, assignment rules, report persistence
+- `server/src/domains/async-jobs/` — enqueue helper for `analyzer.run`
+- Zod DTOs at HTTP boundary; JWT + workspace scope + `PermissionsGuard`
+- Spec: [domains/server/analyzers/README.md](../domains/server/analyzers/README.md)
+
+### Client
+
+- `client/src/domains/analyzers/` — types, catalog hooks, report components
+- `(dashboard)/settings/analyzers` — `AnalyzerEditor`, rubric + report template forms
+- Jobs: extend JD skills UI; job settings analyzer override
+- Meetings: interview row status recording pending / analysis running / report ready
+- Profile: `CandidateAnalysisReport`, evidence timestamps when API provides
+- Poll `GET /api/v1/jobs/:id` for async runs; no client-side model keys
+
+### Tests
+
+- Server: assignment rule unit tests; contribution validation; authz on report routes
+- Client: contribution sum validation UI; fixture report rendering
+- E2E: assign analyzer → mock recording ingest → report visible on profile (when deps land)
 
 ## Acceptance criteria
 
@@ -118,9 +143,23 @@ The same assigned analyzer can run **without recording** on resume + application
 - Proctoring or live interview bots in the room
 - Opaque black-box score with no evidence quotes
 
+## Design mockups
+
+AI surfaces in static HTML (evidence panels, unavailable states, async generate):
+
+| File | Notes |
+|------|--------|
+| `designs/screens/Generate.html` | JD generation entry |
+| `designs/screens/Parsing.html` | Async job in progress |
+| `designs/screens/OverviewAI.html` | Overview explain drop-off |
+| `designs/screens/JobWorkspaceAI.html` | Job-level explain drop-off |
+| `designs/screens/ProfileNoAI.html` | Analyzer unavailable on profile |
+| `designs/screens/InterviewReport.html` | Structured AI interview report |
+
 ## References
 
 - [jd-builder.md](./jd-builder.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)
 - [workspace.md](./workspace.md)
 - [hiring-workflows.md](./hiring-workflows.md)
 - [interviews.md](./interviews.md)

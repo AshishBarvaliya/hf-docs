@@ -54,8 +54,22 @@ Managers with settings permission edit these once; hiring managers see inherited
 - [ ] Company about + culture profile persisted and returned on workspace API for JD builder and AI analysis
 - [ ] All routes and API handlers scoped by workspace server-side; no cross-tenant reads
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/SettingsGeneral.html` | General workspace settings |
+| `designs/screens/SettingsCompany.html` | Company profile |
+| `designs/screens/SettingsDefaults.html` | Job defaults |
+| `designs/screens/SettingsCulture.html` | Culture & values, unsaved changes |
+| `designs/screens/SettingsCultureReadOnly.html` | Culture read-only role |
+| `designs/screens/SettingsMembers.html` | Members list |
+| `designs/screens/SettingsInvite.html` | Invite flow |
+| `designs/screens/SettingsRoles.html` | Roles (see [rbac.md](./rbac.md)) |
+
 ## References
 
 - [multi-tenancy.md](../architecture/multi-tenancy.md)
 - [permissions.md](../architecture/permissions.md)
 - [permissions-audit.md](./permissions-audit.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)

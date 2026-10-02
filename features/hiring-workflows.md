@@ -115,9 +115,21 @@ Recruiter  → ATS sees outcome + can override if permitted
 - Fully autonomous hiring with no human override on reject (override remains permission-gated)
 - Client-side execution of automations or screening decisions
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/WorkflowTemplates.html` | Template gallery |
+| `designs/screens/WorkflowEditor.html` | Template editor (coding round) |
+| `designs/screens/WorkflowAddRound.html` | Add round flow |
+| `designs/screens/WorkflowPublish.html` | Publish template version |
+| `designs/screens/JobPipeline.html` | Job Pipeline tab · screening criteria |
+| `designs/screens/JobCandidates.html` | Job Candidates tab · screening outcomes |
+
 ## References
 
 - [integrations.md](../architecture/integrations.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)
 - [automations.md](./automations.md)
 - [jd-builder.md](./jd-builder.md)
 - [candidates-ats.md](./candidates-ats.md)

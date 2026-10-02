@@ -35,7 +35,18 @@ Recruiters view **templates**, send messages to candidates, and read **send hist
 - [ ] Template management per permissions
 - [ ] Errors from email service shown with retry where safe
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/EmailTemplates.html` | Template list |
+| `designs/screens/EmailTemplateEdit.html` | Template editor (assessment invite) |
+| `designs/screens/EmailCompose.html` | Composer on candidate profile |
+| `designs/screens/EmailSent.html` | Sent and failed deliveries |
+| `designs/screens/ProfileEmails.html` | Email history tab on profile |
+
 ## References
 
 - [external-integrations.md](./external-integrations.md)
 - [automations.md](./automations.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)

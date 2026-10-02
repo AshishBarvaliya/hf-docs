@@ -32,8 +32,18 @@ Authenticated sessions carry user identity, **tenant + workspace** context, and 
 | Server | `server/src/domains/auth/` — JWT strategy, guard, tenant-scoped login |
 | Env | `AUTH_SECRET`, `AUTH_URL`, `APP_BASE_DOMAIN` (client); same secret on server; CORS for tenant origins |
 
+### Tests (required before sprint tasks marked done)
+
+| Area | What to cover | Location |
+|------|----------------|----------|
+| **Server unit** | Login rejects wrong tenant; password failure; JWT payload shape | `server/src/domains/auth/**/*.spec.ts` |
+| **Server API** | `POST /auth/login` success/401; `GET /candidates` 401 without bearer | `server/test/` or `*.e2e-spec.ts` |
+| **Client unit** | `getTenantFromHost`, token attachment / session helper | `client/src/**/*.test.ts(x)` |
+| **Client e2e** | Login on `acme.localhost` → authenticated candidates (when seed exists) | `client/e2e/` |
+
+Track checkboxes: [`sprint/sprint-1-progress-checklist.md`](../sprint/sprint-1-progress-checklist.md) · Sprint tasks: `task-auth-client-tests`, `task-auth-api-tests`.
+
 - **i18n:** Login strings under `messages/` (`Auth` namespace).
-- **Tests:** Unit tests for token attachment helper; E2E login smoke once test user exists.
 - **Non-goals (v1):** SSO, MFA, invite flows (workspace phase); custom domains; recruiter app on bare root domain without tenant slug.
 
 ## Acceptance criteria
@@ -41,13 +51,25 @@ Authenticated sessions carry user identity, **tenant + workspace** context, and 
 - [ ] Known tenant subdomain loads app; unknown subdomain shows tenant-not-found (not another tenant’s data)
 - [ ] Unauthenticated tenant routes (e.g. `/`, `/candidates`) redirect to login on the same host
 - [ ] Successful login on `acme.*` establishes session with `tenantId` + `workspaceId` and lists only that tenant’s candidates
-- [ ] User valid on tenant A cannot log in on tenant B’s subdomain without membership there
-- [ ] Nest returns 401 without bearer token on protected candidates route
+- [x] User valid on tenant A cannot log in on tenant B’s subdomain without membership there
+- [x] Nest returns 401 without bearer token on protected candidates route
 - [ ] No secrets in client bundle except public Auth.js config
 - [ ] RBAC slice complete per [rbac.md](./rbac.md) before `(dashboard)` layout
+
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/Login.html` | Sign in |
+| `designs/screens/LoginError.html` | Wrong email or password |
+| `designs/screens/LoginBusy.html` | Submitting |
+| `designs/screens/LoginExpired.html` | Session ended (401) |
+| `designs/screens/TenantNotFound.html` | Unknown subdomain |
+| `designs/screens/NoAccess.html` | In-app 403 (pairs with [rbac.md](./rbac.md)) |
 
 ## References
 
 - [multi-tenancy.md](../architecture/multi-tenancy.md)
 - [workspace.md](./workspace.md)
 - [permissions-audit.md](./permissions-audit.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)

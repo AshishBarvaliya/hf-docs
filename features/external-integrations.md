@@ -39,9 +39,20 @@ The client **orchestrates** separate products: assign and track assessments, sch
 - [ ] Deep links open external products in new tab/window
 - [ ] Workflow stage transitions still server-authoritative
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/SettingsIntegrations.html` | Integration health (one needs attention) |
+| `designs/screens/Assessments.html` | Global assessments list |
+| `designs/screens/AssignAssessment.html` | Assign from candidate profile |
+| `designs/screens/ProfileAssessments.html` | Assessment results on profile |
+| `designs/screens/InterviewReport.html` | AI report after interview product |
+
 ## References
 
 - [architecture/integrations.md](../architecture/integrations.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)
 - [interviews.md](./interviews.md)
 - [emails.md](./emails.md)
 - [analytics-reports.md](./analytics-reports.md)

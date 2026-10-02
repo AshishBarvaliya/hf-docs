@@ -38,7 +38,20 @@ Consistent UI across all hiring surfaces: shadcn primitives, hiring-specific car
 - [ ] Hiring badges consistent between table and kanban
 - [ ] AI blocks use shared styling from [ai-ux.md](../architecture/ai-ux.md)
 
+## Design mockups
+
+Paths from `ms/` workspace. [Catalog & analysis](../architecture/product-design-mockups.md).
+
+| File | Notes |
+|------|--------|
+| `designs/screens/Foundations.html` | Tokens (“Roster indigo”), `--stage-*` palette, component gallery, token CSS export |
+| `designs/prototypes/hiring-os-foundations.html` | Interactive foundations + theme/width toolbar |
+| Any `designs/screens/*.html` with sidebar | App shell: workspace header, nav badges, ⌘K search, top bar |
+
+**Implementation note:** Prefer promoting patterns from Foundations into `client/src/components/ui/` and layout components—not copying raw HTML.
+
 ## References
 
 - [design-system.md](../architecture/design-system.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)
 - [routing-and-shell.md](../architecture/routing-and-shell.md)

@@ -36,7 +36,17 @@
 - [ ] Audit log page for authorized roles
 - [ ] Documented permission list stays in sync with [permissions.md](../architecture/permissions.md)
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/NoAccess.html` | Permission denied in-app |
+| `designs/screens/ProfileActivity.html` | Activity feed (audit-adjacent; no standalone audit log page) |
+
+Roles UI: `designs/screens/SettingsRoles.html` ([rbac.md](./rbac.md)).
+
 ## References
 
 - [workspace.md](./workspace.md)
 - [architecture/permissions.md](../architecture/permissions.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)

@@ -4,7 +4,23 @@ We are building the **complete Hyreefy client**, not a trimmed MVP. Roadmap step
 
 Delivery rules (one feature at a time, dependencies first, server + client together, no shortcuts, prod-ready): [`../.cursor/rules/product-delivery-principles.mdc`](../.cursor/rules/product-delivery-principles.mdc).
 
-Each file below includes **Plan** (how we sequence work and what we depend on) and **Dev** (how it lands in this repo).
+Each file below includes **Plan** (how we sequence work and what we depend on) and **Dev** (how the slice lands in **client**, **server**, and **database**—not client-only).
+
+### Dev section template (required for new/updated specs)
+
+Every feature **Dev** section must make the full slice explicit. Use subsections or a table with at least:
+
+| Subsection | What to document |
+|------------|------------------|
+| **Contract** | Routes, methods, request/response shapes, permission keys |
+| **Data** | Tables/columns, FKs to tenant/workspace, migration name or domain schema path, seed data |
+| **Server** | `server/src/domains/<name>/`, guards, Zod DTOs |
+| **Client** | `client/src/domains/<name>/`, App Router paths, hooks, `<Can>` |
+| **Tests** | **Mandatory per slice:** server **unit** (schemas, services, guards) + **API/e2e for each route**; client **unit** (hooks, helpers, permissions, forms) + **Playwright** for new routes/critical flows. List file paths or `*.spec.ts` / `*.test.tsx` patterns. |
+
+Link **`domains/server/<name>/README.md`** and **`domains/client/<name>/README.md`** when they exist. **Plan** phase 1 should name the API; **Dev** must name persistence before the slice is marked done in sprint YAML.
+
+Older specs may list only client paths—extend them when that feature is next on the roadmap ([implementation task](../planning/implementation-tasks/2026-10-02-e2e-feature-spec-dev-sections.md)).
 
 | Feature | Doc | Roadmap step |
 |---------|-----|--------------|
@@ -27,5 +43,7 @@ Each file below includes **Plan** (how we sequence work and what we depend on) a
 | Permissions & audit | [permissions-audit.md](./permissions-audit.md) | 13 (audit; RBAC at 1.6) |
 
 Design system and app shell: [design-system-shell.md](./design-system-shell.md) (step 1–2).
+
+Static screen mockups (Hyreefy `ms/` workspace): [product-design-mockups.md](../architecture/product-design-mockups.md) — each feature spec below has a **Design mockups** table mapping `designs/screens/*.html` files.
 
 Legacy spike note: [foundation-spike.md](./foundation-spike.md).

@@ -106,9 +106,21 @@ When a **workflow template** is attached, JD **skills and requirements** feed **
 - Public job board CMS (only fields needed for Hyreefy + export/integration hooks)
 - Client-side-only parsing or culture scoring
 
+## Design mockups
+
+| File | Notes |
+|------|--------|
+| `designs/screens/Main.html` | New job · paste JD |
+| `designs/screens/Generate.html` | Generate with AI |
+| `designs/screens/Parsing.html` | Async parsing state |
+| `designs/screens/Editor.html` | Full draft review editor (tall canvas) |
+| `designs/screens/Publish.html` | Publish checklist |
+| `designs/screens/JDTab.html` | Live job JD tab · save conflict |
+
 ## References
 
 - [jobs.md](./jobs.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)
 - [workspace.md](./workspace.md)
 - [hiring-workflows.md](./hiring-workflows.md)
 - [candidate-profile.md](./candidate-profile.md)

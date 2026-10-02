@@ -38,7 +38,19 @@ Full **analytics** area: hiring funnel, pipeline conversion, time-in-stage, job 
 - [ ] Reports export via API URLs or blob fetch
 - [ ] Loading/error/empty states on all charts
 
+## Design mockups
+
+No dedicated `/analytics` dashboard export yet. Related AI explain patterns:
+
+| File | Notes |
+|------|--------|
+| `designs/screens/OverviewAI.html` | Drop-off explanation on overview |
+| `designs/screens/JobWorkspaceAI.html` | Drop-off explanation on job workspace |
+
+Nav item “Analytics” appears in shell mockups but routes are placeholders (`#`).
+
 ## References
 
 - [overview-dashboard.md](./overview-dashboard.md)
 - [external-integrations.md](./external-integrations.md)
+- [product-design-mockups.md](../architecture/product-design-mockups.md)
