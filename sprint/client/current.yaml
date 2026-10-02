@@ -3,7 +3,7 @@
 # See docs/sprint/README.md for schema and progress rules.
 
 version: 1
-last_updated: "2026-09-29"
+last_updated: "2026-10-02"
 
 sprint:
   id: sprint-1
@@ -16,16 +16,16 @@ sprint:
 
 current_focus:
   epic_id: epic-hyreefy
-  feature_id: feat-auth-foundation
-  task_id: task-auth-authjs
-  goal: Auth.js login on tenant subdomain + session; RBAC follows as STEP 1.6 (rbac.md) before shell.
+  feature_id: feat-roadmap-step-2
+  task_id: task-dashboard-layout
+  goal: Client RBAC reads permission keys from the Auth.js session (usePermissions, Can). Dashboard shell is next and not started.
 
 progress:
-  sprint_percent: 28
+  sprint_percent: 42
   epics:
     epic-foundation-spike: 100
-    epic-engineering: 100
-    epic-hyreefy: 8
+    epic-engineering: 82
+    epic-hyreefy: 30
 
 epics:
   - id: epic-foundation-spike
@@ -76,6 +76,15 @@ epics:
             title: Sprint lifecycle in docs/sprint/README
             status: done
             weight: 1
+          - id: task-e2e-slice-docs
+            title: E2E slice policy in delivery + DDD rules; feature Dev template
+            status: done
+            weight: 1
+          - id: task-feature-dev-server-data
+            title: Refresh feature spec Dev sections (Contract/Data/Server) per roadmap
+            status: todo
+            weight: 2
+            doc: planning/implementation-tasks/2026-10-02-e2e-feature-spec-dev-sections.md
   - id: epic-hyreefy
     title: Hyreefy — full product build
     doc: docs/roadmap/frontend.md
@@ -102,11 +111,15 @@ epics:
             weight: 1
           - id: task-auth-authjs
             title: Auth.js + tenant Host middleware + login on subdomain
-            status: in_progress
+            status: done
             weight: 3
           - id: task-auth-api-bearer
             title: Attach bearer token in domain fetchers + 401 handling
-            status: todo
+            status: done
+            weight: 1
+          - id: task-auth-client-tests
+            title: UI unit tests (auth helpers) + e2e login smoke
+            status: done
             weight: 1
       - id: feat-rbac-foundation
         title: "STEP 1.6 — RBAC"
@@ -114,16 +127,20 @@ epics:
         tasks:
           - id: task-rbac-catalog
             title: Permission constants + docs sync (permissions.md)
-            status: todo
+            status: done
             weight: 1
           - id: task-rbac-client
             title: usePermissions + Can from session
-            status: todo
+            status: done
             weight: 2
           - id: task-rbac-server
             title: Pair with server — JWT permissions + guard on candidates (cross-repo)
-            status: todo
+            status: done
             weight: 2
+          - id: task-rbac-client-tests
+            title: UI unit tests for usePermissions and Can
+            status: done
+            weight: 1
       - id: feat-roadmap-step-2
         title: "STEP 2 — Shell + overview"
         doc: docs/features/overview-dashboard.md

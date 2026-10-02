@@ -1,0 +1,138 @@
+# Sprint 1 — progress checklist
+
+**Sprint id:** `sprint-1` · **Dates:** 2026-09-28 → 2026-10-11  
+**YAML % (weighted tasks):** Client **42%** · Server **94%** — recalc when `current.yaml` changes ([README](./README.md)).
+
+**How to use:** Check `- [x]` when the line is fully done **including tests**. Checklist % = `checked / total` (count every line below).
+
+**Implementation detail:** [sprint-1-development-guide.md](./sprint-1-development-guide.md)
+
+---
+
+## Sprint 1 focus (auth + RBAC)
+
+**Goal:** Auth.js on tenant subdomain + Nest JWT; RBAC before `(dashboard)` shell.
+
+| Track | Focus task | Status |
+|-------|------------|--------|
+| Client | `task-dashboard-layout` | todo |
+| Server | `task-feature-dev-server-data` | todo |
+
+---
+
+## Client checklist
+
+### Engineering / docs (done)
+
+- [x] Cursor DDD rule
+- [x] Domain specs under `docs/domains/client/`
+- [x] Architecture, ADRs, cursor rules
+- [x] Feature specs Plan + Dev
+- [x] Sprint YAML + progress rule
+- [x] Sprint lifecycle README
+- [x] E2E slice policy in rules
+- [ ] Refresh feature Dev sections (server/data) — `task-feature-dev-server-data`
+
+### STEP 1 — Design system
+
+- [x] StatCard, EmptyState, hiring/ai stubs
+
+### STEP 1.5 — Authentication (`feat-auth-foundation`)
+
+- [x] ADR 003 + auth feature spec
+- [x] ADR 004 + multi-tenancy docs
+- [x] Auth.js + tenant Host middleware + login — `task-auth-authjs`
+- [x] Bearer token in fetchers + 401 handling — `task-auth-api-bearer`
+- [x] **Tests (client auth):** unit — tenant helper, `getAccessToken` / session helper
+- [x] **Tests (client auth):** unit — login form validation or auth callback wiring (if non-trivial)
+- [ ] **Tests (client auth):** e2e — login smoke on dev tenant host (when seed user exists). Gap: not run; Nest was not up on :3001, so a full sign-in would fail closed.
+
+### STEP 1.6 — RBAC (`feat-rbac-foundation`)
+
+- [x] Permission constants + `permissions.md` sync — `task-rbac-catalog`
+- [x] `usePermissions` + `<Can>` — `task-rbac-client`
+- [x] Pair server JWT permissions + guard — `task-rbac-server`
+- [x] **Tests (client RBAC):** unit — `usePermissions`, `<Can>` matrix
+- [ ] **Tests (client RBAC):** e2e — optional 403/no-access smoke when harness exists
+
+### Later in sprint file (not focus yet)
+
+- [ ] Dashboard layout — STEP 2
+- [ ] Overview page — STEP 2
+- [ ] Workspace domain — STEP 3
+- [ ] Jobs + JD — STEP 4
+- [ ] ATS — STEP 5
+- [ ] Profile — STEP 6
+- [ ] Workflows — STEP 7
+- [ ] Integrations / interviews / analytics — STEP 8–11
+- [ ] Automations / AI / audit — STEP 10–13
+
+---
+
+## Server checklist
+
+### Docs
+
+- [x] E2E slice docs in sprint README
+- [ ] Feature Dev server/data rows — `task-feature-dev-server-data`
+
+### Candidates API (spike)
+
+- [x] Nest + Drizzle scaffold
+- [x] GET `/api/v1/candidates` + seed
+- [x] Client wired to API
+- [ ] **Tests (API):** e2e 401/403 after auth guard lands (extend existing suite)
+
+### STEP 1.5 — Auth API (`feat-auth-api`)
+
+- [x] `tenants` + `workspaces` schema + seed — `task-tenant-schema`
+- [x] Tenant-scoped login + JWT guard on candidates — `task-auth-jwt-guard`
+- [x] Dev user seed + Auth.js contract — `task-auth-dev-user`
+- [x] **Tests (API auth):** unit — login rejects wrong tenant; JWT strategy/guard
+- [x] **Tests (API auth):** e2e — `POST /auth/login`, `GET /candidates` 401 without token
+
+### STEP 1.6 — RBAC API (`feat-rbac-api`)
+
+- [x] RBAC schema + seed — `task-rbac-schema`
+- [x] `PermissionsGuard` on candidates — `task-rbac-guard`
+- [x] JWT `permissions[]` claims — `task-rbac-jwt-claims`
+- [x] **Tests (API RBAC):** unit — role → permission matrix
+- [x] **Tests (API RBAC):** e2e — `GET /candidates` 403 without `candidates.read`
+
+---
+
+## Feature specs (acceptance)
+
+### [auth.md](../features/auth.md)
+
+- [x] Known tenant subdomain; unknown → tenant-not-found
+- [x] Unauthenticated routes redirect to login
+- [ ] Login establishes tenant + workspace; scoped candidates
+- [x] No cross-tenant login without membership
+- [x] Nest 401 without bearer
+- [x] No secrets in client bundle
+- [ ] RBAC complete before dashboard
+
+### [rbac.md](../features/rbac.md)
+
+- [x] Permission keys match server enforcement
+- [x] JWT/session includes tenant, workspace, permissions
+- [x] Cross-tenant isolation tested
+- [x] `GET /candidates` requires `candidates.read`
+- [x] `<Can>` / `usePermissions` before dashboard
+- [x] Two seeded roles provable in tests
+
+---
+
+## Checklist summary
+
+Update counts when you edit this file:
+
+| Section | Done | Total | % |
+|---------|------|-------|---|
+| Client (all lines above) | 18 | 30 | 60% |
+| Server (all lines above) | 14 | 16 | 88% |
+| Feature acceptance (auth + rbac) | 11 | 13 | 85% |
+| **Rough combined** | **43** | **59** | **73%** |
+
+*Recount “Done / Total” when adding or checking items.*

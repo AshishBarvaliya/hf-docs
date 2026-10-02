@@ -1,5 +1,5 @@
 version: 1
-last_updated: "2026-09-29"
+last_updated: "2026-10-02"
 
 sprint:
   id: sprint-1
@@ -12,20 +12,32 @@ sprint:
 
 current_focus:
   epic_id: epic-api-foundation
-  feature_id: feat-auth-api
-  task_id: task-auth-jwt-guard
-  goal: JWT guard + protect candidates; RBAC schema + PermissionsGuard next (rbac.md).
+  feature_id: feat-delivery-process
+  task_id: task-feature-dev-server-data
+  goal: Server RBAC is done (schema, PermissionsGuard, JWT permissions[], API tests). Next open server task is feature Dev server/data rows.
 
 progress:
-  sprint_percent: 75
+  sprint_percent: 94
   epics:
-    epic-api-foundation: 75
+    epic-api-foundation: 94
 
 epics:
   - id: epic-api-foundation
     title: Orchestration API foundation
     doc: docs/architecture/server/overview.md
     features:
+      - id: feat-delivery-process
+        title: Docs — end-to-end slice tracking
+        tasks:
+          - id: task-e2e-slice-docs
+            title: Sprint README + paired client/server tasks for DB+API+UI slices
+            status: done
+            weight: 1
+          - id: task-feature-dev-server-data
+            title: Server/Data rows in feature specs before each roadmap API slice
+            status: todo
+            weight: 1
+            doc: planning/implementation-tasks/2026-10-02-e2e-feature-spec-dev-sections.md
       - id: feat-candidates-api
         title: Candidates list API
         doc: docs/domains/server/candidates/README.md
@@ -48,15 +60,19 @@ epics:
         tasks:
           - id: task-tenant-schema
             title: tenants + workspaces schema + seed (acme, beta slugs)
-            status: todo
+            status: done
             weight: 2
           - id: task-auth-jwt-guard
             title: Tenant-scoped login + JWT guard; protect GET /candidates by workspace
-            status: in_progress
+            status: done
             weight: 2
           - id: task-auth-dev-user
             title: Dev user seed + credentials contract for Auth.js
-            status: todo
+            status: done
+            weight: 1
+          - id: task-auth-api-tests
+            title: API unit + e2e for login and JWT guard
+            status: done
             weight: 1
       - id: feat-rbac-api
         title: RBAC enforcement
@@ -64,13 +80,17 @@ epics:
         tasks:
           - id: task-rbac-schema
             title: Roles, permissions, workspace_members + tenant/workspace FKs + seed
-            status: todo
+            status: done
             weight: 2
           - id: task-rbac-guard
             title: PermissionsGuard + RequirePermission on candidates list (workspace scoped)
-            status: todo
+            status: done
             weight: 2
           - id: task-rbac-jwt-claims
             title: tenantId + workspaceId + permissions[] in JWT for Auth.js session
-            status: todo
+            status: done
+            weight: 1
+          - id: task-rbac-api-tests
+            title: API unit + e2e for PermissionsGuard and 403
+            status: done
             weight: 1
