@@ -67,7 +67,15 @@ Failure is a generic **401** `{ "message": "Invalid credentials" }` for unknown 
 
 Each user is a member of only that tenant’s primary workspace. Each workspace has `admin` (full catalog, including `candidates.read`) and `interviewer` (`interviews.schedule` only). Acme candidates: Ada Lovelace, Grace Hopper. Beta: Katherine Johnson.
 
-`workspace_members` stores `user_id`, `workspace_id`, and `role_id`.
+`workspace_members` stores `user_id`, `workspace_id`, `role_id`, and `status` (`active` for the seed). Login ignores soft-deleted tenants, workspaces, users, memberships, and roles, and requires `users.status`, `tenants.status`, and `workspace_members.status` to be `active`.
+
+## Tables
+
+Widened in `drizzle/0002_foundation_schema_at_scale.sql`. Full lists: [auth.md](../../features/auth.md) Dev → Data and [workspace.md](../../features/workspace.md).
+
+- `tenants` — slug, name, status, audit columns, `deleted_at`
+- `users` — email, name, password hash, `status` (`active` / `disabled`), audit columns, `deleted_at`
+- `workspaces` — name plus company profile, culture, timezone, and posting defaults (stored now, not on the login JSON)
 
 ## Public API
 
