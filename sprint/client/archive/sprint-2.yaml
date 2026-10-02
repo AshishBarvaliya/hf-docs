@@ -1,0 +1,114 @@
+# Active sprint — source of truth for epics, features, tasks, and progress.
+# Agents: read at the start of every request; update before finishing work.
+# See docs/sprint/README.md for schema and progress rules.
+# Sprint 1 archive: client/archive/sprint-1.yaml
+
+version: 1
+last_updated: "2026-10-04"
+
+sprint:
+  id: sprint-2
+  name: Sprint 2 — Workspace and roadmap STEP 3+
+  goal: Workspace domain + session context (STEP 3), then jobs/JD (STEP 4) per roadmap order.
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-25"
+  status: closed
+  note: "Sprint 2 delivery goal (STEP 3 + STEP 4) met 2026-10-04. Weighted YAML was 24% (7/29), not 26% — see sprint-integrity correction."
+
+current_focus:
+  epic_id: epic-hyreefy
+  feature_id: feat-roadmap-step-5
+  task_id: task-ats-production
+  goal: STEP 4 complete — start ATS (STEP 5) in a future sprint slice per roadmap.
+
+progress:
+  sprint_percent: 24
+  epics:
+    epic-hyreefy: 26
+
+epics:
+  - id: epic-hyreefy
+    title: Hyreefy — full product build
+    doc: docs/roadmap/frontend.md
+    features:
+      - id: feat-roadmap-step-3
+        title: "STEP 3 — Workspace"
+        doc: docs/features/workspace.md
+        tasks:
+          - id: task-workspace-domain
+            title: Workspace domain + session context
+            status: done
+            weight: 2
+      - id: feat-roadmap-step-4
+        title: "STEP 4 — Jobs + JD"
+        doc: docs/features/jobs.md
+        tasks:
+          - id: task-jobs-domain
+            title: Jobs domain + list + job shell tabs
+            status: done
+            weight: 3
+          - id: task-jd-builder
+            title: JD builder full flow
+            status: done
+            weight: 2
+      - id: feat-roadmap-step-5
+        title: "STEP 5 — ATS"
+        doc: docs/features/candidates-ats.md
+        tasks:
+          - id: task-ats-production
+            title: Real API table + filters
+            status: todo
+            weight: 2
+          - id: task-kanban-pipeline
+            title: Kanban + workflow moves
+            status: todo
+            weight: 2
+      - id: feat-roadmap-step-6
+        title: "STEP 6 — Profile"
+        doc: docs/features/candidate-profile.md
+        tasks:
+          - id: task-candidate-profile
+            title: Profile workspace + all tabs
+            status: todo
+            weight: 3
+      - id: feat-roadmap-step-7
+        title: "STEP 7 — Workflows"
+        doc: docs/features/hiring-workflows.md
+        tasks:
+          - id: task-workflow-builder
+            title: Workflow editor + publish
+            status: todo
+            weight: 3
+      - id: feat-roadmap-step-8-11
+        title: "STEP 8–11 — Integrations + analytics"
+        doc: docs/features/external-integrations.md
+        tasks:
+          - id: task-integrations-layer
+            title: lib/integrations + assessment domain
+            status: todo
+            weight: 2
+          - id: task-interviews-emails
+            title: Meetings + emails domains
+            status: todo
+            weight: 2
+          - id: task-analytics-product
+            title: Analytics routes + reports
+            status: todo
+            weight: 2
+      - id: feat-roadmap-step-10-13
+        title: "STEP 10–13 — Automations, AI, permissions"
+        doc: docs/features/permissions-audit.md
+        tasks:
+          - id: task-automations
+            title: Automations domain + UI
+            status: todo
+            weight: 2
+          - id: task-ai-embedded
+            title: AI actions across JD, profile, pipeline
+            status: todo
+            weight: 2
+          - id: task-permissions-audit
+            title: Audit log UI + permission UX polish (RBAC core at step 1.6)
+            status: todo
+            weight: 2

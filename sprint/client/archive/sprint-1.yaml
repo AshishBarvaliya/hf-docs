@@ -1,0 +1,239 @@
+# Active sprint — source of truth for epics, features, tasks, and progress.
+# Agents: read at the start of every request; update before finishing work.
+# See docs/sprint/README.md for schema and progress rules.
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-1
+  name: Sprint 1 — Product specs + foundation
+  goal: "Sprint 1 foundation complete: auth, RBAC, dashboard shell, overview, feature Dev sections. Roadmap STEP 3+ continues in sprint-2."
+  dates:
+    start: "2026-09-28"
+    end: "2026-10-11"
+  status: closed
+
+current_focus:
+  epic_id: epic-hyreefy
+  feature_id: feat-roadmap-step-3
+  task_id: task-workspace-domain
+  goal: "Sprint 1 closed. Next active work: workspace domain (sprint-2)."
+
+progress:
+  sprint_percent: 52
+  epics:
+    epic-foundation-spike: 100
+    epic-engineering: 100
+    epic-hyreefy: 40
+
+epics:
+  - id: epic-foundation-spike
+    title: Foundation spike (superseded by full product)
+    doc: docs/features/foundation-spike.md
+    features:
+      - id: feat-spike-home
+        title: Spike pages and sample domains
+        tasks:
+          - id: task-spike-home
+            title: Home + candidates sample UI
+            status: done
+            weight: 1
+          - id: task-spike-e2e
+            title: Home smoke E2E
+            status: done
+            weight: 1
+  - id: epic-engineering
+    title: Engineering and docs
+    features:
+      - id: feat-documentation
+        title: Docs-driven development
+        tasks:
+          - id: task-ddd-cursor-rule
+            title: Cursor rule for docs-first workflow
+            status: done
+            weight: 1
+          - id: task-domain-specs
+            title: Domain specs under docs/domains/client/
+            status: done
+            weight: 1
+          - id: task-hyreefy-docs
+            title: Architecture, ADRs, cursor rules
+            status: done
+            weight: 2
+          - id: task-feature-plan-dev
+            title: Full-product feature specs with Plan + Dev sections
+            status: done
+            weight: 2
+      - id: feat-delivery-process
+        title: Sprint delivery tracking
+        tasks:
+          - id: task-sprint-tracking
+            title: Sprint YAML + Cursor rule for progress
+            status: done
+            weight: 1
+          - id: task-sprint-rituals
+            title: Sprint lifecycle in docs/sprint/README
+            status: done
+            weight: 1
+          - id: task-e2e-slice-docs
+            title: E2E slice policy in delivery + DDD rules; feature Dev template
+            status: done
+            weight: 1
+          - id: task-feature-dev-server-data
+            title: Refresh feature spec Dev sections (Contract/Data/Server) per roadmap
+            status: done
+            weight: 2
+            doc: planning/implementation-tasks/2026-10-02-e2e-feature-spec-dev-sections.md
+  - id: epic-hyreefy
+    title: Hyreefy — full product build
+    doc: docs/roadmap/frontend.md
+    features:
+      - id: feat-roadmap-step-1
+        title: "STEP 1 — Design system"
+        doc: docs/features/design-system-shell.md
+        tasks:
+          - id: task-design-system
+            title: StatCard, EmptyState, hiring/ai component stubs
+            status: done
+            weight: 1
+      - id: feat-auth-foundation
+        title: "STEP 1.5 — Authentication"
+        doc: docs/features/auth.md
+        tasks:
+          - id: task-auth-contract
+            title: ADR 003 + auth feature spec
+            status: done
+            weight: 1
+          - id: task-tenancy-docs
+            title: ADR 004 + multi-tenancy architecture + spec updates
+            status: done
+            weight: 1
+          - id: task-auth-authjs
+            title: Auth.js + tenant Host middleware + login on subdomain
+            status: done
+            weight: 3
+          - id: task-auth-api-bearer
+            title: Attach bearer token in domain fetchers + 401 handling
+            status: done
+            weight: 1
+          - id: task-auth-client-tests
+            title: UI unit tests (auth helpers and login contract)
+            status: done
+            weight: 1
+          - id: task-auth-client-e2e
+            title: Playwright login smoke on the dev tenant host
+            status: done
+            weight: 1
+      - id: feat-rbac-foundation
+        title: "STEP 1.6 — RBAC"
+        doc: docs/features/rbac.md
+        tasks:
+          - id: task-rbac-catalog
+            title: Permission constants + docs sync (permissions.md)
+            status: done
+            weight: 1
+          - id: task-rbac-client
+            title: usePermissions + Can from session
+            status: done
+            weight: 2
+          - id: task-rbac-server
+            title: Pair with server — JWT permissions + guard on candidates (cross-repo)
+            status: done
+            weight: 2
+          - id: task-rbac-client-tests
+            title: UI unit tests for usePermissions and Can
+            status: done
+            weight: 1
+      - id: feat-roadmap-step-2
+        title: "STEP 2 — Shell + overview"
+        doc: docs/features/overview-dashboard.md
+        tasks:
+          - id: task-dashboard-layout
+            title: "(dashboard) layout, sidebar, header (after auth + RBAC)"
+            status: done
+            weight: 2
+          - id: task-overview-page
+            title: Action-oriented overview + redirect from /"
+            status: done
+            weight: 2
+      - id: feat-roadmap-step-3
+        title: "STEP 3 — Workspace"
+        doc: docs/features/workspace.md
+        tasks:
+          - id: task-workspace-domain
+            title: Workspace domain + session context
+            status: todo
+            weight: 2
+      - id: feat-roadmap-step-4
+        title: "STEP 4 — Jobs + JD"
+        doc: docs/features/jobs.md
+        tasks:
+          - id: task-jobs-domain
+            title: Jobs domain + list + job shell tabs
+            status: todo
+            weight: 3
+          - id: task-jd-builder
+            title: JD builder full flow
+            status: todo
+            weight: 2
+      - id: feat-roadmap-step-5
+        title: "STEP 5 — ATS"
+        doc: docs/features/candidates-ats.md
+        tasks:
+          - id: task-ats-production
+            title: Real API table + filters
+            status: todo
+            weight: 2
+          - id: task-kanban-pipeline
+            title: Kanban + workflow moves
+            status: todo
+            weight: 2
+      - id: feat-roadmap-step-6
+        title: "STEP 6 — Profile"
+        doc: docs/features/candidate-profile.md
+        tasks:
+          - id: task-candidate-profile
+            title: Profile workspace + all tabs
+            status: todo
+            weight: 3
+      - id: feat-roadmap-step-7
+        title: "STEP 7 — Workflows"
+        doc: docs/features/hiring-workflows.md
+        tasks:
+          - id: task-workflow-builder
+            title: Workflow editor + publish
+            status: todo
+            weight: 3
+      - id: feat-roadmap-step-8-11
+        title: "STEP 8–11 — Integrations + analytics"
+        doc: docs/features/external-integrations.md
+        tasks:
+          - id: task-integrations-layer
+            title: lib/integrations + assessment domain
+            status: todo
+            weight: 2
+          - id: task-interviews-emails
+            title: Meetings + emails domains
+            status: todo
+            weight: 2
+          - id: task-analytics-product
+            title: Analytics routes + reports
+            status: todo
+            weight: 2
+      - id: feat-roadmap-step-10-13
+        title: "STEP 10–13 — Automations, AI, permissions"
+        doc: docs/features/permissions-audit.md
+        tasks:
+          - id: task-automations
+            title: Automations domain + UI
+            status: todo
+            weight: 2
+          - id: task-ai-embedded
+            title: AI actions across JD, profile, pipeline
+            status: todo
+            weight: 2
+          - id: task-permissions-audit
+            title: Audit log UI + permission UX polish (RBAC core at step 1.6)
+            status: todo
+            weight: 2

@@ -8,7 +8,7 @@ Start at [architecture/overview.md](./architecture/overview.md) (client) and [ar
 
 **Run locally:** [setup-environment.md](./setup-environment.md) · **Deploy (Vercel + Render + Neon):** [deployment.md](./deployment.md)
 
-Production platform (AWS target): [architecture/aws-platform.md](./architecture/aws-platform.md). Current hosted stack: [architecture/server/deployment-render-neon.md](./architecture/server/deployment-render-neon.md). Async AI/reports: [architecture/async-jobs.md](./architecture/async-jobs.md). Feature index: [features/README.md](./features/README.md). Static UI mockups (Hyreefy `ms/` workspace): [architecture/product-design-mockups.md](./architecture/product-design-mockups.md) → `designs/`.
+Production platform (AWS target): [architecture/aws-platform.md](./architecture/aws-platform.md). Current hosted stack: [architecture/server/deployment-render-neon.md](./architecture/server/deployment-render-neon.md). Async AI/reports: [architecture/async-jobs.md](./architecture/async-jobs.md). Feature index: [features/README.md](./features/README.md). Static UI mockups (Hyreefy `ms/` workspace): [architecture/product-design-mockups.md](./architecture/product-design-mockups.md) → `designs/`. **Build-to-mockup guide:** [architecture/design-implementation-fidelity.md](./architecture/design-implementation-fidelity.md).
 
 ## Layout
 

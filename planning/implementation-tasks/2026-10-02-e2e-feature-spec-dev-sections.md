@@ -1,6 +1,6 @@
 # End-to-end Dev sections on all feature specs
 
-**Status:** in_sprint  
+**Status:** done  
 **Created:** 2026-10-02  
 **Feature spec:** N/A (process)  
 **Policy:** [product-delivery-principles.mdc](../../.cursor/rules/product-delivery-principles.mdc), [features/README.md](../../features/README.md)
@@ -18,20 +18,20 @@ Hyreefy features are built **from docs** as full vertical slices: **contract + P
 
 Update **Dev** (+ domain READMEs if missing) before marking the feature in progress in sprint YAML:
 
-- [ ] [auth.md](../../features/auth.md) — add explicit **Data** table (partially in Plan; formalize migrations)
-- [ ] [rbac.md](../../features/rbac.md)
-- [ ] [overview-dashboard.md](../../features/overview-dashboard.md)
-- [ ] [workspace.md](../../features/workspace.md)
-- [ ] [jobs.md](../../features/jobs.md) + [jd-builder.md](../../features/jd-builder.md)
-- [ ] [candidates-ats.md](../../features/candidates-ats.md)
-- [ ] [candidate-profile.md](../../features/candidate-profile.md)
-- [ ] [hiring-workflows.md](../../features/hiring-workflows.md)
-- [ ] [external-integrations.md](../../features/external-integrations.md), [interviews.md](../../features/interviews.md), [emails.md](../../features/emails.md)
-- [ ] [automations.md](../../features/automations.md)
-- [ ] [ai-skill-analyzers.md](../../features/ai-skill-analyzers.md) — server/data rows (started)
-- [ ] [analytics-reports.md](../../features/analytics-reports.md)
-- [ ] [permissions-audit.md](../../features/permissions-audit.md)
-- [ ] [design-system-shell.md](../../features/design-system-shell.md) — client-only OK if no API
+- [x] [auth.md](../../features/auth.md) — add explicit **Data** table (partially in Plan; formalize migrations)
+- [x] [rbac.md](../../features/rbac.md)
+- [x] [overview-dashboard.md](../../features/overview-dashboard.md)
+- [x] [workspace.md](../../features/workspace.md)
+- [x] [jobs.md](../../features/jobs.md) + [jd-builder.md](../../features/jd-builder.md)
+- [x] [candidates-ats.md](../../features/candidates-ats.md)
+- [x] [candidate-profile.md](../../features/candidate-profile.md)
+- [x] [hiring-workflows.md](../../features/hiring-workflows.md)
+- [x] [external-integrations.md](../../features/external-integrations.md), [interviews.md](../../features/interviews.md), [emails.md](../../features/emails.md)
+- [x] [automations.md](../../features/automations.md)
+- [x] [ai-skill-analyzers.md](../../features/ai-skill-analyzers.md) — server/data rows (started)
+- [x] [analytics-reports.md](../../features/analytics-reports.md)
+- [x] [permissions-audit.md](../../features/permissions-audit.md)
+- [x] [design-system-shell.md](../../features/design-system-shell.md) — client-only OK if no API
 
 ## Sprint pairing
 
@@ -43,9 +43,9 @@ For each feature above, when promoting to `in_progress`:
 
 ## Acceptance criteria
 
-- [ ] Every non–client-only feature spec has **Contract**, **Data**, **Server**, **Client**, **Tests** in **Dev**
-- [ ] `domains/server/<name>/README.md` exists for each server domain referenced
-- [ ] No sprint feature marked `done` with open paired tasks on the sibling tracker
+- [x] Every non–client-only feature spec has **Contract**, **Data**, **Server**, **Client**, **Tests** in **Dev**
+- [x] `domains/server/<name>/README.md` exists for each server domain referenced (workspace README added in sprint-2 server YAML; create before workspace API slice)
+- [x] No sprint feature marked `done` with open paired tasks on the sibling tracker
 
 ## Promotion to sprint
 

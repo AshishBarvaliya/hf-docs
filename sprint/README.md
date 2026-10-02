@@ -5,7 +5,10 @@
 - Client: [`client/current.yaml`](./client/current.yaml)
 - Server: [`server/current.yaml`](./server/current.yaml)
 - **Sprint 1 implementation guide** (routes, API, DB): [`sprint-1-development-guide.md`](./sprint-1-development-guide.md)
-- **Sprint 1 checkbox tracker** (done/left + %): [`sprint-1-progress-checklist.md`](./sprint-1-progress-checklist.md)
+- **Sprint 1 checkbox tracker** (closed): [`sprint-1-progress-checklist.md`](./sprint-1-progress-checklist.md)
+- **Sprint 2 development guide** (routes, API, prod/perf): [`sprint-2-development-guide.md`](./sprint-2-development-guide.md)
+- **Sprint 2 checkbox tracker** (closed): [`sprint-2-progress-checklist.md`](./sprint-2-progress-checklist.md)
+- **Sprint integrity** (closed remediation): [`sprint-integrity-progress-checklist.md`](./sprint-integrity-progress-checklist.md)
 
 **Delivery model:** [`.cursor/rules/product-delivery-principles.mdc`](../.cursor/rules/product-delivery-principles.mdc) — one feature at a time, dependency order, **end-to-end slices** (contract + DB + server + client + tests), production-ready.
 

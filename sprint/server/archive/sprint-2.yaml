@@ -1,0 +1,83 @@
+# Active sprint — server tracker. Sprint 1 archive: server/archive/sprint-1.yaml
+version: 1
+last_updated: "2026-10-04"
+
+sprint:
+  id: sprint-2
+  name: Sprint 2 — Workspace + jobs API
+  goal: Workspace APIs (STEP 3) and jobs CRUD + publish (STEP 4) paired with client.
+  note: "Jobs Phase B APIs and tests complete for sprint 2 goal."
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-25"
+  status: closed
+
+current_focus:
+  epic_id: epic-jobs-api
+  feature_id: feat-jobs-api
+  task_id: task-jobs-detail-api-tests
+  goal: STEP 4 server slice complete; next work is STEP 5+ domains.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-workspace-api: 100
+    epic-jobs-api: 100
+
+epics:
+  - id: epic-workspace-api
+    title: Workspace orchestration
+    doc: docs/features/workspace.md
+    features:
+      - id: feat-workspace-api
+        title: Workspace settings + members
+        doc: docs/domains/server/workspaces/README.md
+        tasks:
+          - id: task-workspace-read
+            title: GET /api/v1/workspaces/current (profile fields from 0002 schema)
+            status: done
+            weight: 2
+          - id: task-workspace-patch
+            title: PATCH workspace settings + PermissionsGuard
+            status: done
+            weight: 2
+          - id: task-workspace-members
+            title: Members list + invite + role assignment APIs
+            status: done
+            weight: 2
+          - id: task-workspace-api-tests
+            title: Unit + e2e for workspace routes and 403 matrix
+            status: done
+            weight: 1
+  - id: epic-jobs-api
+    title: Jobs orchestration (STEP 4 Phase A)
+    doc: docs/features/jobs.md
+    features:
+      - id: feat-jobs-api
+        title: Jobs table + list API
+        doc: docs/features/jobs.md
+        tasks:
+          - id: task-jobs-migration
+            title: jobs table migration (full row per jobs.md Data)
+            status: done
+            weight: 1
+          - id: task-jobs-list-api
+            title: GET /api/v1/jobs list + filters + jobs.read guard
+            status: done
+            weight: 2
+          - id: task-jobs-api-tests
+            title: Unit + e2e for jobs list and 403
+            status: done
+            weight: 1
+          - id: task-jobs-get-api
+            title: GET /api/v1/jobs/:id + workspace scope + jobs.read
+            status: done
+            weight: 2
+          - id: task-jobs-mutations-api
+            title: POST/PATCH jobs + publish + jobs.create/edit guards
+            status: done
+            weight: 2
+          - id: task-jobs-detail-api-tests
+            title: Unit + e2e for job detail and mutations
+            status: done
+            weight: 1

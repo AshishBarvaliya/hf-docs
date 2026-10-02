@@ -1,0 +1,105 @@
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-1
+  name: Sprint 1 — API foundation
+  goal: "Sprint 1 API foundation complete: auth, RBAC, candidates list, schema at scale, feature Dev sections. Workspace APIs start in sprint-2."
+  dates:
+    start: "2026-09-28"
+    end: "2026-10-11"
+  status: closed
+
+current_focus:
+  epic_id: epic-api-foundation
+  feature_id: feat-delivery-process
+  task_id: task-feature-dev-server-data
+  goal: "Sprint 1 closed. Next: workspace settings APIs (sprint-2)."
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-api-foundation: 100
+
+epics:
+  - id: epic-api-foundation
+    title: Orchestration API foundation
+    doc: docs/architecture/server/overview.md
+    features:
+      - id: feat-delivery-process
+        title: Docs — end-to-end slice tracking
+        tasks:
+          - id: task-e2e-slice-docs
+            title: Sprint README + paired client/server tasks for DB+API+UI slices
+            status: done
+            weight: 1
+          - id: task-feature-dev-server-data
+            title: Server/Data rows in feature specs before each roadmap API slice
+            status: done
+            weight: 1
+            doc: planning/implementation-tasks/2026-10-02-e2e-feature-spec-dev-sections.md
+      - id: feat-candidates-api
+        title: Candidates list API
+        doc: docs/domains/server/candidates/README.md
+        tasks:
+          - id: task-scaffold
+            title: NestJS + Drizzle + Postgres scaffold
+            status: done
+            weight: 2
+          - id: task-candidates-list
+            title: GET /api/v1/candidates + seed data
+            status: done
+            weight: 2
+          - id: task-client-wire
+            title: Point client fetcher at API (env-driven)
+            status: done
+            weight: 1
+      - id: feat-auth-api
+        title: JWT authorization + tenant scope
+        doc: docs/domains/server/auth/README.md
+        tasks:
+          - id: task-tenant-schema
+            title: tenants + workspaces schema + seed (acme, beta slugs)
+            status: done
+            weight: 2
+          - id: task-auth-jwt-guard
+            title: Tenant-scoped login + JWT guard; protect GET /candidates by workspace
+            status: done
+            weight: 2
+          - id: task-auth-dev-user
+            title: Dev user seed + credentials contract for Auth.js
+            status: done
+            weight: 1
+          - id: task-auth-api-tests
+            title: API unit + e2e for login and JWT guard
+            status: done
+            weight: 1
+      - id: feat-rbac-api
+        title: RBAC enforcement
+        doc: docs/domains/server/rbac/README.md
+        tasks:
+          - id: task-rbac-schema
+            title: Roles, permissions, workspace_members + tenant/workspace FKs + seed
+            status: done
+            weight: 2
+          - id: task-rbac-guard
+            title: PermissionsGuard + RequirePermission on candidates list (workspace scoped)
+            status: done
+            weight: 2
+          - id: task-rbac-jwt-claims
+            title: tenantId + workspaceId + permissions[] in JWT for Auth.js session
+            status: done
+            weight: 1
+          - id: task-rbac-api-tests
+            title: API unit + e2e for PermissionsGuard and 403
+            status: done
+            weight: 1
+      - id: feat-schema-at-scale
+        title: Foundation tables match the product data model
+        doc: docs/architecture/persistence.md
+        tasks:
+          - id: task-foundation-schema-at-scale
+            title: Widen auth/RBAC tables for later features plus audit and soft delete
+            status: done
+            weight: 2
+            doc: planning/implementation-tasks/2026-10-02-foundation-schema-at-scale.md
