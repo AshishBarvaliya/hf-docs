@@ -2,6 +2,8 @@
 
 Build shared primitives **before** duplicating patterns across dozens of screens. Aligns with shadcn/ui + Tailwind tokens in `globals.css`.
 
+**Visual reference:** Static HTML mockups for most product screens live in the Hyreefy workspace folder `designs/` (catalog: `designs/index.html`). See [product-design-mockups.md](./product-design-mockups.md). Implement in `client/`—do not change `designs/` for delivery work.
+
 ## Component map
 
 ```text

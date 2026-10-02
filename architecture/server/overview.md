@@ -38,15 +38,16 @@ Thin `AppModule` wires global config, database, and domain modules only.
 
 | Method | Path | Purpose |
 |--------|------|---------|
-| GET | `/api/v1/health` | Health check |
-| GET | `/api/v1/candidates` | List candidates (matches client spike shape) |
+| GET | `/api/v1/health` | Health check (public) |
+| POST | `/api/v1/auth/login` | Tenant-scoped login; JWT `permissions[]` from the workspace role |
+| GET | `/api/v1/candidates` | Bearer + `candidates.read`; list candidates for the token workspace |
 
 ## Local database
 
 ```bash
 docker compose up -d
 cp .env.example .env
-npm run db:push
+npm run db:migrate
 npm run db:seed
 npm run start:dev
 ```

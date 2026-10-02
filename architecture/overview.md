@@ -83,5 +83,6 @@ Domain-oriented boundaries are mandatory; see [folder-structure.md](./folder-str
 - [External integrations](./integrations.md)
 - [Permissions](./permissions.md)
 - [Design system](./design-system.md)
+- [Product design mockups](./product-design-mockups.md) (`designs/` in `ms/` workspace)
 - [AI UX](./ai-ux.md)
 - [Frontend roadmap](../roadmap/frontend.md)
