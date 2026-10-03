@@ -39,7 +39,9 @@ cp .env.example .env
 | `NODE_ENV` | `development` | |
 | `PORT` | `3001` | API port |
 | `DATABASE_URL` | `postgresql://postgres:postgres@localhost:5432/hiring_os` | **Always local Docker** — do not point at Neon for daily dev |
-| `CORS_ORIGIN` | `http://localhost:3000` | Add tenant dev hosts if needed (e.g. `http://acme.localhost:3000`) |
+| `CORS_ORIGIN` | `http://localhost:3000` | Dev also allows `*.localhost` origins automatically |
+| `APP_BASE_DOMAIN` | `localhost` | Enables wildcard tenant CORS in production when set |
+| `APP_PUBLIC_ORIGIN` | `http://localhost:3000` | Apex URL for invite links (optional locally) |
 | `AUTH_SECRET` | ≥ 32 characters | Must match client; example in `.env.example` is dev-only |
 
 Then:
@@ -68,7 +70,7 @@ cp .env.example .env.local
 | `AUTH_SECRET` | Same string as server `AUTH_SECRET` | `openssl rand -base64 32` for a new secret |
 | `AUTH_TRUST_HOST` | `true` | Keeps prod/preview behavior aligned |
 | `APP_BASE_DOMAIN` | `localhost` | Tenant hosts: `http://acme.localhost:3000` |
-| `KNOWN_TENANT_SLUGS` | `acme,beta` | Default in dev if unset |
+| `KNOWN_TENANT_SLUGS` | `acme,beta` | Optional dev shortcut; **unset** on clean-sheet test envs (tenant gate uses API) |
 
 Then:
 

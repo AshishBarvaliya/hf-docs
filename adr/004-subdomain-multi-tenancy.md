@@ -20,15 +20,19 @@ Hyreefy serves **many customer companies**. Each customer’s recruiters must on
 ## Consequences
 
 - Auth.js `AUTH_URL` / trusted hosts must allow wildcard subdomains in production (document in `.env.example`).
-- CORS on the API must allow origins matching `https://*.app.example.com` (or explicit tenant list in dev).
+- CORS on the API must allow the configured apex origin and `https://*.{APP_BASE_DOMAIN}` (see `cors-origins.ts`); explicit comma list still supported for previews.
 - Local dev uses `{slug}.localhost:3000` or documented env override; spike `localhost:3000` without a tenant slug is **dev-only** and not a production entry pattern.
 - RBAC `workspace_members` rows are always tied to a workspace that belongs to exactly one tenant.
 - STEP 3 workspace settings UI edits **the current tenant’s** workspace (branding, members, roles)—not a global admin console on a bare root domain.
 
+## Apex onboarding (test / isolated environments)
+
+For **dedicated non-production** stacks (separate Vercel, API, and database), self-service signup on the **env-configured apex** is allowed via [onboarding.md](../features/onboarding.md): register → provision tenant → redirect to `{slug}.{APP_BASE_DOMAIN}` with a one-time session handoff. Production main domain policy remains product-specific; domains are never hardcoded in application source.
+
 ## Non-goals (v1)
 
 - Custom domains (customer CNAME to their own hostname).
-- Self-service tenant signup on a marketing root domain (provisioning is ops/admin or a later onboarding product).
+- Self-service signup on **production** main domain without an isolated test stack (default provisioning remains ops/seed until onboarding is enabled for that environment).
 - Cross-tenant super-admin UI in the recruiter app.
 - Candidate-facing career sites on tenant subdomains (recruiter app only in v1).
 

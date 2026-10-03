@@ -1,0 +1,54 @@
+# Archived sprint — onboarding (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-onboarding
+  name: Sprint onboarding — test-domain tenant signup
+  goal: Apex signup, provision tenant, subdomain handoff on isolated test stack.
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-17"
+  status: closed
+  note: "Implementation complete; deploy isolated test stack per test-environment-onboarding.md."
+
+current_focus:
+  epic_id: epic-onboarding
+  feature_id: feat-onboarding
+  task_id: task-onboarding-deploy-docs
+  goal: Onboarding slice closed.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-onboarding: 100
+
+epics:
+  - id: epic-onboarding
+    title: Test-domain tenant onboarding
+    doc: features/onboarding.md
+    features:
+      - id: feat-onboarding
+        title: Signup, provision, handoff, dynamic tenant gate
+        tasks:
+          - id: task-onboarding-spec
+            title: Spec + ADR + roadmap + domain docs
+            status: done
+            weight: 1
+          - id: task-onboarding-client-ui
+            title: Apex signup + tenant handoff UI
+            status: done
+            weight: 2
+          - id: task-onboarding-client-gate
+            title: API-backed tenant resolution in proxy
+            status: done
+            weight: 2
+          - id: task-onboarding-client-tests
+            title: Client unit + e2e
+            status: done
+            weight: 2
+          - id: task-onboarding-deploy-docs
+            title: Test env + deployment docs
+            status: done
+            weight: 1

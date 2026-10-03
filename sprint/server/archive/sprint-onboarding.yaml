@@ -1,0 +1,54 @@
+# Archived sprint — onboarding APIs (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-onboarding
+  name: Sprint onboarding — provisioning APIs
+  goal: Register, handoff, tenant status, CORS wildcard, migration.
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-17"
+  status: closed
+  note: "Paired with client sprint-onboarding."
+
+current_focus:
+  epic_id: epic-onboarding
+  feature_id: feat-onboarding
+  task_id: task-onboarding-api-tests
+  goal: Onboarding APIs shipped.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-onboarding: 100
+
+epics:
+  - id: epic-onboarding
+    title: Onboarding APIs
+    doc: features/onboarding.md
+    features:
+      - id: feat-onboarding
+        title: Register, handoff, tenant status
+        tasks:
+          - id: task-onboarding-migration
+            title: auth_handoff_codes migration + schema
+            status: done
+            weight: 1
+          - id: task-onboarding-provision
+            title: WorkspaceProvisionService + register
+            status: done
+            weight: 3
+          - id: task-onboarding-handoff
+            title: Handoff exchange endpoint
+            status: done
+            weight: 2
+          - id: task-onboarding-cors
+            title: APP_BASE_DOMAIN wildcard CORS
+            status: done
+            weight: 1
+          - id: task-onboarding-api-tests
+            title: Unit + onboarding e2e
+            status: done
+            weight: 2

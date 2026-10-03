@@ -1,6 +1,6 @@
 # Implementation task — Subdomain multi-tenancy foundation
 
-**Status:** deferred  
+**Status:** superseded — Origin binding shipped per [ADR 004 amendment](../../adr/004-amendment-tenant-origin-binding.md); remaining items tracked in sprint-ats-foundation.  
 **Feature specs:** [auth.md](../../features/auth.md), [rbac.md](../../features/rbac.md), [workspace.md](../../features/workspace.md)  
 **Architecture:** [multi-tenancy.md](../../architecture/multi-tenancy.md), [ADR 004](../../adr/004-subdomain-multi-tenancy.md)
 

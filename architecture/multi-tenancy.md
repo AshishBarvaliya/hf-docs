@@ -31,8 +31,8 @@ Browser: https://acme.app.example.com/candidates
                     │
         ┌───────────┴───────────┐
         ▼                       ▼
-  Unknown slug            Known tenant
-  → tenant-not-found      → load tenant + workspace ids (cache OK)
+  Unknown slug            Active tenant (API status)
+  → tenant-not-found      → optional dev `KNOWN_TENANT_SLUGS` override
         │                       │
         │                       ▼
         │               Auth required routes
@@ -49,7 +49,7 @@ Browser: https://acme.app.example.com/candidates
 
 ### Rules
 
-1. **Host defines tenant context for the UI** — users never “pick a company” on a shared login page in v1; they use their company’s subdomain.
+1. **Host defines tenant context for the UI** — recruiters use their company subdomain; **apex signup** on isolated test stacks provisions a new tenant ([onboarding.md](../features/onboarding.md)).
 2. **JWT defines tenant context for the API** — subdomain alone is not sent as the sole authorization signal; the token must include `tenantId` / `workspaceId` and guards enforce consistency with the request origin where applicable.
 3. **No cross-tenant data** — list/detail/mutation handlers always filter by the authenticated workspace (and thus tenant).
 4. **Same email, different tenants** — a consultant may have memberships on `acme.` and `beta.` subdomains; each login is independent per host.
