@@ -8,7 +8,7 @@ Hyreefy’s default hosted stack: **Neon** for production PostgreSQL, **Render**
 
 | Environment | Database | API | Client |
 |-------------|----------|-----|--------|
-| Local | `postgresql://postgres:postgres@localhost:5432/hiring_os` | `npm run start:dev` (:3001) | `npm run dev` (:3000) |
+| Local | `postgresql://postgres:postgres@localhost:5432/hiring_os` | `npm run start:dev` (:3032) | `npm run dev` (:3031) |
 | Production | Neon branch `production` | Render Web Service | Vercel |
 | Isolated test (onboarding) | Dedicated Neon branch (migrations only) | Separate Render service | Separate Vercel project + wildcard DNS |
 

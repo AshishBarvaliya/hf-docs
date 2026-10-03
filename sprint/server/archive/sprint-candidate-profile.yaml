@@ -1,0 +1,46 @@
+# Archived sprint — candidate profile Phase A server (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-candidate-profile
+  name: Sprint candidate profile — Phase A API
+  goal: Candidate detail GET and reject mutation so the profile header and Summary can use real data.
+  dates:
+    start: "2026-10-06"
+    end: "2026-10-20"
+  status: closed
+  note: "Detail GET + reject API and tests complete."
+
+current_focus:
+  epic_id: epic-candidate-profile
+  feature_id: feat-candidate-profile-phase-a
+  task_id: null
+  goal: Phase A server slice complete; client profile UI paired in client/current.yaml.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-candidate-profile: 100
+
+epics:
+  - id: epic-candidate-profile
+    title: STEP 6 — Candidate profile (Phase A)
+    doc: features/candidate-profile.md
+    features:
+      - id: feat-candidate-profile-phase-a
+        title: Detail GET + reject
+        tasks:
+          - id: task-candidate-detail-get
+            title: GET /api/v1/candidates/:candidateId — header plus workspace applications
+            status: done
+            weight: 3
+          - id: task-candidate-reject
+            title: Reject application with reason; guard candidates.reject; persist disposition
+            status: done
+            weight: 3
+          - id: task-candidate-profile-api-tests
+            title: Unit + API e2e for detail scope, reject, and 403 without candidates.reject
+            status: done
+            weight: 2

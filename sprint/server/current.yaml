@@ -1,49 +1,55 @@
-# Active sprint — server tracker. Paired with client sprint-ats-ui.
+# Active sprint — server tracker. Paired with client sprint-candidate-profile-visual-fidelity.
+# Dev guide: sprint-candidate-profile-visual-fidelity-development-guide.md
 
 version: 1
 last_updated: "2026-10-03"
 
 sprint:
-  id: sprint-ats-ui
-  name: Sprint ATS UI — data for mockup columns
-  goal: Application fixtures, list filter e2e, stage transition API for kanban.
+  id: sprint-candidate-profile-visual-fidelity
+  name: Sprint candidate profile — API stability
+  goal: No new tables; keep detail/activity/resume contract stable while client reaches Profile.html fidelity.
   dates:
     start: "2026-10-03"
     end: "2026-10-17"
   status: active
 
 current_focus:
-  epic_id: epic-ats-ui
-  feature_id: feat-candidates-ats-ui
-  task_id: task-candidates-stage-tests
-  goal: Server stage PATCH + tests done; client kanban/filters next (see client/current.yaml).
+  epic_id: epic-design-fidelity
+  feature_id: feat-candidate-profile-visual-fidelity
+  task_id: task-profile-fidelity-no-db
+  goal: Document no schema changes; verify Phase A/B APIs for profile UI.
 
 progress:
-  sprint_percent: 100
+  sprint_percent: 0
   epics:
-    epic-ats-ui: 100
+    epic-design-fidelity: 0
 
 epics:
-  - id: epic-ats-ui
-    title: STEP 5 — ATS UI (server)
-    doc: features/candidates-ats.md
+  - id: epic-design-fidelity
+    title: Design implementation fidelity
+    doc: architecture/design-implementation-fidelity.md
     features:
-      - id: feat-candidates-ats-ui
-        title: List filters, stage API, test fixtures
+      - id: feat-candidate-profile-visual-fidelity
+        title: Candidate profile contract verification
+        doc: features/candidate-profile.md
         tasks:
-          - id: task-candidate-applications-seed
-            title: Dev seed — jobs + candidates + candidate_applications rows
-            status: done
+          - id: task-profile-fidelity-no-db
+            title: No DB changes — reuse candidates + candidate_activity (Phase B)
+            status: in_progress
+            weight: 1
+          - id: task-profile-api-regression
+            title: Regression pass — detail GET, activity cursor, PATCH stage, reject
+            status: todo
             weight: 2
-          - id: task-candidates-list-filter-e2e
-            title: API e2e job/search/cursor filters on application list
-            status: done
+          - id: task-profile-server-unit
+            title: Unit tests — extend only if contract gaps found in audit
+            status: todo
+            weight: 1
+          - id: task-profile-server-e2e
+            title: API e2e — profile routes matrix (read, reject, stage, 403)
+            status: todo
             weight: 2
-          - id: task-candidates-stage-transition
-            title: PATCH application stage (kanban drag) + permission guard
-            status: done
-            weight: 3
-          - id: task-candidates-stage-tests
-            title: Unit + API tests for stage transition + scope
-            status: done
-            weight: 2
+          - id: task-profile-candidates-readme
+            title: domains/server/candidates README — profile response fields for UI
+            status: todo
+            weight: 1

@@ -1,0 +1,54 @@
+# Archived sprint — candidate profile Phase B server (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-candidate-profile-phase-b
+  name: Sprint candidate profile — Phase B API
+  goal: resumeUrl on detail GET; paginated candidate activity feed with seed data.
+  dates:
+    start: "2026-10-06"
+    end: "2026-10-20"
+  status: closed
+  note: "Migration 0008_candidate_activity; activity on stage change and reject."
+
+current_focus:
+  epic_id: epic-candidate-profile
+  feature_id: feat-candidate-profile-phase-b
+  task_id: null
+  goal: Phase B server slice complete; client Resume/Activity tabs paired.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-candidate-profile: 100
+
+epics:
+  - id: epic-candidate-profile
+    title: STEP 6 — Candidate profile (Phase B)
+    doc: features/candidate-profile.md
+    features:
+      - id: feat-candidate-profile-phase-b
+        title: Detail resumeUrl + activity feed
+        tasks:
+          - id: task-candidate-activity-migration
+            title: candidate_activity table (row standard) + Drizzle schema
+            status: done
+            weight: 2
+          - id: task-candidate-detail-resume-url
+            title: Include resumeUrl on GET /api/v1/candidates/:candidateId
+            status: done
+            weight: 1
+          - id: task-candidate-profile-activity-api
+            title: GET /api/v1/candidates/:candidateId/activity — paginated, workspace-scoped
+            status: done
+            weight: 3
+          - id: task-candidate-activity-seed
+            title: Seed dev activity rows + resume_url on sample candidate
+            status: done
+            weight: 1
+          - id: task-candidate-profile-phase-b-api-tests
+            title: Unit + API e2e for activity list, scope, resumeUrl on detail
+            status: done
+            weight: 2

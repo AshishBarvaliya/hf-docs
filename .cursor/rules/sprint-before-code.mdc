@@ -1,0 +1,49 @@
+---
+description: No implementation until an active sprint defines scope, goal, DB, and test tasks
+alwaysApply: true
+---
+
+# Sprint before code (mandatory gate)
+
+**Do not implement from the roadmap or a large feature spec alone.** Roadmap steps (`roadmap/frontend.md`) and `features/*.md` describe the **full product**; they are not a work order. Agents and humans **plan a bounded sprint first**, then implement only what that sprint contains.
+
+## Forbidden without an active sprint
+
+- Starting or continuing **application code** (`client/src/**`, `server/src/**`, migrations, seeds) because a roadmap step or feature doc says “next.”
+- Shipping a “Phase” or “slice” that was **never** broken into sprint tasks and checklist rows.
+- Marking work complete without **explicit** sprint tasks for **data**, **server unit**, **server API e2e**, **client unit**, and **Playwright** (when UI routes/flows change).
+
+**Allowed without a new sprint:** planning mode (`brainstorming-planning-mode.mdc`), docs-only updates to specs/ADRs, questions, reviews, and **forming** the next sprint (YAML + checklist + spec **Dev** alignment).
+
+## What every new sprint must include
+
+Before the first `in_progress` implementation task, all of the following must exist and be linked from both `sprint/client/current.yaml` and `sprint/server/current.yaml` (when cross-cutting):
+
+| Artifact | Required content |
+|----------|------------------|
+| **Sprint id + goal** | One sentence outcome; dates; `status: active` |
+| **Scope** | In-scope bullets + **Non-goals / deferred** (what this sprint explicitly does *not* ship) |
+| **Data / DB** | Dedicated task(s): migration file(s), tables/columns per [persistence.md](../../architecture/persistence.md), seed if needed — or task `task-*-no-db` with title **“No DB changes — document why”** when truly none |
+| **Server** | Contract + routes + guards; **unit** task(s); **API e2e** task(s) per changed route |
+| **Client** | Routes/UI/hooks; **unit** task(s); **Playwright** task(s) for new/changed profile or critical flows |
+| **Checklist** | `sprint/<sprint-id>-progress-checklist.md` with separate `- [ ]` lines for implementation **and** each test type (mirror YAML) |
+| **Feature spec** | **Dev** sections updated if contract/data/tests are new; link sprint id in spec or checklist |
+
+Use the template: [`sprint/sprint-definition-template.md`](../../sprint/sprint-definition-template.md).
+
+## Agent workflow
+
+1. User asks to build, continue, or “do STEP N” → **stop** if `sprint/*/current.yaml` has `status: closed` or no matching tasks for the request.
+2. **Form sprint** (docs only): archive closed sprint if needed; write paired YAML + checklist + scope/non-goals; align feature **Dev → Data** and **Dev → Tests**.
+3. Set `current_focus.task_id` to the first implementation task only after the checklist includes **all** DB and test rows.
+4. Implement → run lint/tests per repo → update YAML % and checklist in the **same** change set.
+
+## Slicing large features
+
+One roadmap feature or feature spec may span **many sprints**. Each sprint must be **small enough to finish** with full DB + tests, not “implement candidate profile Phase A–E in one go.”
+
+## References
+
+- [`product-delivery-principles.mdc`](./product-delivery-principles.mdc)
+- [`delivery-tests-and-progress.mdc`](./delivery-tests-and-progress.mdc)
+- [`sprint/README.md`](../../sprint/README.md)

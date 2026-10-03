@@ -1,0 +1,54 @@
+# Closed client sprint. Paired with server sprint-auth-visual-fidelity.
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-auth-visual-fidelity
+  name: Sprint auth — visual fidelity
+  goal: Match auth, onboarding, tenant-not-found, and no-access UI to the canonical Hyreefy designs.
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-17"
+  status: closed
+
+current_focus:
+  epic_id: epic-design-fidelity
+  feature_id: feat-auth-visual-fidelity
+  task_id: null
+  goal: Auth and access visuals matched, tested, and visually verified.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-design-fidelity: 100
+
+epics:
+  - id: epic-design-fidelity
+    title: Design implementation fidelity
+    doc: architecture/design-implementation-fidelity.md
+    features:
+      - id: feat-auth-visual-fidelity
+        title: Auth and access screen fidelity
+        doc: features/auth.md
+        tasks:
+          - id: task-auth-layout
+            title: Shared auth layout, footer, theme behavior, and derived onboarding treatment
+            status: done
+            weight: 3
+          - id: task-auth-login-states
+            title: Pixel-match login default, error, expired, and busy states
+            status: done
+            weight: 3
+          - id: task-auth-access-states
+            title: Pixel-match tenant-not-found and no-access states
+            status: done
+            weight: 2
+          - id: task-auth-client-unit
+            title: Client unit tests — tenant display contract and auth UI helpers
+            status: done
+            weight: 2
+          - id: task-auth-playwright
+            title: Playwright — auth visuals and interactive states
+            status: done
+            weight: 2

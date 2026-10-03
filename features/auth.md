@@ -27,6 +27,7 @@ Authenticated sessions carry user identity, **tenant + workspace** context, and 
 | Area | Details |
 |------|---------|
 | Login API | `POST /api/v1/auth/login` — `tenantSlug`, `email`, `password`; JWT includes `userId`, `tenantId`, `tenantSlug`, `workspaceId`, `permissions[]` |
+| Tenant status | `GET /api/v1/tenants/:slug/status` → `{ slug, name, status: "active" }`; `name` comes from existing `tenants.name` for auth branding |
 | Session | Auth.js `/api/auth/*`; encrypted session cookie on tenant host; `AUTH_SECRET` shared with Nest |
 | Protected APIs | `Authorization: Bearer <accessToken>`; 401 without token; RBAC on domain routes ([rbac.md](./rbac.md)) |
 
@@ -38,6 +39,7 @@ Authenticated sessions carry user identity, **tenant + workspace** context, and 
 - `src/lib/tenant/` — `getTenantFromHost()`, `APP_BASE_DOMAIN`
 - `src/lib/auth/session.ts` — `auth()`, `getAccessToken()` for fetchers
 - Env: `AUTH_SECRET`, `AUTH_TRUST_HOST`, `APP_BASE_DOMAIN`, `KNOWN_TENANT_SLUGS`
+- Visual fidelity sprint `sprint-auth-visual-fidelity`: shared auth shell/footer; mockup-matched default, invalid, expired, and busy states; password visibility; tenant-not-found; reusable no-access card; `D` toggles persisted light/dark theme outside text inputs.
 
 ### Server
 
@@ -47,6 +49,8 @@ Authenticated sessions carry user identity, **tenant + workspace** context, and 
 ### Data
 
 Migration `server/drizzle/0002_foundation_schema_at_scale.sql` widens the auth tables. `0000` / `0001` stay as applied history. Login JSON does not return the new columns.
+
+**Visual fidelity data decision:** no migration. `tenants.name` already stores the company display name required by `Login*.html`; this sprint only exposes it through the existing tenant status response.
 
 **`tenants`**
 
@@ -82,7 +86,7 @@ Membership, invites, and who invited someone live on `workspace_members` ([works
 | **Server unit** | Login rejects wrong tenant; password failure; JWT payload shape | `server/src/domains/auth/**/*.spec.ts` |
 | **Server API** | `POST /auth/login` success/401; `GET /candidates` 401 without bearer | `server/test/` or `*.e2e-spec.ts` |
 | **Client unit** | `getTenantFromHost`, token attachment / session helper | `client/src/**/*.test.ts(x)` |
-| **Client e2e** | Login on `acme.localhost` → authenticated candidates (when seed exists) | `client/e2e/` |
+| **Client e2e** | Login visual states/interactions, tenant-not-found, and login on `acme.localhost` → authenticated candidates (when seed exists) | `client/e2e/` |
 
 Track checkboxes: [`sprint/sprint-1-progress-checklist.md`](../sprint/sprint-1-progress-checklist.md) · Sprint tasks: `task-auth-client-tests`, `task-auth-client-e2e`, `task-auth-api-tests`.
 
@@ -98,6 +102,7 @@ Track checkboxes: [`sprint/sprint-1-progress-checklist.md`](../sprint/sprint-1-p
 - [x] Nest returns 401 without bearer token on protected candidates route
 - [x] No secrets in client bundle except public Auth.js config
 - [x] RBAC slice complete per [rbac.md](./rbac.md) before `(dashboard)` layout
+- [x] Login default/error/expired/busy, tenant-not-found, and no-access states match the canonical auth mockups, including hover/focus, password visibility, spinner, footer, and persisted `D` theme toggle
 
 ## Design mockups
 

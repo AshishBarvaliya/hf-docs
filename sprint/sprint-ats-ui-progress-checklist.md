@@ -1,6 +1,6 @@
 # Sprint ATS UI — progress checklist
 
-Paired YAML: `client/current.yaml` + `server/current.yaml` (`sprint-ats-ui`, **active**).
+Paired YAML archived: `client/archive/sprint-ats-ui.yaml` + `server/archive/sprint-ats-ui.yaml` (`sprint-ats-ui`, **closed** 2026-10-03).
 
 | Area | Done | Total | % |
 |------|------|-------|---|

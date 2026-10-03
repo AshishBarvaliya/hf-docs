@@ -20,6 +20,24 @@ Recruiter **workspace** for one candidate: header with stage and actions (**Adva
 6. **Phase E** — **Analysis** tab: analyzer reports, evidence sections, interview cross-links.
 7. **Dependencies** — Steps 5, 8–9, 10, 12 (analyzers); permissions for each action.
 
+### Active slice (`sprint-candidate-profile`, 2026-10-06 → 2026-10-20)
+
+**Phase A only.** Detail `GET /api/v1/candidates/:candidateId` (header + applications in the workspace), profile route, Summary from `Profile.html`, Advance via existing `PATCH /api/v1/candidates/:applicationId/stage` (`candidates.edit`), Reject with reason (`candidates.reject`, disposition persisted). Checklist: [sprint-candidate-profile-progress-checklist.md](../sprint/sprint-candidate-profile-progress-checklist.md).
+
+### Active slice (`sprint-candidate-profile-phase-b`, 2026-10-06 → 2026-10-20) — closed
+
+**Phase B only.** `resumeUrl` on detail GET; `GET /api/v1/candidates/:candidateId/activity` (paginated); profile **Resume** and **Activity** tabs. Checklist: [sprint-candidate-profile-phase-b-progress-checklist.md](../sprint/sprint-candidate-profile-phase-b-progress-checklist.md).
+
+### Active slice (`sprint-candidate-profile-polish`, 2026-10-03 → 2026-10-17) — closed
+
+**Polish only (STEP 6).** Activity tab **Load older** using existing activity cursor API (`useInfiniteQuery`); profile tab nav `tablist` / `tab` + `aria-selected`; dev seed rows for pagination smoke; Playwright load-more + tab a11y. Checklist: [sprint-candidate-profile-polish-progress-checklist.md](../sprint/sprint-candidate-profile-polish-progress-checklist.md).
+
+### Active slice (`sprint-candidate-profile-visual-fidelity`, 2026-10-03 → 2026-10-17)
+
+**Visual fidelity (STEP 6).** Match canonical `Profile.html` layout A: header (stage + actions), Summary structure, Resume/Activity panel density, `ProfileLoading` / `ProfileReject` states. Reuse Phase A/B APIs; no new tables. Dev guide: [sprint-candidate-profile-visual-fidelity-development-guide.md](../sprint/sprint-candidate-profile-visual-fidelity-development-guide.md). Checklist: [sprint-candidate-profile-visual-fidelity-progress-checklist.md](../sprint/sprint-candidate-profile-visual-fidelity-progress-checklist.md).
+
+**Not this sprint:** Assessments, Emails, Message, Schedule, AI summary / fit / culture, Analysis tab, activity sub-filters from mockup, `ProfileGrid.html`. Phase C still waits on steps 8–12.
+
 ## Dev
 
 ### Contract
@@ -54,21 +72,61 @@ Profile reads the same `candidates` row as [candidates-ats.md](./candidates-ats.
 | `disposition`, `disposition_reason`, `screening_snapshot` | screening outcome for the profile banner. Stored now, API later |
 | `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_at` | row standard; `created_by` / `updated_by` nullable FK → `users.id` |
 
-Activity, assessments, emails, and analyzer reports are separate entities. They are not tables in this migration. AI summary text is produced later; it is not a column on `candidates`.
+**`candidate_activity`** (migration `0008_candidate_activity.sql`) — timeline rows for the Activity tab:
+
+| Column | Notes |
+|--------|--------|
+| `id`, `workspace_id`, `candidate_id` | FK → `candidates.id` |
+| `event_type` | `applied`, `stage_changed`, `rejected`, `note` |
+| `summary` | Display line |
+| `metadata` | jsonb — job title, stages, reason codes, etc. |
+| `occurred_at` | When the event happened (ordering) |
+| `actor_user_id` | Nullable FK → `users.id` |
+| `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_at` | row standard |
+
+Assessments, emails, and analyzer reports remain separate entities. AI summary text is produced later; it is not a column on `candidates`.
 
 ### Tests
 
-- **Server API:** detail scope, reject/advance with 403 matrix
-- **Client unit:** tab permission gates, mutation error handling
-- **Client e2e:** open from list; advance/reject with confirmation when API ready
+- **Server API:** detail scope + `resumeUrl`; activity list scope/pagination; reject/advance with 403 matrix
+- **Server unit:** activity query schema; service list activity
+- **Client unit:** tab paths, activity schema, permission gates, mutation error handling
+- **Client e2e:** open from list; Resume/Activity tab navigation; advance/reject when actions visible; Activity load older when `nextCursor` present; tab `aria-selected`
+
+### Visual fidelity (`sprint-candidate-profile-visual-fidelity`)
+
+- **Server:** regression e2e on detail, activity, stage PATCH, reject; unit only if audit adds contract fields
+- **Client unit:** profile layout helpers and action gates touched by mockup alignment
+- **Client e2e:** `e2e/candidates-profile.spec.ts` (or extend existing candidates e2e) — list → profile, tab navigation, reject/advance when visible
 
 ## Acceptance criteria
 
-- [ ] All tabs populated from respective APIs
-- [ ] Workflow mutations with error handling
+### Phase A (shipped)
+
+- [x] `GET /api/v1/candidates/:candidateId` returns workspace header + applications; reject persists disposition (`candidates.reject`)
+- [x] Profile route with Summary from API; Advance via `PATCH …/stage`; Reject dialog with reason codes
+- [x] Permission gates and mutation error handling on client; server unit + API e2e for detail/reject/403
+
+### Phase B (shipped)
+
+- [x] `resumeUrl` on candidate detail GET
+- [x] Paginated activity feed API (`candidates.read`, workspace-scoped)
+- [x] Profile Resume tab (PDF embed / no-resume state) and Activity timeline tab
+- [x] Server + client tests for Phase B contract
+
+### Polish (`sprint-candidate-profile-polish`)
+
+- [x] Activity tab loads additional pages via **Load older** (cursor)
+- [x] Profile tabs expose `role="tablist"` / `role="tab"` and correct `aria-selected`
+- [x] Dev seed includes enough Ada Lovelace activity rows for pagination smoke
+- [x] Client unit for load older helper; Playwright specs added (verify after client `tsc` green)
+
+### Later phases
+
+- [ ] Remaining tabs populated from respective APIs (Assessments, Emails, Analysis)
+- [ ] Workflow mutations (message, schedule) with error handling
 - [ ] AI vs verified visual distinction
 - [ ] Fit and culture insights cite job + workspace context (not generic boilerplate)
-- [ ] Activity timeline ordered and paginated
 
 ## Non-goals
 

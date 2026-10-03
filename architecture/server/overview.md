@@ -35,8 +35,8 @@ Thin `AppModule` wires global config, database, and domain modules only.
 
 - Base path: `/api/v1`
 - JSON responses; validate outbound payloads with Zod where types are shared with the client.
-- CORS: `CORS_ORIGIN` or pattern for tenant subdomains (default dev: `http://*.localhost:3000` and `http://localhost:3000` during spike migration).
-- Default port: **3001** (client uses 3000).
+- CORS: `CORS_ORIGIN` or pattern for tenant subdomains (default dev: `http://*.localhost:3031` and `http://localhost:3031` during spike migration).
+- Default port: **3032** (client uses 3031).
 
 ## First endpoints
 

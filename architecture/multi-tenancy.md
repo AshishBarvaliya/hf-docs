@@ -102,7 +102,7 @@ Seed at least two tenants in dev (`acme`, `beta`) with distinct subdomains and u
 |-------------|-------------|
 | Production | `https://{slug}.app.example.com` |
 | Staging | `https://{slug}.staging.example.com` |
-| Local | `http://{slug}.localhost:3000` or documented `DEV_TENANT_SLUG` fallback for spike migration |
+| Local | `http://{slug}.localhost:3031` or documented `DEV_TENANT_SLUG` fallback for spike migration |
 
 Env vars (document in both `.env.example` files):
 

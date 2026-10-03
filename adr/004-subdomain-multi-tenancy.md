@@ -21,7 +21,7 @@ Hyreefy serves **many customer companies**. Each customer’s recruiters must on
 
 - Auth.js `AUTH_URL` / trusted hosts must allow wildcard subdomains in production (document in `.env.example`).
 - CORS on the API must allow the configured apex origin and `https://*.{APP_BASE_DOMAIN}` (see `cors-origins.ts`); explicit comma list still supported for previews.
-- Local dev uses `{slug}.localhost:3000` or documented env override; spike `localhost:3000` without a tenant slug is **dev-only** and not a production entry pattern.
+- Local dev uses `{slug}.localhost:3031` or documented env override; spike `localhost:3031` without a tenant slug is **dev-only** and not a production entry pattern.
 - RBAC `workspace_members` rows are always tied to a workspace that belongs to exactly one tenant.
 - STEP 3 workspace settings UI edits **the current tenant’s** workspace (branding, members, roles)—not a global admin console on a bare root domain.
 

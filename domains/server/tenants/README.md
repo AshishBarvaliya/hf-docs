@@ -6,7 +6,7 @@ Mirrors `server/src/domains/tenants/`.
 
 | Route | Purpose |
 |-------|---------|
-| `GET /api/v1/tenants/:slug/status` | Whether slug is an active tenant (for client host gate) |
+| `GET /api/v1/tenants/:slug/status` | Active tenant host gate + auth branding: `{ slug, name, status: "active" }` |
 | `POST /api/v1/auth/register` | Apex signup + provision (auth module) |
 | `POST /api/v1/auth/handoff` | Exchange one-time token for login JWT (auth module) |
 

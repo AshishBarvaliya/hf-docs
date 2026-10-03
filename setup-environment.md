@@ -37,11 +37,11 @@ cp .env.example .env
 | Variable | Local value | Notes |
 |----------|-------------|--------|
 | `NODE_ENV` | `development` | |
-| `PORT` | `3001` | API port |
+| `PORT` | `3032` | API port |
 | `DATABASE_URL` | `postgresql://postgres:postgres@localhost:5432/hiring_os` | **Always local Docker** — do not point at Neon for daily dev |
-| `CORS_ORIGIN` | `http://localhost:3000` | Dev also allows `*.localhost` origins automatically |
+| `CORS_ORIGIN` | `http://localhost:3031` | Dev also allows `*.localhost` origins automatically |
 | `APP_BASE_DOMAIN` | `localhost` | Enables wildcard tenant CORS in production when set |
-| `APP_PUBLIC_ORIGIN` | `http://localhost:3000` | Apex URL for invite links (optional locally) |
+| `APP_PUBLIC_ORIGIN` | `http://localhost:3031` | Apex URL for invite links (optional locally) |
 | `AUTH_SECRET` | ≥ 32 characters | Must match client; example in `.env.example` is dev-only |
 
 Then:
@@ -53,7 +53,7 @@ npm run db:seed
 npm run start:dev
 ```
 
-Health: [http://localhost:3001/api/v1/health](http://localhost:3001/api/v1/health)
+Health: [http://localhost:3032/api/v1/health](http://localhost:3032/api/v1/health)
 
 **Seed logins** (after `db:seed`): see comments in `server/.env.example`.
 
@@ -66,10 +66,10 @@ cp .env.example .env.local
 
 | Variable | Local value | Notes |
 |----------|-------------|--------|
-| `NEXT_PUBLIC_API_ORIGIN` | `http://localhost:3001` | No trailing slash |
+| `NEXT_PUBLIC_API_ORIGIN` | `http://localhost:3032` | No trailing slash |
 | `AUTH_SECRET` | Same string as server `AUTH_SECRET` | `openssl rand -base64 32` for a new secret |
 | `AUTH_TRUST_HOST` | `true` | Keeps prod/preview behavior aligned |
-| `APP_BASE_DOMAIN` | `localhost` | Tenant hosts: `http://acme.localhost:3000` |
+| `APP_BASE_DOMAIN` | `localhost` | Tenant hosts: `http://acme.localhost:3031` |
 | `KNOWN_TENANT_SLUGS` | `acme,beta` | Optional dev shortcut; **unset** on clean-sheet test envs (tenant gate uses API) |
 
 Then:
@@ -79,12 +79,12 @@ npm install
 npm run dev
 ```
 
-App: [http://localhost:3000](http://localhost:3000) · Tenant example: [http://acme.localhost:3000](http://acme.localhost:3000)
+App: [http://localhost:3031](http://localhost:3031) · Tenant example: [http://acme.localhost:3031](http://acme.localhost:3031)
 
 ### 4. Verify the pair
 
-1. Open `http://acme.localhost:3000` and sign in with a seed user.
-2. Confirm API calls hit `localhost:3001` (network tab) and candidates load when permitted.
+1. Open `http://acme.localhost:3031` and sign in with a seed user.
+2. Confirm API calls hit `localhost:3032` (network tab) and candidates load when permitted.
 
 ---
 

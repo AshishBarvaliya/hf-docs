@@ -46,4 +46,9 @@ Optional session log: `planning/sessions/YYYY-MM-DD-<topic>.md` when the user wa
 
 ## Handoff to implementation
 
-Implementation follows `product-delivery-principles.mdc`. Promote work from an implementation task file into sprint YAML tasks only when the user starts building—not during brainstorming unless they ask.
+Implementation follows `product-delivery-principles.mdc` and **`sprint-before-code.mdc`**. Before any code:
+
+1. Open or extend an **active** sprint using [`sprint/sprint-definition-template.md`](../../sprint/sprint-definition-template.md) (scope, goal, DB, server/client unit + e2e/Playwright tasks, checklist).
+2. Promote work from an implementation task file into sprint YAML tasks when the user starts building—not during brainstorming unless they ask.
+
+Do not jump from roadmap/feature discussion straight into `client/` or `server/` without that sprint.

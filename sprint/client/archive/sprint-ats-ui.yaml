@@ -1,0 +1,54 @@
+# Archived sprint — ATS UI (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-ats-ui
+  name: Sprint ATS UI — CandTable + kanban
+  goal: Mockup-faithful candidates table/kanban on paginated application rows (STEP 5 continuation).
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-17"
+  status: closed
+  note: "ATS table, kanban, filters, and tests complete. Next sprint is candidate profile Phase A."
+
+current_focus:
+  epic_id: epic-ats-ui
+  feature_id: feat-candidates-ats-ui
+  task_id: null
+  goal: Client ATS UI slice complete — table, kanban, filters, tests.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-ats-ui: 100
+
+epics:
+  - id: epic-ats-ui
+    title: STEP 5 — ATS UI
+    doc: features/candidates-ats.md
+    features:
+      - id: feat-candidates-ats-ui
+        title: CandTable + kanban + shared hooks
+        tasks:
+          - id: task-candidates-table-columns
+            title: Table columns (score, experience, job, stage) from API rows
+            status: done
+            weight: 3
+          - id: task-candidates-kanban
+            title: Kanban view + stage change API wiring
+            status: done
+            weight: 3
+          - id: task-candidates-filters-url
+            title: Filter chips + searchParams parity with CandFiltered mockup
+            status: done
+            weight: 2
+          - id: task-candidates-client-e2e
+            title: Playwright table load + filter smoke
+            status: done
+            weight: 2
+          - id: task-candidates-ui-unit
+            title: Column defs + view-toggle unit tests
+            status: done
+            weight: 1

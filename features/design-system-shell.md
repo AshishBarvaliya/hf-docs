@@ -52,6 +52,7 @@ i18n: nav labels in `messages/`. Lazy-load heavy chart bundles at route level, n
 
 ## Acceptance criteria
 
+- [x] Dashboard shell chrome matches mockups (240px sidebar, 48px header, ⌘K affordance, collapse, `D` theme, nav queue badges when overview API returns counts)
 - [ ] Full nav set present (Overview, Jobs, Candidates, Pipeline, Assessments, Interviews, Analytics, Automations, Email, Settings)
 - [ ] Reusable StatCard / EmptyState used on overview and list pages
 - [ ] Hiring badges consistent between table and kanban

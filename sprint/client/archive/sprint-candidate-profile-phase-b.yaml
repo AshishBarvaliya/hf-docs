@@ -1,0 +1,58 @@
+# Archived sprint — candidate profile Phase B (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-candidate-profile-phase-b
+  name: Sprint candidate profile — Phase B
+  goal: Resume tab + Activity timeline from APIs (STEP 6 Phase B).
+  dates:
+    start: "2026-10-06"
+    end: "2026-10-20"
+  status: closed
+  note: "Resume + Activity shipped. Phase C (Assessments/Emails) waits on integrations."
+
+current_focus:
+  epic_id: epic-candidate-profile
+  feature_id: feat-candidate-profile-phase-b
+  task_id: null
+  goal: Phase B complete — Resume and Activity tabs paired with server APIs.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-candidate-profile: 100
+
+epics:
+  - id: epic-candidate-profile
+    title: STEP 6 — Candidate profile (Phase B)
+    doc: features/candidate-profile.md
+    features:
+      - id: feat-candidate-profile-phase-b
+        title: Resume viewer + Activity timeline
+        tasks:
+          - id: task-candidate-detail-resume-url
+            title: Expose resumeUrl on candidate detail GET
+            status: done
+            weight: 1
+          - id: task-candidate-profile-resume-tab
+            title: Resume tab (PDF embed / no-resume state)
+            status: done
+            weight: 2
+          - id: task-candidate-profile-activity-tab
+            title: Activity tab with paginated timeline
+            status: done
+            weight: 3
+          - id: task-candidate-profile-activity-hook
+            title: useCandidateActivity hook + fetcher
+            status: done
+            weight: 1
+          - id: task-candidate-profile-phase-b-unit
+            title: Unit tests for activity schema and tab helpers
+            status: done
+            weight: 1
+          - id: task-candidate-profile-phase-b-e2e
+            title: Playwright smoke — navigate Resume and Activity tabs
+            status: done
+            weight: 2

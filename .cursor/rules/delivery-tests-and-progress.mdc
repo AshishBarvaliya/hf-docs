@@ -7,6 +7,8 @@ alwaysApply: true
 
 Applies to **planning**, **feature specs**, **sprint YAML**, and **implementation**. Agents must not mark a task or feature **done** without the test rows below satisfied (unless the user explicitly defers tests in chat and the spec records it under **Non-goals**).
 
+**Sprint formation:** When opening a sprint ([`sprint-before-code.mdc`](./sprint-before-code.mdc)), YAML and checklist must already name **server unit**, **server API e2e**, **client unit**, and **Playwright** tasks (or document N/A in non-goals). Do not start coding until those rows exist.
+
 ## Tests are part of the slice (not a follow-up)
 
 Every roadmap feature and every sprint task that adds or changes **HTTP APIs** or **UI behavior** ships **in the same PR cycle** as:

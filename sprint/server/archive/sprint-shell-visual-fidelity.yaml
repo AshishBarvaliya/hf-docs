@@ -1,0 +1,38 @@
+# Active sprint — server tracker. Paired with client sprint-shell-visual-fidelity.
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-shell-visual-fidelity
+  name: Sprint dashboard shell — visual fidelity (server)
+  goal: No API changes — shell uses existing overview metrics for nav badge counts.
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-17"
+  status: closed
+
+current_focus:
+  epic_id: epic-design-fidelity
+  feature_id: feat-shell-visual-fidelity
+  task_id: null
+  goal: No DB migration — presentation-only shell slice.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-design-fidelity: 100
+
+epics:
+  - id: epic-design-fidelity
+    title: Design implementation fidelity
+    doc: architecture/design-implementation-fidelity.md
+    features:
+      - id: feat-shell-visual-fidelity
+        title: Shell fidelity (server)
+        doc: features/design-system-shell.md
+        tasks:
+          - id: task-shell-no-db
+            title: No DB changes — presentation only
+            status: done
+            weight: 1

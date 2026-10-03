@@ -4,6 +4,8 @@ We are building the **complete Hyreefy client**, not a trimmed MVP. Roadmap step
 
 Delivery rules (one feature at a time, dependencies first, server + client together, no shortcuts, prod-ready): [`../.cursor/rules/product-delivery-principles.mdc`](../.cursor/rules/product-delivery-principles.mdc).
 
+**Implementation gate:** Agents do not build from this table or roadmap steps directly. Define an **active sprint** first ([`../.cursor/rules/sprint-before-code.mdc`](../.cursor/rules/sprint-before-code.mdc), [`../sprint/sprint-definition-template.md`](../sprint/sprint-definition-template.md)) with scope, goal, DB tasks, and unit + Playwright checklist rows.
+
 Each file below includes **Plan** (how we sequence work and what we depend on) and **Dev** (how the slice lands in **client**, **server**, and **database**—not client-only).
 
 ### Dev section template (required for new/updated specs)

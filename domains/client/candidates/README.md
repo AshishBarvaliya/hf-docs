@@ -4,11 +4,11 @@
 
 ## Purpose
 
-ATS candidate listing, selection, and (future) profile workspace data. Central resource for recruiter table/kanban and job-scoped candidate views.
+ATS candidate listing, selection, and profile workspace (Phase A). Central resource for recruiter table/kanban, job-scoped lists, and `/candidates/[candidateId]`.
 
 ## Public API
 
-- `CandidatesTable`, `useCandidates`, type `Candidate`
+- `CandidatesTable`, `useCandidates`, `useCandidate`, `useCandidateActivity`, `CandidateProfileLayout`, type `Candidate`
 - Export via `@/domains/candidates` barrel only from outside the domain
 
 ## Data
@@ -24,8 +24,10 @@ ATS candidate listing, selection, and (future) profile workspace data. Central r
 | Home widget | Done |
 | `/candidates` | Done |
 | Table view | Done |
-| Kanban | Planned |
-| Profile workspace | Planned |
+| Kanban | Done |
+| Profile workspace (Phase A — Summary, Advance/Reject) | Done |
+| Profile tabs — Resume, Activity (Phase B) | Done |
+| Profile tabs — Assessments, Emails, Analysis | Planned |
 
 ## Integration
 

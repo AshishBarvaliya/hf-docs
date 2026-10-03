@@ -1,0 +1,50 @@
+# Closed server sprint. Paired with client sprint-auth-visual-fidelity.
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-auth-visual-fidelity
+  name: Sprint auth — visual fidelity (server)
+  goal: Expose existing tenant branding for design-faithful auth screens without changing persistence.
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-17"
+  status: closed
+
+current_focus:
+  epic_id: epic-design-fidelity
+  feature_id: feat-auth-visual-fidelity
+  task_id: null
+  goal: Existing tenant branding is exposed and verified without a schema change.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-design-fidelity: 100
+
+epics:
+  - id: epic-design-fidelity
+    title: Design implementation fidelity
+    doc: architecture/design-implementation-fidelity.md
+    features:
+      - id: feat-auth-visual-fidelity
+        title: Auth tenant branding contract
+        doc: features/auth.md
+        tasks:
+          - id: task-auth-fidelity-no-db
+            title: No DB changes — tenant name already exists
+            status: done
+            weight: 1
+          - id: task-auth-tenant-status-contract
+            title: Return tenant name from the existing status endpoint
+            status: done
+            weight: 2
+          - id: task-auth-status-server-unit
+            title: Server unit — active tenant branding lookup
+            status: done
+            weight: 2
+          - id: task-auth-status-api-e2e
+            title: API e2e — tenant status includes branding and preserves 404
+            status: done
+            weight: 2

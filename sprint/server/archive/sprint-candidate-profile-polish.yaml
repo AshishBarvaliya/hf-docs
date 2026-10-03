@@ -1,0 +1,49 @@
+# Archived sprint — candidate profile polish server (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-candidate-profile-polish
+  name: Sprint candidate profile — polish (server)
+  goal: Dev seed + API e2e coverage for activity cursor pagination (no schema change).
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-17"
+  status: closed
+
+current_focus:
+  epic_id: epic-candidate-profile
+  feature_id: feat-candidate-profile-polish
+  task_id: null
+  goal: Dev seed pagination fixtures + cursor API e2e verified.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-candidate-profile: 100
+
+epics:
+  - id: epic-candidate-profile
+    title: STEP 6 — Candidate profile (polish)
+    doc: features/candidate-profile.md
+    features:
+      - id: feat-candidate-profile-polish
+        title: Activity pagination fixtures + API verification
+        tasks:
+          - id: task-candidate-profile-polish-no-db
+            title: No DB changes — document why
+            status: done
+            weight: 1
+          - id: task-candidate-activity-seed-pagination
+            title: Extend dev seed with 25+ Ada Lovelace activity rows
+            status: done
+            weight: 2
+          - id: task-candidate-profile-polish-api-e2e
+            title: API e2e — activity cursor chain (limit + nextCursor)
+            status: done
+            weight: 2
+          - id: task-candidate-profile-polish-server-unit
+            title: Server unit — activity list query schema (existing)
+            status: done
+            weight: 1

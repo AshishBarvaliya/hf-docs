@@ -9,6 +9,10 @@ Canonical plan for how **implementing repos** (e.g. Hyreefy client + server) shi
 
 In the Hyreefy **`ms/`** workspace, also read `cross-project-coordination.mdc` at workspace `.cursor/rules/` (git scope, lint/test per repo).
 
+## Sprint before code (gate)
+
+**Roadmap and feature specs are not work orders.** Before any implementation in `client/` or `server/`, an **active** sprint must exist with paired YAML, checklist, **scope/non-goals**, **DB tasks** (or explicit “no DB”), and **server unit + API e2e + client unit + Playwright** tasks where applicable. See [`sprint-before-code.mdc`](./sprint-before-code.mdc) and [`sprint/sprint-definition-template.md`](../../sprint/sprint-definition-template.md).
+
 ## One feature at a time
 
 - Ship **one roadmap feature (vertical slice)** to production quality before starting the next.
@@ -40,12 +44,13 @@ Features are **not done** until the slice works on real persisted data through t
 | **Client** | Routes, hooks, UX in feature **Dev** + `domains/client/<name>/` | `client/src/domains/<name>/`, App Router pages under `src/app/` |
 | **Tests** | Acceptance criteria + **Dev → Tests** (mandatory) | **Server:** unit for domain/guards/schemas + **API/e2e per route**. **Client:** **unit** for hooks/helpers/permissions + component tests when UI branches matter; **Playwright** for new routes/flows. Never mark sprint task `done` without tests when behavior changed — see `delivery-tests-and-progress.mdc`. |
 
-**Agent workflow per roadmap feature:**
+**Agent workflow per sprint slice** (not per whole roadmap feature):
 
-1. Read `features/<area>.md` and both sprint YAML files; align `current_focus` on the **same feature** when cross-cutting.
-2. If **Dev** is missing **Client**, **Server**, or **Data** rows, **update the spec first** (same change set as code).
-3. Implement contract + migration (if new/changed tables) + server + client + **API unit/e2e + UI unit** (and e2e when applicable) before marking sprint tasks `done`; update `sprint/<id>-progress-checklist.md` checkboxes in the same change set.
-4. Defer only what the feature spec lists under **Non-goals**; do not ship half-slices to main.
+1. Confirm an **active** sprint covers the requested work ([`sprint-before-code.mdc`](./sprint-before-code.mdc)); if not, form the sprint first (docs only).
+2. Read `features/<area>.md` (bounded by sprint scope) and both sprint YAML files; align `current_focus` on the **same feature** when cross-cutting.
+3. If **Dev** is missing **Client**, **Server**, or **Data** rows, **update the spec first** (same change set as code).
+4. Implement contract + migration (if sprint includes DB) + server + client + **API unit/e2e + UI unit + Playwright** (when UI routes/flows change) before marking sprint tasks `done`; update `sprint/<id>-progress-checklist.md` checkboxes in the same change set.
+5. Defer only what the **sprint non-goals** and feature **Non-goals** list; do not ship half-slices to main.
 
 See also: [`features/README.md`](../../features/README.md) (Dev section template), [`sprint/README.md`](../../sprint/README.md) (paired tasks).
 

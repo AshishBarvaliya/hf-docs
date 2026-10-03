@@ -18,14 +18,20 @@ Recruiter home is **action-oriented**: prioritized queues (“8 need review”, 
 4. **Phase C** — Personalization (greeting, timezone) and permission-filtered widgets.
 5. **Dependencies** — [auth.md](./auth.md) + [rbac.md](./rbac.md) (STEP 1.5–1.6); dashboard layout (step 2); jobs/candidates list routes for links (step 4–5).
 
+### Shipped slice (`sprint-overview-visual-fidelity`, closed 2026-10-03)
+
+**Visual fidelity** on canonical `Overview.html`: page actions, period selector (7d/30d), queue row layout, loading/empty states; server adds `?period=` and optional `deltaPercent` on summary stats (no new tables). Dev guide: [sprint-overview-visual-fidelity-development-guide.md](../sprint/sprint-overview-visual-fidelity-development-guide.md). Checklist: [sprint-overview-visual-fidelity-progress-checklist.md](../sprint/sprint-overview-visual-fidelity-progress-checklist.md).
+
+**Not this sprint:** Overview AI panel (`OverviewAI.html`); Cards layout variant.
+
 ## Dev
 
 ### Contract
 
 | Area | Details |
 |------|---------|
-| Overview metrics | `GET /api/v1/analytics/overview` — workspace-scoped aggregates; server owns queue definitions |
-| Response | `actionQueues[]` (`id`, `count`, `permission`, `available`), `summaryStats[]` (`id`, `value`, `permission`, `available`), `funnelStages[]` (`stage`, `count`), `recentCandidates[]` (`id`, `name`, `role`, `stage`). Sections the caller lacks permission for are omitted. Interview/assessment queues use `available: false` until those domains exist. |
+| Overview metrics | `GET /api/v1/analytics/overview` — workspace-scoped aggregates; optional `period=7d\|30d` (default `30d`) in `sprint-overview-visual-fidelity` |
+| Response | `actionQueues[]` (`id`, `count`, `permission`, `available`), `summaryStats[]` (`id`, `value`, `permission`, `available`, optional `deltaPercent`), `funnelStages[]` (`stage`, `count`), `recentCandidates[]` (`id`, `name`, `role`, `stage`). Sections the caller lacks permission for are omitted. Interview/assessment queues use `available: false` until those domains exist. |
 | Permissions | Widgets respect `candidates.read`, `jobs.read`, `interviews.schedule`, etc.; server omits gated sections from the payload |
 | Redirect | Authenticated `/` → `/overview` in `(dashboard)` group |
 
@@ -46,9 +52,10 @@ Read-only aggregates over existing entities (`candidates`, `jobs`, interviews wh
 
 ### Tests
 
-- **Client unit:** `overview-metrics.test.ts`, `nav-config.test.ts` (permission-filtered shell)
-- **Client e2e:** Recruiter sees action item or empty state; deep link to candidates/jobs when routes exist
-- **Server API:** e2e for overview endpoint when added; 401/403 without auth or permission
+- **Client unit:** `overview-metrics.test.ts`, period/delta helpers (sprint-overview-visual-fidelity), `nav-config.test.ts` (permission-filtered shell)
+- **Client e2e:** `e2e/overview-fidelity.spec.ts` — page actions, period selector, loading/empty; recruiter queue rows and deep links
+- **Server unit:** `analytics.service.spec.ts` — period windows, `deltaPercent` edge cases
+- **Server API:** `test/analytics-overview.e2e-spec.ts` (or extend existing) — `period`, 400, 401/403
 
 ## Acceptance criteria
 

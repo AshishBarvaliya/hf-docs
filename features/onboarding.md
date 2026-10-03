@@ -33,7 +33,7 @@ Unknown or inactive tenant subdomains still show **tenant-not-found**. Productio
 |--------|------|------|-----------------|
 | `POST` | `/api/v1/auth/register` | Public | `{ email, password, name, companyName, tenantSlug }` → `{ tenant: { slug }, handoffToken }` |
 | `POST` | `/api/v1/auth/handoff` | Public | `{ handoffToken, tenantSlug }` → same shape as login |
-| `GET` | `/api/v1/tenants/:slug/status` | Public | `200 { slug, status: "active" }` or `404` |
+| `GET` | `/api/v1/tenants/:slug/status` | Public | `200 { slug, name, status: "active" }` or `404`; `name` is existing tenant branding |
 
 Slug: lowercase DNS label, 3–63 chars, reserved labels rejected (`www`, `api`, `auth`, `admin`, …).
 
@@ -67,6 +67,7 @@ Reuses full `tenants` / `workspaces` / `users` / RBAC shapes per [persistence.md
 - `client/src/lib/tenant/resolve-tenant.ts` — calls status API from proxy
 - `client/src/lib/auth/register.ts`, `handoff.ts` — API clients
 - Env: `APP_BASE_DOMAIN`, `NEXT_PUBLIC_API_ORIGIN`; `KNOWN_TENANT_SLUGS` optional dev shortcut only
+- Visual treatment in `sprint-auth-visual-fidelity`: signup and handoff derive their spacing, card, footer, loading animation, and responsive behavior from `Login.html` because the design catalog has no signup/handoff mockup.
 
 ### Tests
 
@@ -91,3 +92,4 @@ Reuses full `tenants` / `workspaces` / `users` / RBAC shapes per [persistence.md
 - [x] User arrives on tenant host with session and can open `/overview`.
 - [x] Invalid/unknown slug → tenant-not-found; duplicate slug/email → 409.
 - [x] Server and client tests above pass; lint clean.
+- [x] Signup and handoff use the login-derived visual system (shared spacing, card, footer, responsive layout, and animated pending state).

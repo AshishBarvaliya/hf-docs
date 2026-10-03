@@ -1,0 +1,62 @@
+# Archived sprint — overview visual fidelity (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-overview-visual-fidelity
+  name: Sprint overview — visual fidelity
+  goal: Match /overview to Overview.html with period selector, page actions, queue rows, and loading/empty states.
+  dates:
+    start: "2026-10-06"
+    end: "2026-10-20"
+  status: closed
+
+current_focus:
+  epic_id: epic-design-fidelity
+  feature_id: feat-overview-visual-fidelity
+  task_id: null
+  goal: Sprint complete — overview fidelity slice shipped.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-design-fidelity: 100
+
+epics:
+  - id: epic-design-fidelity
+    title: Design implementation fidelity
+    doc: architecture/design-implementation-fidelity.md
+    features:
+      - id: feat-overview-visual-fidelity
+        title: Overview dashboard mockup fidelity
+        doc: features/overview-dashboard.md
+        tasks:
+          - id: task-overview-design-audit
+            title: Design audit — Overview.html vs current page; gap list
+            status: done
+            weight: 1
+          - id: task-overview-page-actions
+            title: Header actions — Add candidate, Create job (mockup CTAs)
+            status: done
+            weight: 2
+          - id: task-overview-period-ui
+            title: Summary stats period selector (7d/30d) wired to API
+            status: done
+            weight: 2
+          - id: task-overview-states-ui
+            title: OverviewLoading + OverviewEmpty states
+            status: done
+            weight: 2
+          - id: task-overview-queue-layout
+            title: Needs-attention queue rows + stat cards layout fidelity
+            status: done
+            weight: 3
+          - id: task-overview-client-unit
+            title: Client unit — period, queue links, delta display helpers
+            status: done
+            weight: 2
+          - id: task-overview-playwright
+            title: Playwright — overview actions, period, states smoke
+            status: done
+            weight: 2

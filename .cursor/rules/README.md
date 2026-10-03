@@ -13,6 +13,7 @@
 | `docs-layout.mdc` | Where specs, sprint YAML, ADRs, and planning artifacts live |
 | `consuming-repos/docs-driven-development.mdc` | Read/update docs before and with code (**client/server only** — symlinked from app repos) |
 | `consuming-repos/sprint-progress.mdc` | `sprint/*/current.yaml` workflow (**client/server only**) |
+| `sprint-before-code.mdc` | No implementation until sprint defines scope, goal, DB, and test tasks |
 | `product-delivery-principles.mdc` | End-to-end vertical slices (client + server + DB), deps first, no shortcuts |
 | `data-model-at-scale.mdc` | Tables planned for later features on the same entity, not the current API fields |
 | `delivery-tests-and-progress.mdc` | Mandatory API + UI unit tests; sprint checklist % tracking |

@@ -1,0 +1,50 @@
+# Archived sprint — candidate profile polish (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-candidate-profile-polish
+  name: Sprint candidate profile — polish
+  goal: Activity “load older” cursor UX + accessible profile tab navigation (STEP 6 polish).
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-17"
+  status: closed
+  note: "Load older + tab a11y; no DB migration."
+
+current_focus:
+  epic_id: epic-candidate-profile
+  feature_id: feat-candidate-profile-polish
+  task_id: null
+  goal: Polish slice complete.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-candidate-profile: 100
+
+epics:
+  - id: epic-candidate-profile
+    title: STEP 6 — Candidate profile (polish)
+    doc: features/candidate-profile.md
+    features:
+      - id: feat-candidate-profile-polish
+        title: Activity pagination UX + profile tabs
+        tasks:
+          - id: task-candidate-activity-load-more
+            title: Activity tab — load older via activity API cursor
+            status: done
+            weight: 3
+          - id: task-candidate-profile-tab-a11y
+            title: Profile tab nav — tablist roles + active state
+            status: done
+            weight: 1
+          - id: task-candidate-profile-polish-unit
+            title: Unit tests — activity page flatten + tab helpers
+            status: done
+            weight: 1
+          - id: task-candidate-profile-polish-e2e
+            title: Playwright — load older on Activity + tab aria
+            status: done
+            weight: 2

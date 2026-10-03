@@ -29,10 +29,11 @@ If a doc path is missing but the task needs one, **create or extend the doc in t
 
 ## Before writing code
 
-1. Read the sprint YAML for **this** repo (`../docs/sprint/client/current.yaml` or `../docs/sprint/server/current.yaml`) — see `sprint-progress.mdc` in this docs repo (linked from your app’s `.cursor/rules/`).
-2. Search `../docs/` for the feature, domain, or ADR that applies.
-3. **Client only:** Next.js docs in `node_modules/next/dist/docs/`; library MCP per dependency rules.
-4. If docs and code disagree, **stop and reconcile**: prefer updating docs when intent is unclear; update code when docs are correct.
+1. Read [`../sprint-before-code.mdc`](../sprint-before-code.mdc) — no implementation unless an **active** sprint defines scope, goal, DB, and test tasks ([`../../../sprint/sprint-definition-template.md`](../../../sprint/sprint-definition-template.md)).
+2. Read the sprint YAML for **this** repo (`../docs/sprint/client/current.yaml` or `../docs/sprint/server/current.yaml`) — see `sprint-progress.mdc` in this docs repo (linked from your app’s `.cursor/rules/`).
+3. Search `../docs/` for the feature, domain, or ADR that applies (bounded by sprint scope).
+4. **Client only:** Next.js docs in `node_modules/next/dist/docs/`; library MCP per dependency rules.
+5. If docs and code disagree, **stop and reconcile**: prefer updating docs when intent is unclear; update code when docs are correct.
 
 ## While implementing
 

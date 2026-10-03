@@ -1,54 +1,64 @@
 # Active sprint — source of truth for epics, features, tasks, and progress.
-# Paired with docs/sprint/server/current.yaml. Checklist: sprint-ats-ui-progress-checklist.md
+# Paired with docs/sprint/server/current.yaml. Checklist: sprint-candidate-profile-visual-fidelity-progress-checklist.md
+# Dev guide: sprint-candidate-profile-visual-fidelity-development-guide.md
 
 version: 1
 last_updated: "2026-10-03"
 
 sprint:
-  id: sprint-ats-ui
-  name: Sprint ATS UI — CandTable + kanban
-  goal: Mockup-faithful candidates table/kanban on paginated application rows (STEP 5 continuation).
+  id: sprint-candidate-profile-visual-fidelity
+  name: Sprint candidate profile — visual fidelity
+  goal: Match /candidates/[candidateId] to Profile.html (layout A header, Summary, tab chrome, loading/reject states).
   dates:
     start: "2026-10-03"
     end: "2026-10-17"
   status: active
 
 current_focus:
-  epic_id: epic-ats-ui
-  feature_id: feat-candidates-ats-ui
-  task_id: null
-  goal: Client ATS UI slice complete — table, kanban, filters, tests.
+  epic_id: epic-design-fidelity
+  feature_id: feat-candidate-profile-visual-fidelity
+  task_id: task-profile-design-audit
+  goal: Audit Profile.html vs current profile workspace; implement gap list.
 
 progress:
-  sprint_percent: 100
+  sprint_percent: 0
   epics:
-    epic-ats-ui: 100
+    epic-design-fidelity: 0
 
 epics:
-  - id: epic-ats-ui
-    title: STEP 5 — ATS UI
-    doc: features/candidates-ats.md
+  - id: epic-design-fidelity
+    title: Design implementation fidelity
+    doc: architecture/design-implementation-fidelity.md
     features:
-      - id: feat-candidates-ats-ui
-        title: CandTable + kanban + shared hooks
+      - id: feat-candidate-profile-visual-fidelity
+        title: Candidate profile mockup fidelity
+        doc: features/candidate-profile.md
         tasks:
-          - id: task-candidates-table-columns
-            title: Table columns (score, experience, job, stage) from API rows
-            status: done
-            weight: 3
-          - id: task-candidates-kanban
-            title: Kanban view + stage change API wiring
-            status: done
-            weight: 3
-          - id: task-candidates-filters-url
-            title: Filter chips + searchParams parity with CandFiltered mockup
-            status: done
-            weight: 2
-          - id: task-candidates-client-e2e
-            title: Playwright table load + filter smoke
-            status: done
-            weight: 2
-          - id: task-candidates-ui-unit
-            title: Column defs + view-toggle unit tests
-            status: done
+          - id: task-profile-design-audit
+            title: Design audit — Profile.html vs profile route; gap list
+            status: in_progress
             weight: 1
+          - id: task-profile-header-layout
+            title: Header — stage badge, action row (Advance, Reject, disabled Message/Schedule)
+            status: todo
+            weight: 3
+          - id: task-profile-summary-layout
+            title: Summary tab — layout A (sidebar + main) per Profile.html
+            status: todo
+            weight: 3
+          - id: task-profile-resume-activity-panels
+            title: Resume + Activity tab panels — ProfileResume / ProfileActivity density
+            status: todo
+            weight: 2
+          - id: task-profile-states-ui
+            title: ProfileLoading skeleton + ProfileReject dialog treatment
+            status: todo
+            weight: 2
+          - id: task-profile-client-unit
+            title: Client unit — tab paths, action gates, layout helpers
+            status: todo
+            weight: 2
+          - id: task-profile-playwright
+            title: Playwright — open from list, tabs, advance/reject when visible
+            status: todo
+            weight: 2

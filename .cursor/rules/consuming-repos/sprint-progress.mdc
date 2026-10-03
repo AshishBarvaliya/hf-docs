@@ -9,6 +9,7 @@ Delivery state lives in **`../docs/sprint/`** (paths below are inside the docs r
 
 On **every user request** (before planning or coding):
 
+0. **Sprint gate** — If the user wants implementation and `sprint/*/current.yaml` is **closed** or missing tasks for the request, **do not code**; form a sprint per [`sprint-before-code.mdc`](../sprint-before-code.mdc) and [`sprint/sprint-definition-template.md`](../../sprint/sprint-definition-template.md) first.
 1. Read **your** sprint file first:
    - **Client repo:** `sprint/client/current.yaml`
    - **Server repo:** `sprint/server/current.yaml`

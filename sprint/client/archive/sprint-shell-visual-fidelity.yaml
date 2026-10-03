@@ -1,0 +1,51 @@
+# Active sprint — source of truth for epics, features, tasks, and progress.
+# Paired with docs/sprint/server/current.yaml. Checklist: sprint-shell-visual-fidelity-progress-checklist.md
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-shell-visual-fidelity
+  name: Sprint dashboard shell — visual fidelity
+  goal: Match authenticated app chrome (sidebar, header, nav badges, theme) to canonical mockups.
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-17"
+  status: closed
+
+current_focus:
+  epic_id: epic-design-fidelity
+  feature_id: feat-shell-visual-fidelity
+  task_id: null
+  goal: Shell chrome slice complete — sidebar, header, badges, theme, tests.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-design-fidelity: 100
+
+epics:
+  - id: epic-design-fidelity
+    title: Design implementation fidelity
+    doc: architecture/design-implementation-fidelity.md
+    features:
+      - id: feat-shell-visual-fidelity
+        title: Dashboard shell fidelity
+        doc: features/design-system-shell.md
+        tasks:
+          - id: task-shell-layout
+            title: Sidebar workspace header, collapse, nav counts, header search ⌘K
+            status: done
+            weight: 4
+          - id: task-shell-overview-typography
+            title: Overview page heading density aligned with mockup
+            status: done
+            weight: 1
+          - id: task-shell-client-unit
+            title: Unit tests — nav attention counts + header title helper
+            status: done
+            weight: 2
+          - id: task-shell-playwright
+            title: Playwright — shell chrome smoke on overview
+            status: done
+            weight: 2

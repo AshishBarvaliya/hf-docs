@@ -2,11 +2,22 @@
 
 **Active files:**
 
-- Client: [`client/current.yaml`](./client/current.yaml) — `sprint-ats-ui`
-- Server: [`server/current.yaml`](./server/current.yaml) — paired `sprint-ats-ui`
-- **Sprint ATS UI checklist:** [`sprint-ats-ui-progress-checklist.md`](./sprint-ats-ui-progress-checklist.md)
+- Client: [`client/current.yaml`](./client/current.yaml) — `sprint-candidate-profile-visual-fidelity` (**active**)
+- Server: [`server/current.yaml`](./server/current.yaml) — paired `sprint-candidate-profile-visual-fidelity` (**active**)
+- **Candidate profile visual fidelity checklist:** [`sprint-candidate-profile-visual-fidelity-progress-checklist.md`](./sprint-candidate-profile-visual-fidelity-progress-checklist.md)
+- **Candidate profile visual fidelity dev guide:** [`sprint-candidate-profile-visual-fidelity-development-guide.md`](./sprint-candidate-profile-visual-fidelity-development-guide.md)
+- Previous: `sprint-overview-visual-fidelity` (**closed**; archives + [`sprint-overview-visual-fidelity-progress-checklist.md`](./sprint-overview-visual-fidelity-progress-checklist.md))
+- **Overview visual fidelity dev guide:** [`sprint-overview-visual-fidelity-development-guide.md`](./sprint-overview-visual-fidelity-development-guide.md)
+- **Shell visual fidelity checklist (closed):** [`sprint-shell-visual-fidelity-progress-checklist.md`](./sprint-shell-visual-fidelity-progress-checklist.md)
+- Previous: `sprint-auth-visual-fidelity` (**closed**; archives + [`sprint-auth-visual-fidelity-progress-checklist.md`](./sprint-auth-visual-fidelity-progress-checklist.md))
+- Previous sprint: `sprint-candidate-profile-polish` (**closed**; archives: [`client`](./client/archive/sprint-candidate-profile-polish.yaml), [`server`](./server/archive/sprint-candidate-profile-polish.yaml))
+- **Sprint candidate profile polish checklist** (closed): [`sprint-candidate-profile-polish-progress-checklist.md`](./sprint-candidate-profile-polish-progress-checklist.md)
+- **Sprint candidate profile Phase B checklist** (closed): [`sprint-candidate-profile-phase-b-progress-checklist.md`](./sprint-candidate-profile-phase-b-progress-checklist.md)
+- **Sprint candidate profile Phase A checklist** (closed): [`sprint-candidate-profile-progress-checklist.md`](./sprint-candidate-profile-progress-checklist.md)
+- Archives: `client/archive/sprint-candidate-profile-polish.yaml`, `server/archive/sprint-candidate-profile-polish.yaml`, `client/archive/sprint-candidate-profile-phase-b.yaml`, `server/archive/sprint-candidate-profile-phase-b.yaml`, `client/archive/sprint-candidate-profile.yaml`, `server/archive/sprint-candidate-profile.yaml`
+- **Sprint ATS UI checklist** (closed): [`sprint-ats-ui-progress-checklist.md`](./sprint-ats-ui-progress-checklist.md)
 - **Sprint ATS foundation checklist** (closed): [`sprint-ats-foundation-progress-checklist.md`](./sprint-ats-foundation-progress-checklist.md)
-- Archives: `client/archive/sprint-ats-foundation.yaml`, `server/archive/sprint-ats-foundation.yaml`
+- Archives: `client/archive/sprint-ats-ui.yaml`, `server/archive/sprint-ats-ui.yaml`, `client/archive/sprint-ats-foundation.yaml`, `server/archive/sprint-ats-foundation.yaml`
 - **Sprint 1 implementation guide** (routes, API, DB): [`sprint-1-development-guide.md`](./sprint-1-development-guide.md)
 - **Sprint 1 checkbox tracker** (closed): [`sprint-1-progress-checklist.md`](./sprint-1-progress-checklist.md)
 - **Sprint 2 development guide** (routes, API, prod/perf): [`sprint-2-development-guide.md`](./sprint-2-development-guide.md)
@@ -14,6 +25,8 @@
 - **Sprint integrity** (closed remediation): [`sprint-integrity-progress-checklist.md`](./sprint-integrity-progress-checklist.md)
 
 **Delivery model:** [`.cursor/rules/product-delivery-principles.mdc`](../.cursor/rules/product-delivery-principles.mdc) — one feature at a time, dependency order, **end-to-end slices** (contract + DB + server + client + tests), production-ready.
+
+**Sprint before code (mandatory):** Do not implement from [roadmap](../roadmap/frontend.md) or full [feature specs](../features/README.md) without an **active** sprint. Every new sprint must define **scope**, **goal**, **DB/migration tasks** (or explicit none), **server unit + API e2e**, **client unit + Playwright**, and a checklist. Template: [`sprint-definition-template.md`](./sprint-definition-template.md). Rule: [`.cursor/rules/sprint-before-code.mdc`](../.cursor/rules/sprint-before-code.mdc).
 
 **Data model:** [architecture/persistence.md](../architecture/persistence.md). A database task is done only when the table matches the **whole entity** (later features’ columns included, marked `stored now, API later`), not when the current test has a column to assert. For cross-cutting work, keep **`current_focus`** aligned across both YAML files (same `feature_id` / goal when the slice spans repos).
 
@@ -66,12 +79,14 @@ Details: [`../.cursor/rules/delivery-tests-and-progress.mdc`](../.cursor/rules/d
 
 ## Agent workflow
 
-1. **Start of work** — Read the relevant `current.yaml` (client and/or server). Confirm work matches `current_focus` or update focus when the user changes direction.
-2. **During work** — Link code changes to the active task; add tasks/features/epics if scope is new.
-3. **End of work** — Update task status, `current_focus`, `last_updated`, recalculate `progress`, and check off **`sprint/<id>-progress-checklist.md`** (including test rows).
+1. **Before any code** — If there is no **active** sprint for the request, complete [`sprint-definition-template.md`](./sprint-definition-template.md) (paired YAML + checklist + scope/non-goals + DB + test tasks). Roadmap/feature docs alone are insufficient.
+2. **Start of work** — Read the relevant `current.yaml` (client and/or server). Confirm work matches `current_focus` or update focus when the user changes direction.
+3. **During work** — Link code changes to the active task; **do not** expand scope without new sprint tasks and checklist lines (prefer a follow-up sprint for new scope).
+4. **End of work** — Update task status, `current_focus`, `last_updated`, recalculate `progress`, and check off **`sprint/<id>-progress-checklist.md`** (including test rows).
 
 ## Sprint lifecycle
 
+- **Define:** Fill template sections (scope, DB, tests) → write checklist → set `status: active` on both YAML files.
 - **Start:** Copy `current.yaml` to `archive/<sprint-id>.yaml` under the same `client/` or `server/` folder, reset `current.yaml` for the new sprint.
 - **Review:** Use `progress` and open tasks to summarize burndown in plain language.
 - **Close:** Mark sprint `status: closed` in the archive copy; ensure all done/cancelled tasks are final.

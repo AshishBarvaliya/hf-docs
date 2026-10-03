@@ -1,0 +1,50 @@
+# Archived sprint — ATS UI server (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-ats-ui
+  name: Sprint ATS UI — data for mockup columns
+  goal: Application fixtures, list filter e2e, stage transition API for kanban.
+  dates:
+    start: "2026-10-03"
+    end: "2026-10-17"
+  status: closed
+  note: "List filters, stage PATCH, and tests complete. Next sprint is candidate profile Phase A."
+
+current_focus:
+  epic_id: epic-ats-ui
+  feature_id: feat-candidates-ats-ui
+  task_id: null
+  goal: Server ATS UI slice complete — seed, list filters, stage PATCH, tests.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-ats-ui: 100
+
+epics:
+  - id: epic-ats-ui
+    title: STEP 5 — ATS UI (server)
+    doc: features/candidates-ats.md
+    features:
+      - id: feat-candidates-ats-ui
+        title: List filters, stage API, test fixtures
+        tasks:
+          - id: task-candidate-applications-seed
+            title: Dev seed — jobs + candidates + candidate_applications rows
+            status: done
+            weight: 2
+          - id: task-candidates-list-filter-e2e
+            title: API e2e job/search/cursor filters on application list
+            status: done
+            weight: 2
+          - id: task-candidates-stage-transition
+            title: PATCH application stage (kanban drag) + permission guard
+            status: done
+            weight: 3
+          - id: task-candidates-stage-tests
+            title: Unit + API tests for stage transition + scope
+            status: done
+            weight: 2

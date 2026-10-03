@@ -31,8 +31,8 @@ flowchart LR
   end
   subgraph local [Local dev]
     Docker[(Docker Postgres)]
-    DevAPI[server :3001]
-    DevUI[client :3000]
+    DevAPI[server :3032]
+    DevUI[client :3031]
   end
   Browser --> Next
   Next -->|NEXT_PUBLIC_API_ORIGIN| API

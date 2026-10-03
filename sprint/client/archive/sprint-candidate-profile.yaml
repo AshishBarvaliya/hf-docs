@@ -1,0 +1,54 @@
+# Archived sprint — candidate profile Phase A (closed 2026-10-03)
+
+version: 1
+last_updated: "2026-10-03"
+
+sprint:
+  id: sprint-candidate-profile
+  name: Sprint candidate profile — Phase A
+  goal: Profile route with header + Summary from real detail data, Advance and Reject wired (STEP 6 Phase A).
+  dates:
+    start: "2026-10-06"
+    end: "2026-10-20"
+  status: closed
+  note: "Phase A shipped. Next STEP 6 phases (resume, activity, tabs) or roadmap STEP 7 when planned."
+
+current_focus:
+  epic_id: epic-candidate-profile
+  feature_id: feat-candidate-profile-phase-a
+  task_id: null
+  goal: Phase A client slice complete (profile route, Summary, Advance/Reject).
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-candidate-profile: 100
+
+epics:
+  - id: epic-candidate-profile
+    title: STEP 6 — Candidate profile (Phase A)
+    doc: features/candidate-profile.md
+    features:
+      - id: feat-candidate-profile-phase-a
+        title: Header + Summary + Advance/Reject
+        tasks:
+          - id: task-candidate-profile-route
+            title: Route candidates/[candidateId] and open it from the ATS table
+            status: done
+            weight: 2
+          - id: task-candidate-profile-summary
+            title: Header + Summary tab from detail API (Profile.html layout A)
+            status: done
+            weight: 3
+          - id: task-candidate-advance-reject-ui
+            title: Advance (stage PATCH) and Reject dialog with reason codes
+            status: done
+            weight: 3
+          - id: task-candidate-profile-unit
+            title: Unit tests for permission gates and mutation errors
+            status: done
+            weight: 1
+          - id: task-candidate-profile-e2e
+            title: Playwright open-from-list plus advance/reject confirmation
+            status: done
+            weight: 2
