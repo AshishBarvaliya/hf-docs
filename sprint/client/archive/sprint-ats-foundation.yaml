@@ -1,0 +1,50 @@
+# Archived sprint — ATS foundation (closed 2026-10-05)
+
+version: 1
+last_updated: "2026-10-05"
+
+sprint:
+  id: sprint-ats-foundation
+  name: Sprint ATS foundation + delivery gates
+  goal: STEP 5 data/API foundation, design-route fidelity, and reconciled tracking.
+  dates:
+    start: "2026-10-05"
+    end: "2026-10-19"
+  status: closed
+  note: "Foundation slice complete; kanban and mockup-full columns are next sprint."
+
+current_focus:
+  epic_id: epic-ats-foundation
+  feature_id: feat-candidates-ats-foundation
+  task_id: null
+  goal: Open next sprint for ATS UI (CandTable columns, kanban) per roadmap STEP 5.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-ats-foundation: 100
+
+epics:
+  - id: epic-ats-foundation
+    title: STEP 5 — ATS foundation
+    doc: features/candidates-ats.md
+    features:
+      - id: feat-candidates-ats-foundation
+        title: Applications table + paginated list + nav fidelity
+        tasks:
+          - id: task-delivery-tracking-reconcile
+            title: Sprint archives + checklist + spec AC alignment
+            status: done
+            weight: 1
+          - id: task-nav-fidelity
+            title: Hide nav for routes without pages; /emails canonical
+            status: done
+            weight: 1
+          - id: task-candidates-client-pagination
+            title: Client list consumes paginated application rows
+            status: done
+            weight: 2
+          - id: task-candidates-client-tests
+            title: Client unit tests for list schema + query keys
+            status: done
+            weight: 1

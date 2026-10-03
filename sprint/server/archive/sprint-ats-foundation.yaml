@@ -1,0 +1,54 @@
+# Archived sprint — ATS foundation (closed 2026-10-05)
+
+version: 1
+last_updated: "2026-10-05"
+
+sprint:
+  id: sprint-ats-foundation
+  name: Sprint ATS foundation + P0 security
+  goal: candidate_applications, paginated candidates API, handoff atomicity, tenant binding.
+  dates:
+    start: "2026-10-05"
+    end: "2026-10-19"
+  status: closed
+  note: "Checklist sprint-ats-foundation-progress-checklist.md."
+
+current_focus:
+  epic_id: epic-ats-foundation
+  feature_id: feat-candidates-ats-foundation
+  task_id: null
+  goal: Next slice — application seed data + list filter e2e + jobs aggregates.
+
+progress:
+  sprint_percent: 100
+  epics:
+    epic-ats-foundation: 100
+
+epics:
+  - id: epic-ats-foundation
+    title: STEP 5 — ATS foundation
+    doc: features/candidates-ats.md
+    features:
+      - id: feat-candidates-ats-foundation
+        title: Applications table + list API + security fixes
+        tasks:
+          - id: task-handoff-tenant-rate-limit
+            title: Atomic handoff, Origin/JWT tenant guard, public rate limits
+            status: done
+            weight: 2
+          - id: task-candidate-applications-migration
+            title: candidate_applications migration + indexes
+            status: done
+            weight: 2
+          - id: task-candidates-list-api
+            title: Paginated list + filters (job, search, cursor)
+            status: done
+            weight: 3
+          - id: task-candidates-api-tests
+            title: Unit + e2e for scope, pagination, handoff concurrency
+            status: done
+            weight: 2
+          - id: task-async-jobs-contract-docs
+            title: ADR/docs — async status at /async-jobs/:id
+            status: done
+            weight: 1

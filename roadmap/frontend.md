@@ -15,6 +15,8 @@ STEP 1.5 Authentication (Auth.js) + Nest JWT guards — **tenant subdomain** + l
            ↓
 STEP 1.6 RBAC — roles, permission catalog, guards, `<Can>` (workspace scoped per tenant)
            ↓
+STEP 1.7 Tenant onboarding — apex signup, provision tenant, subdomain handoff ([onboarding.md](../features/onboarding.md); isolated test env)
+           ↓
 STEP 2   App shell + navigation + overview (nav uses RBAC)
            ↓
 STEP 3   Company / workspace (settings on current tenant subdomain)

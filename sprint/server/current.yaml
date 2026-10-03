@@ -1,58 +1,49 @@
-# Active sprint — server tracker. Sprint 2 archive: server/archive/sprint-2.yaml
+# Active sprint — server tracker. Paired with client sprint-ats-ui.
 
 version: 1
 last_updated: "2026-10-03"
 
 sprint:
-  id: sprint-integrity
-  name: Sprint integrity — server remediation
-  goal: Analytics overview, workspace schema, invite safety, Zod 400s, jobs owner validation, tests.
+  id: sprint-ats-ui
+  name: Sprint ATS UI — data for mockup columns
+  goal: Application fixtures, list filter e2e, stage transition API for kanban.
   dates:
     start: "2026-10-03"
-    end: "2026-10-11"
-  status: closed
-  note: "Paired with client sprint-integrity; STEP 5 APIs follow in next sprint."
+    end: "2026-10-17"
+  status: active
 
 current_focus:
-  epic_id: epic-integrity-api
-  feature_id: feat-integrity-api
-  task_id: task-integrity-api-tests
-  goal: Integrity slice complete.
+  epic_id: epic-ats-ui
+  feature_id: feat-candidates-ats-ui
+  task_id: task-candidates-stage-tests
+  goal: Server stage PATCH + tests done; client kanban/filters next (see client/current.yaml).
 
 progress:
   sprint_percent: 100
   epics:
-    epic-integrity-api: 100
+    epic-ats-ui: 100
 
 epics:
-  - id: epic-integrity-api
-    title: API integrity remediation
-    doc: planning/implementation-tasks/2026-10-03-sprint-integrity-fixes.md
+  - id: epic-ats-ui
+    title: STEP 5 — ATS UI (server)
+    doc: features/candidates-ats.md
     features:
-      - id: feat-integrity-api
-        title: Analytics + workspace + jobs hardening
+      - id: feat-candidates-ats-ui
+        title: List filters, stage API, test fixtures
         tasks:
-          - id: task-analytics-overview-api
-            title: GET /api/v1/analytics/overview + e2e
+          - id: task-candidate-applications-seed
+            title: Dev seed — jobs + candidates + candidate_applications rows
             status: done
             weight: 2
-          - id: task-workspace-0005-migration
-            title: logo_url, week_starts_on, date_format + PATCH/GET
+          - id: task-candidates-list-filter-e2e
+            title: API e2e job/search/cursor filters on application list
             status: done
             weight: 2
-          - id: task-workspace-invite-safety
-            title: 409 on re-invite active member
+          - id: task-candidates-stage-transition
+            title: PATCH application stage (kanban drag) + permission guard
             status: done
-            weight: 1
-          - id: task-zod-400-filter
-            title: Global Zod validation → 400
-            status: done
-            weight: 1
-          - id: task-jobs-owner-validation
-            title: ownerId active workspace member + service tests
+            weight: 3
+          - id: task-candidates-stage-tests
+            title: Unit + API tests for stage transition + scope
             status: done
             weight: 2
-          - id: task-integrity-api-tests
-            title: Extended jobs/workspace e2e
-            status: done
-            weight: 1

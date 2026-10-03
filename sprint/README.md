@@ -2,8 +2,11 @@
 
 **Active files:**
 
-- Client: [`client/current.yaml`](./client/current.yaml)
-- Server: [`server/current.yaml`](./server/current.yaml)
+- Client: [`client/current.yaml`](./client/current.yaml) — `sprint-ats-ui`
+- Server: [`server/current.yaml`](./server/current.yaml) — paired `sprint-ats-ui`
+- **Sprint ATS UI checklist:** [`sprint-ats-ui-progress-checklist.md`](./sprint-ats-ui-progress-checklist.md)
+- **Sprint ATS foundation checklist** (closed): [`sprint-ats-foundation-progress-checklist.md`](./sprint-ats-foundation-progress-checklist.md)
+- Archives: `client/archive/sprint-ats-foundation.yaml`, `server/archive/sprint-ats-foundation.yaml`
 - **Sprint 1 implementation guide** (routes, API, DB): [`sprint-1-development-guide.md`](./sprint-1-development-guide.md)
 - **Sprint 1 checkbox tracker** (closed): [`sprint-1-progress-checklist.md`](./sprint-1-progress-checklist.md)
 - **Sprint 2 development guide** (routes, API, prod/perf): [`sprint-2-development-guide.md`](./sprint-2-development-guide.md)
@@ -48,6 +51,8 @@ For the active sprint, maintain **`sprint/<sprint-id>-progress-checklist.md`**:
 - Report **YAML %** and **checklist %** together in status lines (see `delivery-tests-and-progress.mdc`).
 
 A sprint task is **not done** in YAML until its matching checklist lines (including tests) are checked and test commands pass in the touched repo(s).
+
+**Design / route DoD:** Canonical mockup rows in [design-implementation-fidelity.md](../architecture/design-implementation-fidelity.md) must be checked in feature acceptance or deferred in **Non-goals**; nav must not link to unshipped routes.
 
 ## Tests (required every slice)
 

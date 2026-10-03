@@ -1,55 +1,54 @@
 # Active sprint — source of truth for epics, features, tasks, and progress.
-# Sprint 2 archive: client/archive/sprint-2.yaml
+# Paired with docs/sprint/server/current.yaml. Checklist: sprint-ats-ui-progress-checklist.md
 
 version: 1
 last_updated: "2026-10-03"
 
 sprint:
-  id: sprint-integrity
-  name: Sprint integrity — Sprint 1–2 remediation
-  goal: Close correctness, security, and tracking gaps from Sprint 1–2 audits before STEP 5 ATS.
+  id: sprint-ats-ui
+  name: Sprint ATS UI — CandTable + kanban
+  goal: Mockup-faithful candidates table/kanban on paginated application rows (STEP 5 continuation).
   dates:
     start: "2026-10-03"
-    end: "2026-10-11"
-  status: closed
-  note: "Remediation complete 2026-10-03. Next product sprint STEP 5 ATS when opened."
+    end: "2026-10-17"
+  status: active
 
 current_focus:
-  epic_id: epic-integrity
-  feature_id: feat-integrity-remediation
-  task_id: task-integrity-docs
-  goal: STEP 5 ATS opens in a new sprint after integrity slice.
+  epic_id: epic-ats-ui
+  feature_id: feat-candidates-ats-ui
+  task_id: null
+  goal: Client ATS UI slice complete — table, kanban, filters, tests.
 
 progress:
   sprint_percent: 100
   epics:
-    epic-integrity: 100
+    epic-ats-ui: 100
 
 epics:
-  - id: epic-integrity
-    title: Sprint 1–2 integrity remediation
-    doc: planning/implementation-tasks/2026-10-03-sprint-integrity-fixes.md
+  - id: epic-ats-ui
+    title: STEP 5 — ATS UI
+    doc: features/candidates-ats.md
     features:
-      - id: feat-integrity-remediation
-        title: Foundation, workspace, jobs, tests, docs
+      - id: feat-candidates-ats-ui
+        title: CandTable + kanban + shared hooks
         tasks:
-          - id: task-integrity-foundation
-            title: Overview API + auth gates + live E2E
+          - id: task-candidates-table-columns
+            title: Table columns (score, experience, job, stage) from API rows
+            status: done
+            weight: 3
+          - id: task-candidates-kanban
+            title: Kanban view + stage change API wiring
+            status: done
+            weight: 3
+          - id: task-candidates-filters-url
+            title: Filter chips + searchParams parity with CandFiltered mockup
             status: done
             weight: 2
-          - id: task-integrity-workspace
-            title: Workspace migration + invite + permissions UX
+          - id: task-candidates-client-e2e
+            title: Playwright table load + filter smoke
             status: done
             weight: 2
-          - id: task-integrity-jobs
-            title: Owner validation + pagination + API tests
-            status: done
-            weight: 2
-          - id: task-integrity-client-tests
-            title: Client unit + e2e coverage
-            status: done
-            weight: 1
-          - id: task-integrity-docs
-            title: Sprint trackers + roadmap + checklist
+          - id: task-candidates-ui-unit
+            title: Column defs + view-toggle unit tests
             status: done
             weight: 1

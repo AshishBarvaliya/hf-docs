@@ -27,14 +27,14 @@ Primary **ATS** surfaces: dense **table** and **kanban** by pipeline stage, filt
 
 | Area | Details |
 |------|---------|
-| List | `GET /api/v1/candidates` — workspace-scoped; filters: job, stage, search, sort; pagination |
-| Stage move | `PATCH /api/v1/candidates/:id/stage` (or pipeline API) — server validates workflow |
+| List | `GET /api/v1/candidates` — workspace-scoped; query: `limit`, `cursor`, `jobId`, `search`, `sort`; response `{ items, limit, nextCursor }` where each item is an application row with `applicationId`, `candidateId`, `name`, `role`, `jobId`, `jobTitle`, `stage`, `fitScore`, `experienceYears`, `source`, `appliedAt` ([api-list-conventions.md](../architecture/api-list-conventions.md)) |
+| Stage move | `PATCH /api/v1/candidates/:id/stage` — `:id` is `candidate_applications.id`; body `{ stage }`; returns application list item; requires `candidates.edit`; workspace-scoped 404; workflow rules TBD |
 | Permissions | `candidates.read`, `candidates.edit` (exact keys in [permissions.md](../architecture/permissions.md)) |
 | Screening | Disposition/reason from server after workflow evaluate ([hiring-workflows.md](./hiring-workflows.md)) |
 
 ### Client
 
-- Extend `src/domains/candidates/` — `useCandidates(params)`, filters in query keys
+- Extend `src/domains/candidates/` — `useCandidates(params)`, filters in query keys; `useUpdateCandidateStage(applicationId)` → PATCH stage (kanban drag)
 - `src/domains/pipeline/` — `KanbanBoard`, stage columns; table vs kanban preference
 - `CandidatesTable`, `candidate-columns.tsx`; virtualization when >50 rows
 
@@ -83,15 +83,15 @@ Scores, experience, and per-job applications are not columns on the `candidates`
 
 ### Tests
 
-- **Server unit + API:** list scope, stage transition, 403 without `candidates.read` (existing e2e baseline)
-- **Client unit:** filter/query-key helpers, column defs
+- **Server unit + API:** list scope, stage transition, 403 without `candidates.read` (existing e2e baseline); `server/test/candidates-list.e2e-spec.ts` (job/search/cursor + ATS columns); `server/test/candidates-stage.e2e-spec.ts` + `candidates.service.spec.ts` (PATCH stage, 403 without `candidates.edit`)
+- **Client unit:** filter/query-key helpers, column defs (`candidate-columns.test.ts`, `fit-score-band.test.ts`)
 - **Client e2e:** table load; kanban drag when API ready
 
 ## Acceptance criteria
 
 - [ ] Table and kanban parity on stage data
-- [ ] All stage changes via API
-- [ ] Pagination or virtualization for large lists
+- [x] All stage changes via API (PATCH stage on applications; kanban UI pending)
+- [x] Pagination or virtualization for large lists (cursor-paginated `GET /api/v1/candidates`; client list consumes pages)
 - [ ] Job-scoped and global routes share domain hooks
 - [ ] Auto-reject and auto-filter states visible with server-provided reasons; overrides via API only
 

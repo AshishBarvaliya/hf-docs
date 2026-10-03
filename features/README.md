@@ -25,6 +25,7 @@ Older specs may list only client paths—extend them when that feature is next o
 | Feature | Doc | Roadmap step |
 |---------|-----|--------------|
 | Authentication | [auth.md](./auth.md) | 1.5 |
+| Tenant onboarding (test apex) | [onboarding.md](./onboarding.md) | 1.7 |
 | RBAC | [rbac.md](./rbac.md) | 1.6 |
 | Multi-tenancy (architecture) | [../architecture/multi-tenancy.md](../architecture/multi-tenancy.md) | 1.5–1.6 |
 | Overview dashboard | [overview-dashboard.md](./overview-dashboard.md) | 2 |
