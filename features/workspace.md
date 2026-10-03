@@ -119,7 +119,7 @@ Managers with settings permission edit these once; hiring managers see inherited
 
 ## Non-goals
 
-- Self-service signup and tenant provisioning UI
+- Self-service signup and tenant provisioning UI in **workspace settings** (apex onboarding is [onboarding.md](./onboarding.md), not this feature)
 - Billing checkout, invoices, and payment method UI (`billing.manage` may exist in catalog for later)
 - Logo/branding **upload** pipeline (column `logo_url` may exist; mockup UI can show placeholder until storage ships)
 - Default pipeline template selection (requires workflows entity)

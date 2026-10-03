@@ -11,6 +11,9 @@
 | Starting a feature slice | Open the **canonical mockup** row below; implement that layout first (not alternate variants unless noted). |
 | Writing migrations | Add columns/tables listed under **Data implied** before the UI that displays them ([persistence.md](./persistence.md)). |
 | Acceptance | Match structure, density, empty/loading/error screens, and role-limited variants named in the feature **Design mockups** table. |
+| Nav | Only show sidebar links for routes that exist (`shipped` in client `nav-config`); canonical paths in this doc match App Router. |
+| Accessibility | Stage badges use color **and** label; target WCAG 2.1 AA text contrast; shell search keyboard reachable (⌘K). |
+| Viewport | v1 minimum width **1280px** for dense ATS/jobs tables unless a mockup `*1280` row exists. |
 
 **Variants:** Files like `OverviewCards.html` or `JobsCards.html` are **exploratory**. Unless a feature spec says otherwise, ship the **canonical** row in the tables below.
 
@@ -33,12 +36,13 @@
 | Overview | `/overview` | [overview-dashboard.md](../features/overview-dashboard.md) |
 | Jobs | `/jobs` | [jobs.md](../features/jobs.md) |
 | Candidates | `/candidates` | [candidates-ats.md](../features/candidates-ats.md) |
-| Pipeline | `/pipeline` (or job-scoped) | [hiring-workflows.md](../features/hiring-workflows.md) |
+| Pipeline templates | `/settings/pipeline-templates` (settings rail) | [hiring-workflows.md](../features/hiring-workflows.md) |
+| Job pipeline tab | `/jobs/[jobId]/pipeline` | hiring-workflows + jobs |
 | Assessments | `/assessments` | [external-integrations.md](../features/external-integrations.md) |
 | Interviews | `/interviews` | [interviews.md](../features/interviews.md) |
 | Analytics | `/analytics` | [analytics-reports.md](../features/analytics-reports.md) |
 | Automations | `/automations` | [automations.md](../features/automations.md) |
-| Email | `/email` | [emails.md](../features/emails.md) |
+| Email | `/emails` | [emails.md](../features/emails.md) |
 | Settings (footer) | `/settings/...` | [workspace.md](../features/workspace.md), [rbac.md](../features/rbac.md) |
 
 Spec: [design-system-shell.md](../features/design-system-shell.md), [routing-and-shell.md](./routing-and-shell.md).

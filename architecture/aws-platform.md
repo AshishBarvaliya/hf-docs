@@ -58,7 +58,7 @@ ADR [004](../adr/004-subdomain-multi-tenancy.md) requires:
 
 - Wildcard DNS and certificate for recruiter app hostnames.
 - API CORS allowing `https://*.app.<domain>`.
-- All data paths remain **workspace-scoped in Postgres**; AWS isolation is **shared app + row-level security**, not per-tenant accounts or VPCs in v1.
+- All data paths remain **workspace-scoped in Postgres** via application queries; AWS isolation is **shared app + tenant/workspace filters**, not per-tenant accounts or VPCs in v1 (Postgres RLS is optional later — [004 amendment](../adr/004-amendment-tenant-origin-binding.md)).
 
 ## External products on AWS
 

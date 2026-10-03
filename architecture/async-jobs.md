@@ -66,7 +66,7 @@ Workers delete the message only after successful persistence of terminal state.
 ## UI contract
 
 - Show **in progress** states on the triggering surface (JD step spinner, interview row “Analysis running…”, profile tab).
-- Use TanStack Query to poll `GET /api/v1/jobs/:id` or domain-specific “latest job for resource” endpoints until terminal state.
+- Use TanStack Query to poll **`GET /api/v1/async-jobs/:id`** or domain-specific “latest job for resource” endpoints until terminal state.
 - Follow [ai-ux.md](./ai-ux.md): label outputs as AI-generated; show failure with retry when permitted.
 
 ## Retries and DLQ

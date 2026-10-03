@@ -83,7 +83,7 @@ When a **workflow template** is attached, JD **skills and requirements** feed **
 |------|---------|
 | Draft save | `PATCH /api/v1/jobs/:id` — structured JD sections, posting fields, skills |
 | Publish | `POST /api/v1/jobs/:id/publish` — validates Zod publish rules |
-| Async AI | `POST /api/v1/jobs/:id/ai/parse`, `…/generate`, `…/extract-skills` → `async_jobs` id; poll `GET /api/v1/jobs/ai-jobs/:jobId` |
+| Async AI | `POST /api/v1/jobs/:id/ai/parse`, `…/generate`, `…/extract-skills` → `async_jobs` id; poll `GET /api/v1/async-jobs/:jobId` |
 | Workspace context | Server reads workspace culture/about for AI prompts ([workspace.md](./workspace.md)) |
 | Permissions | `jobs.create`, `jobs.edit`; culture via `workspace.settings` |
 

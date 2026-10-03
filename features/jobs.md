@@ -77,8 +77,8 @@ JD body, skills matrix, and posting fields may live on `jobs` jsonb columns or c
 ## Acceptance criteria
 
 - [ ] Full list filters and paginated table
-- [ ] Job workspace with all tab routes wired
-- [ ] Mutations invalidate `useJobs` / `useJob` query keys
+- [x] Job workspace with all tab routes wired
+- [x] Mutations invalidate `useJobs` / `useJob` query keys
 - [ ] i18n for statuses and empty states
 - [ ] Create draft from `/jobs/new` (paste, AI, or blank) per jd-builder spec
 

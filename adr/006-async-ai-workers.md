@@ -45,7 +45,7 @@ The platform runs on AWS (ADR 005). We need a clear boundary: the orchestration 
 ## Consequences
 
 - Feature specs (JD builder, analyzers, candidate AI) document **async job IDs** and UI loading states (`pending`, `running`, `ready`, `failed`).
-- Server domains expose `POST .../jobs` or domain-specific enqueue endpoints that return `{ jobId, status }` and `GET .../jobs/:id` for status/result.
+- Server domains expose domain-specific enqueue endpoints that return `{ jobId, status }` and poll **`GET /api/v1/async-jobs/:id`** for status/result (not `GET /api/v1/jobs/:id`, which is job CRUD).
 - E2E tests stub workers or run a local worker in CI for one golden path per job type.
 - Observability: structured logs with `jobId`, `workspaceId`, `jobType`; metrics on queue age and failure rate.
 - Local dev: `npm run worker:dev` (or docker compose service) sharing DB with API; optional ElasticMQ/LocalStack for SQS.

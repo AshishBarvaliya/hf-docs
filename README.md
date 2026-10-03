@@ -8,7 +8,7 @@ Start at [architecture/overview.md](./architecture/overview.md) (client) and [ar
 
 **Run locally:** [setup-environment.md](./setup-environment.md) · **Deploy (Vercel + Render + Neon):** [deployment.md](./deployment.md)
 
-Production platform (AWS target): [architecture/aws-platform.md](./architecture/aws-platform.md). Current hosted stack: [architecture/server/deployment-render-neon.md](./architecture/server/deployment-render-neon.md). Async AI/reports: [architecture/async-jobs.md](./architecture/async-jobs.md). Feature index: [features/README.md](./features/README.md). Static UI mockups (Hyreefy `ms/` workspace): [architecture/product-design-mockups.md](./architecture/product-design-mockups.md) → `designs/`. **Build-to-mockup guide:** [architecture/design-implementation-fidelity.md](./architecture/design-implementation-fidelity.md).
+Production platform (AWS target): [architecture/aws-platform.md](./architecture/aws-platform.md). Operational gates: [architecture/operational-readiness.md](./architecture/operational-readiness.md). Current hosted stack: [architecture/server/deployment-render-neon.md](./architecture/server/deployment-render-neon.md). Async AI/reports: [architecture/async-jobs.md](./architecture/async-jobs.md). Feature index: [features/README.md](./features/README.md). Static UI mockups (Hyreefy `ms/` workspace): [architecture/product-design-mockups.md](./architecture/product-design-mockups.md) → `designs/`. **Build-to-mockup guide:** [architecture/design-implementation-fidelity.md](./architecture/design-implementation-fidelity.md).
 
 ## Layout
 
@@ -26,7 +26,7 @@ Production platform (AWS target): [architecture/aws-platform.md](./architecture/
 | `setup-environment.md` | Local and hosted env vars (client + server) |
 | `deployment.md` | Vercel, Render, Neon, CI/CD overview |
 | `adr/` | Architecture decision records (incl. [004 subdomain tenancy](./adr/004-subdomain-multi-tenancy.md), [005 AWS platform](./adr/005-aws-platform.md), [006 async AI workers](./adr/006-async-ai-workers.md)) |
-| `planning/` | Brainstorming workflow and deferred implementation tasks (no app code) |
+| `planning/` | Brainstorming workflow, [`decision-gate.md`](./planning/decision-gate.md), [`goals.md`](./planning/goals.md), deferred implementation tasks (no app code) |
 
 ## Writing specs
 

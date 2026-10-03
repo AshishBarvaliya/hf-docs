@@ -76,10 +76,16 @@ Anything that requires code—but is **not** being built in the current chat—g
 
 Do **not** use this folder for product prose that belongs in `docs/features/`. Use it for **actionable engineering checklists** (paths, APIs, tests).
 
+## Goals and promotion gate
+
+- Measurable outcomes: [`goals.md`](./goals.md)
+- Checklist before opening a sprint: [`decision-gate.md`](./decision-gate.md)
+
 ## Quick reference
 
 ```text
 Discuss → "update docs" → specs + sprint goals + implementation-tasks/*.md
+Gate    → decision-gate.md + goals.md
 Later  → "build it"     → product-delivery-principles + sprint tasks + code
 ```
 

@@ -11,7 +11,7 @@
 | Area | Behavior |
 |------|----------|
 | **Create** | Insert job row `queued`; send SQS message with `jobId`, `type`, `workspaceId` |
-| **Read** | `GET /api/v1/jobs/:id` — status, progress hint, result refs; permission check matches owning resource |
+| **Read** | `GET /api/v1/async-jobs/:id` — status, progress hint, result refs; permission check matches owning resource |
 | **Cancel** | Optional v1: mark `cancelled` if still `queued`; worker no-ops if already `running` |
 | **Idempotency** | Accept `Idempotency-Key` header or domain-specific dedupe keys |
 | **Callbacks** | Domain services (analyzers, jobs) attach `outputRef` on completion via worker writing through shared service layer |
@@ -20,8 +20,8 @@
 
 | Method | Path | Permission |
 |--------|------|------------|
-| GET | `/api/v1/jobs/:jobId` | Resource-scoped (e.g. job editor, candidate read) |
-| POST | `/api/v1/jobs` | Internal or typed creates from domain controllers |
+| GET | `/api/v1/async-jobs/:jobId` | Resource-scoped (e.g. job editor, candidate read) |
+| POST | `/api/v1/async-jobs` | Internal or typed creates from domain controllers |
 
 Prefer **domain-facing** endpoints where clearer, e.g. `POST /api/v1/jobs/:jobId/jd/parse` that returns `{ jobId }`—still backed by the same job table.
 

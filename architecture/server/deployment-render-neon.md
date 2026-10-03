@@ -10,6 +10,7 @@ Hyreefy’s default hosted stack: **Neon** for production PostgreSQL, **Render**
 |-------------|----------|-----|--------|
 | Local | `postgresql://postgres:postgres@localhost:5432/hiring_os` | `npm run start:dev` (:3001) | `npm run dev` (:3000) |
 | Production | Neon branch `production` | Render Web Service | Vercel |
+| Isolated test (onboarding) | Dedicated Neon branch (migrations only) | Separate Render service | Separate Vercel project + wildcard DNS |
 
 Push-to-deploy: **Vercel** and **Render** redeploy on `main` (already connected). **GitHub Actions** in each repo runs lint/tests on PRs and pushes. **Schema** on Neon is applied on each Render deploy via `preDeployCommand: npm run db:migrate`.
 
@@ -70,7 +71,9 @@ Use `server/render.yaml` as a blueprint or mirror these settings on your Web Ser
 | `DATABASE_URL` | Neon **pooled** connection string |
 | `DATABASE_URL_UNPOOLED` | Neon **direct** connection string (migrations) |
 | `AUTH_SECRET` | Strong secret (≥ 32 chars); **same** as Vercel |
-| `CORS_ORIGIN` | Vercel app URL(s), e.g. `https://your-app.vercel.app` (comma-separate previews if needed) |
+| `CORS_ORIGIN` | Apex app URL, e.g. `https://your-test-apex.example` |
+| `APP_BASE_DOMAIN` | Hostname only, same as client `APP_BASE_DOMAIN` (enables `https://*.{domain}` CORS) |
+| `APP_PUBLIC_ORIGIN` | Optional apex URL for invite links |
 | `NODE_ENV` | `production` |
 | `PORT` | `10000` (Render default for Node) |
 
@@ -85,8 +88,8 @@ Vercel builds on push. Set **Environment variables** (Production + Preview as ne
 | `NEXT_PUBLIC_API_ORIGIN` | Render service URL, e.g. `https://hyreefy-api.onrender.com` |
 | `AUTH_SECRET` | Same as Render `AUTH_SECRET` |
 | `AUTH_TRUST_HOST` | `true` |
-| `APP_BASE_DOMAIN` | Your real base domain when using tenant subdomains |
-| `KNOWN_TENANT_SLUGS` | Provisioned slugs until tenant lookup API exists |
+| `APP_BASE_DOMAIN` | Apex hostname for `{slug}.{domain}` (test or production) |
+| `KNOWN_TENANT_SLUGS` | Optional dev shortcut; leave unset on clean-sheet test envs |
 
 ## CI (GitHub)
 

@@ -48,6 +48,10 @@ flowchart LR
 3. **Render env** — `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `AUTH_SECRET`, `CORS_ORIGIN`, `NODE_ENV`, `PORT` ([setup-environment.md](./setup-environment.md#server-render)).
 4. **Vercel** — Project from `client/` repo; set client env vars including `NEXT_PUBLIC_API_ORIGIN` → Render URL.
 5. **GitHub** — Push `.github/workflows/ci.yml` in both repos so PRs run lint/tests.
+
+## Isolated test domain (tenant onboarding)
+
+For multi-tenant signup testing on an **unused apex domain** (not production main), use a **separate** Vercel project, API service, and Neon branch. Configure wildcard DNS on Cloudflare and env-driven `APP_BASE_DOMAIN` — no domain literals in code. Full procedure: [architecture/test-environment-onboarding.md](./architecture/test-environment-onboarding.md).
 6. **Smoke test** — `GET {API}/api/v1/health` → `{ "status": "ok" }`; open Vercel URL and log in.
 
 ## What runs on each deploy
